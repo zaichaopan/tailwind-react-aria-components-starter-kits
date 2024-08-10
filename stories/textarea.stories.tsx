@@ -11,14 +11,14 @@ import {
 import { docs } from '../.storybook/docs';
 
 const meta: Meta<typeof TextField> = {
-  title: 'TextArea',
+  title: 'Textarea',
   component: TextField,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component:
-          '<a href="https://react-spectrum.adobe.com/react-spectrum/TextArea.html#textarea" target="_blank">**TextAreas**</a> are multiline text inputs, useful for cases where users have a sizable amount of text to enter. They allow for all customizations that are available to text fields.',
+          '<a href="https://react-spectrum.adobe.com/react-spectrum/TextArea.html#textarea" target="_blank">`TextAreas`</a> are multiline text inputs, useful for cases where users have a sizable amount of text to enter. They allow for all customizations that are available to text fields.',
       },
       ...docs,
       controls: {
@@ -31,46 +31,81 @@ const meta: Meta<typeof TextField> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
-    <TextField className="w-full sm:w-96 ">
-      <Label>Comment</Label>
-      <TextArea placeholder="Enter your comments here..." />
+    <TextField className="sm:w-80">
+      <Label>Bio</Label>
+      <TextArea placeholder="Tell us a little bit about yourself" />
+      <FieldError />
     </TextField>
   );
 };
 
 export const WithDescription = () => {
   return (
-    <div className="m-auto flex w-full flex-col  items-center justify-center sm:w-96">
-      <TextField>
-        <Label>Comment</Label>
-        <Description>
-          Please share your thoughts, feedback, or any additional information in
-          the space below.
-        </Description>
-        <TextArea />
-      </TextField>
-    </div>
+    <TextField>
+      <Label>Bio</Label>
+      <Description>
+        You can <span className="text-foreground">@mention</span> other users
+        and organizations to link to them.
+      </Description>
+      <TextArea placeholder="Tell us a little bit about yourself" />
+    </TextField>
   );
 };
 
-export const WithValidation = () => {
+export const WithDescriptionHidden = () => {
   return (
-    <Form className="m-auto flex w-full flex-col items-center justify-center sm:w-96">
+    <TextField>
+      <Label>Bio</Label>
+      <TextArea placeholder="Tell us a little bit about yourself" />
+      <Description>
+        You can <span className="text-foreground">@mention</span> other users
+        and organizations to link to them.
+      </Description>
+    </TextField>
+  );
+};
+
+export const WithDisabled = () => {
+  return (
+    <TextField isDisabled>
+      <Label>Bio</Label>
+      <Description>
+        You can <span className="text-foreground">@mention</span> other users
+        and organizations to link to them.
+      </Description>
+      <TextArea placeholder="Tell us a little bit about yourself" />
+    </TextField>
+  );
+};
+
+export const WithReadonly = () => {
+  return (
+    <TextField isReadOnly>
+      <Label>Bio</Label>
+      <Description>
+        You can <span className="text-foreground">@mention</span> other users
+        and organizations to link to them.
+      </Description>
+      <TextArea placeholder="Tell us a little bit about yourself" />
+    </TextField>
+  );
+};
+
+export const WithErrorMessage = () => {
+  return (
+    <Form>
       <TextField isRequired>
-        <Label>Comment</Label>
+        <Label>Bio</Label>
         <Description>
-          Please share your thoughts, feedback, or any additional information in
-          the space below.
+          You can <span className="text-foreground">@mention</span> other users
+          and organizations to link to them.
         </Description>
-        <TextArea />
+        <TextArea placeholder="Tell us a little bit about yourself" />
         <FieldError />
       </TextField>
-
-      <Button type="submit" outline className="self-start">
-        Submit
-      </Button>
+      <Button type='submit'>Submit</Button>
     </Form>
   );
 };

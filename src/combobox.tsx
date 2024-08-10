@@ -1,115 +1,151 @@
 import React from 'react';
 import {
-  ListBoxProps,
   ComboBox as RACComboBox,
   ComboBoxProps as RACComboBoxProps,
   ComboBoxStateContext,
+  GroupProps,
+  Group,
+  Keyboard,
 } from 'react-aria-components';
-import { ButtonWithoutAsChildProps, CloseButton, Button } from './button';
-import { ListBox } from './list-box';
-import { composeTailwindRenderProps } from './utils';
-import { Popover, PopoverProps } from './popover';
+import { ButtonWithoutAsChildProps, Button } from './button';
+import { composeTailwindRenderProps, inputFieldStyle } from './utils';
 import { twMerge } from 'tailwind-merge';
+import {
+  SelectListBox,
+  SelectListItem,
+  SelectListItemDescription,
+  SelectListItemLabel,
+  SelectPopover,
+  SelectSection,
+} from './select';
+import { Input } from './field';
+import { ChevronDownIcon, XIcon } from './icons';
 
-export interface ComboBoxProps<T extends object>
-  extends Omit<RACComboBoxProps<T>, 'children' | 'items'> {
-  children: React.ReactNode;
-}
-
-export function ComboBox({ children, ...props }: ComboBoxProps<object>) {
+export function ComboBox(props: RACComboBoxProps<object>) {
   return (
     <RACComboBox
       {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        'group flex min-w-[150px] flex-col gap-1',
-      )}
-    >
-      {children}
-    </RACComboBox>
-  );
-}
-
-export function ComboBoxControl({
-  className,
-  ...props
-}: JSX.IntrinsicElements['div']) {
-  return <div className={twMerge('relative', className)} {...props} />;
-}
-
-export function ComboBoxPopover({ className, ...props }: PopoverProps) {
-  return (
-    <Popover
-      {...props}
-      className={composeTailwindRenderProps(
-        className,
-        'min-w-[--trigger-width] overflow-auto',
-      )}
+      className={composeTailwindRenderProps(props.className, [
+        'w-full min-w-56',
+        ...inputFieldStyle,
+      ])}
     />
   );
 }
 
-export function ComboBoxListBox<T extends object>({
-  className,
-  ...props
-}: ListBoxProps<T>) {
+export function ComboBoxGroup(props: GroupProps) {
   return (
-    <ListBox
+    <Group
+      data-ui="control"
       {...props}
-      className={composeTailwindRenderProps(
-        className,
-        'flex max-h-[inherit] flex-col overflow-auto p-1 has-[header]:px-2 has-[header]:pt-0',
-      )}
+      className={composeTailwindRenderProps(props.className, [
+        'isolate',
+        'grid',
+        'grid-cols-[36px_1fr_minmax(40px,max-content)_minmax(40px,max-content)]',
+        'sm:grid-cols-[36px_1fr_minmax(36px,max-content)_minmax(36px,max-content)]',
+        'items-center',
+
+        // Icon
+        'sm:[&>[data-ui=icon]:has(+input)]:size-4',
+        '[&>[data-ui=icon]:has(+input)]:size-5',
+        '[&>[data-ui=icon]:has(+input)]:row-start-1',
+        '[&>[data-ui=icon]:has(+input)]:col-start-1',
+        '[&>[data-ui=icon]:has(+input)]:place-self-center',
+        '[&>[data-ui=icon]:has(+input)]:text-muted',
+
+        // Input
+        '[&>input]:row-start-1',
+        '[&>input]:col-span-full',
+        '[&>input:not([class*=pe-])]:pe-10',
+        'sm:[&>input:not([class*=pe-])]:pe-9',
+
+        '[&>input:has(+[data-ui=clear]:not(:last-of-type))]:pe-20',
+        'sm:[&>input:has(+[data-ui=clear]:not(:last-of-type))]:pe-16',
+
+        '[&:has([data-ui=icon]+input)>input]:ps-10',
+        'sm:[&:has([data-ui=icon]+input)>input]:ps-8',
+
+        // Trigger button
+        '[&>[data-ui=trigger]]:row-start-1',
+        '[&>[data-ui=trigger]]:-col-end-1',
+        '[&>[data-ui=trigger]]:place-self-center',
+
+        // Clear button
+        '[&>[data-ui=clear]]:row-start-1',
+        '[&>[data-ui=clear]]:-col-end-2',
+        '[&>[data-ui=clear]]:justify-self-end',
+        '[&>[data-ui=clear]:last-of-type]:-col-end-1',
+        '[&>[data-ui=clear]:last-of-type]:place-self-center',
+      ])}
     />
   );
 }
 
-export function TriggerButton() {
+export const ComboBoxInput = Input;
+
+export function ComboBoxButton() {
   return (
-    <Button
-      className="absolute right-1 top-1/2 size-6 -translate-y-1/2 rounded p-0.5"
-      plain
-    >
-      <svg
-        aria-hidden
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="size-4 opacity-75"
-      >
-        <path d="m6 9 6 6 6-6" />
-      </svg>
+    <Button isIconOnly size="sm" data-ui="trigger" variant="plain">
+      <ChevronDownIcon strokeWidth={2} />
     </Button>
   );
 }
 
-export function ClearButton({
+export function ComboBoxClearButton({
   onPress,
 }: {
   onPress?: ButtonWithoutAsChildProps['onPress'];
 }) {
   const state = React.useContext(ComboBoxStateContext);
 
-  if (!state?.inputValue) {
-    return null;
-  }
-
   return (
-    <CloseButton
+    <Button
+      className={twMerge(state?.inputValue ? 'visible' : 'invisible')}
       slot={null}
-      className="absolute right-1 top-1/2 -translate-y-1/2"
+      data-ui="clear"
       size="sm"
-      plain
+      isIconOnly
+      variant="plain"
       onPress={(e) => {
         state?.setSelectedKey(null);
         onPress?.(e);
       }}
-    ></CloseButton>
+    >
+      <XIcon aria-label="Clear" />
+    </Button>
   );
 }
+
+export function CommandButton() {
+  return (
+    <>
+      <Button
+        variant="outline"
+        data-ui="trigger"
+        size="sm"
+        className="me-1 flex font-normal peer-data-[focused=true]:hidden"
+      >
+        <Keyboard className="font-sans">⌘K</Keyboard>
+      </Button>
+
+      <Keyboard
+        data-ui="trigger"
+        className="me-1 hidden rounded-lg border p-1 text-xs peer-data-[focused=true]:flex ltr:ms-1"
+      >
+        ESC
+      </Keyboard>
+    </>
+  );
+}
+
+export const ComboBoxPopover = SelectPopover;
+
+export const ComboBoxSection = SelectSection;
+
+export const ComboBoxListBox = SelectListBox;
+
+export const ComboBoxListItem = SelectListItem;
+
+export const ComboBoxListItemLabel = SelectListItemLabel;
+
+export const ComboBoxListItemDescription = SelectListItemDescription;

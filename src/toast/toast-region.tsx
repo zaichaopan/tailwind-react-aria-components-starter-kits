@@ -7,9 +7,10 @@ import { useToastRegion } from '@react-aria/toast';
 import type { AriaToastProps } from '@react-aria/toast';
 import { useToast } from '@react-aria/toast';
 import { ButtonProps as AriaButtonProps } from 'react-aria-components';
-import { CloseButton } from '../button';
+import { Button } from '../button';
 import { twMerge } from 'tailwind-merge';
 import { toast, ToastConfig } from './toast-queue';
+import { XIcon } from '../icons';
 
 interface ToastRegionProps extends AriaToastRegionProps {
   state: ToastState<ToastConfig>;
@@ -119,11 +120,11 @@ function Toast({ state, ...props }: ToastProps) {
     <div
       {...toastProps}
       ref={ref}
-      className="flex flex-1 rounded-md bg-background outline-none"
+      className="flex flex-1 rounded-lg bg-background outline-none"
     >
       <div
         className={twMerge(
-          'toast flex w-[min(85vw,360px)] gap-1 rounded-md border px-3 py-2 shadow-sm transition',
+          'toast flex w-[min(85vw,360px)] gap-1 rounded-lg border px-3 py-2 shadow-sm transition',
           type === undefined &&
             !props.toast.content.render &&
             'border-border/50 bg-background',
@@ -219,12 +220,15 @@ function Toast({ state, ...props }: ToastProps) {
           </>
         )}
 
-        <CloseButton
-          plain
+        <Button
+          variant="plain"
           size="sm"
+          isIconOnly
           {...closeButtonProps}
           className={twMerge('rounded', 'hover:bg-transparent')}
-        />
+        >
+          <XIcon aria-label="Close" />
+        </Button>
       </div>
     </div>
   );

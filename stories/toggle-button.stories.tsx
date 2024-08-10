@@ -4,17 +4,17 @@ import { ToggleButton } from '../src/button';
 import { Mic, MicOff } from 'lucide-react';
 import { TooltipTrigger, Tooltip } from '../src/tooltip';
 import { docs } from '../.storybook/docs';
-import { Icon } from '../src/icon';
+import { AccessibleIcon } from '../src/accessible-icon';
 
 const meta: Meta<typeof ToggleButton> = {
-  title: 'ToggleButton',
+  title: 'Toggle button',
   component: ToggleButton,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: `A <a href="https://react-spectrum.adobe.com/react-aria/ToggleButton.html#togglebutton" target="_blank">**toggle button**</a> allows a user to toggle a selection on or off, for example switching between two states or modes. 
-        \nUse the **isSelected** and **onChange** prop to control toggle state and behavior.`,
+        component:
+          'A <a href="https://react-spectrum.adobe.com/react-aria/ToggleButton.html#togglebutton" target="_blank">`toggle button`</a> allows a user to toggle a selection on or off, for example switching between two states or modes. Use the `isSelected` and `onChange` prop to control toggle state and behavior.',
       },
       ...docs,
       controls: {
@@ -27,7 +27,7 @@ const meta: Meta<typeof ToggleButton> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   const [isPined, setIsPined] = React.useState(false);
 
   return (
@@ -35,7 +35,7 @@ export const Example = () => {
       isSelected={isPined}
       onChange={setIsPined}
       {...(!isPined && {
-        outline: true,
+        variant: 'outline',
       })}
     >
       Pin
@@ -49,18 +49,18 @@ export const WithIconAndTooltips = () => {
   return (
     <TooltipTrigger>
       <ToggleButton
-        plain
+        variant="plain"
         isSelected={isMicMuted}
         onChange={setIsMicMuted}
-        className="h-16 w-16 flex-col gap-0 p-2 text-xs/6"
+        className="size-14 flex-col gap-y-1 p-1 text-sm sm:text-xs"
       >
-        <Icon aria-label="Mute mic">
+        <AccessibleIcon aria-label="Mute mic">
           {isMicMuted ? (
-            <MicOff className="h-6 w-6" strokeWidth="1.5px" />
+            <MicOff className="size-6" strokeWidth="1.5px" />
           ) : (
-            <Mic className="h-6 w-6" strokeWidth="1.5px" />
+            <Mic className="size-6" strokeWidth="1.5px" />
           )}
-        </Icon>
+        </AccessibleIcon>
         Mic
       </ToggleButton>
       <Tooltip>{isMicMuted ? 'Un-mute Microphone' : 'Mute Microphone'}</Tooltip>

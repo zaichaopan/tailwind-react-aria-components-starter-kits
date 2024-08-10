@@ -4,12 +4,13 @@ import { docs } from '../.storybook/docs';
 
 const meta: Meta<typeof ProgressBar> = {
   component: ProgressBar,
+  title: 'Progress bar',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component:
-          '<a href="https://react-spectrum.adobe.com/react-aria/ProgressBar.html" target="_blank">**Progress bars**</a> show either determinate or indeterminate progress of an operation over time.',
+          '<a href="https://react-spectrum.adobe.com/react-aria/ProgressBar.html" target="_blank">`Progress bars`</a> show either determinate or indeterminate progress of an operation over time.',
       },
       ...docs,
       controls: {
@@ -22,7 +23,7 @@ const meta: Meta<typeof ProgressBar> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return <ProgressBar label="loading" value={80} />;
 };
 

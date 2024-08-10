@@ -13,18 +13,24 @@ import { PasswordInput } from '../src/password-input';
 import { Button } from '../src/button';
 import { Strong, Text, TextLink } from '../src/text';
 import { Link } from '../src/link';
-import { Icon } from '../src/icon';
 import { Avatar } from '../src/avatar';
-import { DateRangePicker, DateRangePickerInput } from '../src/date-range-picker';
+import {
+  DateRangePicker,
+  DateRangePickerInput,
+} from '../src/date-range-picker';
 import { Heading } from '../src/heading';
 import { Tab, TabList, Tabs } from '../src/tabs';
 import { Switch } from '../src/switch';
 import { Radio, RadioField, RadioGroup } from '../src/radio-group';
 import { twMerge } from 'tailwind-merge';
 import { Slider, SliderOutput, SliderTack } from '../src/slider';
-import { Checkbox, CheckboxField, CheckboxGroup } from '../src/checkbox';
+import {
+  Checkbox,
+  CheckboxField,
+  CheckboxGroup,
+  Checkboxes,
+} from '../src/checkbox';
 import { NumberField, NumberInput } from '../src/number-field';
-import { Select, SelectField, SelectItem } from '../src/select';
 import { DialogTrigger, FileTrigger } from 'react-aria-components';
 import { Modal } from '../src/modal';
 import {
@@ -36,6 +42,7 @@ import {
 } from '../src/dialog';
 import { NativeTooltips } from './tooltip.stories';
 import { WithAvatars } from './multi-select.stories';
+import { WithFlags } from './select.stories';
 
 const meta: Meta<typeof Button> = {
   title: 'Overview',
@@ -70,7 +77,7 @@ export const Example = () => {
               </Link>
             </div>
 
-            <Button type="submit" className="mt-2">
+            <Button type="submit" className="w-full">
               Sign in
             </Button>
 
@@ -142,7 +149,7 @@ export const Example = () => {
           className="flex w-[350px] flex-col"
         >
           <div className="flex flex-1 items-end">
-            <Label className="text-nowrap pb-1 pr-4 font-normal">Zoom</Label>
+            <Label className="text-nowrap pb-1 pe-4 font-normal">Zoom</Label>
             <div className="flex flex-1 flex-col">
               <SliderOutput className="self-center">
                 {({ state }) => {
@@ -164,7 +171,7 @@ export const Example = () => {
       <div className="flex w-96 flex-col gap-4">
         <div className="flex gap-2">
           <Button>Submit</Button>
-          <Button outline>Submit</Button>
+          <Button variant="outline">Submit</Button>
 
           <NativeTooltips />
 
@@ -177,151 +184,7 @@ export const Example = () => {
           <NumberInput />
         </NumberField>
 
-        <SelectField defaultSelectedKey={'ca'}>
-          <Label>Country</Label>
-          <Select>
-            <SelectItem id="ca" textValue="Canada">
-              <Icon>
-                <svg className="w-5 sm:w-4" viewBox="0 0 16 12" fill="none">
-                  <g clipPath="url(#clip0_270_55097)">
-                    <path fill="#fff" d="M0 0H16V12H0z"></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M4 0h8.5v12H4V0z"
-                      fill="#F7FCFF"
-                    ></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M7.164 4.201L7.987 3 8 10h-.343l.21-1.732s-2.305.423-2.115.21c.191-.214.3-.606.3-.606L4 6.474s.324-.004.587-.164c.264-.16-.263-1.109-.263-1.109l1.036.154.392-.435.782.836h.352l-.352-1.914.63.36zM8 10V3l.836 1.201.63-.359-.352 1.914h.352l.782-.836.392.435 1.036-.154s-.527.949-.263 1.109c.263.16.587.164.587.164L9.947 7.872s.11.392.3.606c.191.213-2.115-.21-2.115-.21L8.342 10H8zM12 0h4v12h-4V0zM0 0h4v12H0V0z"
-                      fill="#E31D1C"
-                    ></path>
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_270_55097">
-                      <path fill="#fff" d="M0 0H16V12H0z"></path>
-                    </clipPath>
-                  </defs>
-                </svg>
-              </Icon>
-              Canada
-            </SelectItem>
-            <SelectItem id="us" textValue="United States">
-              <Icon>
-                <svg className="w-5 sm:w-4" viewBox="0 0 16 12" fill="none">
-                  <g clipPath="url(#clip0_270_55071)">
-                    <path fill="#fff" d="M0 0H16V12H0z"></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M0 0h16v12H0V0z"
-                      fill="#E31D1C"
-                    ></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M0 1v1h16V1H0zm0 2v1h16V3H0zm0 3V5h16v1H0zm0 1v1h16V7H0zm0 3V9h16v1H0zm0 2v-1h16v1H0z"
-                      fill="#F7FCFF"
-                    ></path>
-                    <path fill="#2E42A5" d="M0 0H9V7H0z"></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M1.04 2.174l.53-.37.411.297h-.233l.471.416-.159.584h-.249l-.242-.536-.206.536H.748l.471.416-.179.657.53-.37.411.297h-.233l.471.416-.159.584h-.249l-.242-.536-.206.536H.748l.471.416-.179.657.53-.37.513.37-.16-.657.412-.416h-.19l.425-.296.411.296h-.233l.471.416-.179.657.53-.37.513.37-.16-.657.412-.416h-.19l.425-.296.411.296h-.233l.471.416-.179.657.53-.37.513.37-.16-.657.412-.416h-.19l.425-.296.411.296h-.233l.471.416-.179.657.53-.37.513.37-.16-.657.412-.416h-.524l-.242-.536-.206.536h-.298l-.142-.584.412-.416h-.19l.425-.296.513.369-.16-.657.412-.416h-.524l-.242-.536-.206.536h-.298l-.142-.584.412-.416h-.19l.425-.296.513.369-.16-.657.412-.416h-.524L7.569.565l-.206.536h-.615l.471.416-.159.584h-.249l-.242-.536-.206.536h-.298l-.142-.584.412-.416h-.524L5.569.565l-.206.536h-.615l.471.416-.159.584h-.249l-.242-.536-.206.536h-.298l-.142-.584.412-.416h-.524L3.569.565l-.206.536h-.615l.471.416-.159.584h-.249l-.242-.536-.206.536h-.298l-.142-.584.412-.416h-.524L1.569.565l-.206.536H.748l.471.416-.179.657zM7.06 4.1l.159-.584-.47-.416h.232l-.411-.296-.425.296h.19l-.412.416.142.584h.298l.206-.536.242.536h.249zm-1.079 0l-.411-.296-.425.296h.19l-.412.416.142.584h.298l.206-.536.242.536h.249l.159-.584-.47-.416h.232zm-1.762.416L4.06 5.1h-.249l-.242-.536-.206.536h-.298l-.142-.584.412-.416h-.19l.425-.296.411.296h-.233l.471.416zm.144-.416h-.298l-.142-.584.412-.416h-.19l.425-.296.411.296h-.233l.471.416-.159.584h-.249l-.242-.536-.206.536zm-1.303 0l.159-.584-.47-.416h.232l-.411-.296-.425.296h.19l-.412.416.142.584h.298l.206-.536.242.536h.249zm3.159-1.584L6.06 3.1h-.249l-.242-.536-.206.536h-.298l-.142-.584.412-.416h-.19l.425-.296.411.296h-.233l.471.416zM3.981 2.1l-.411-.296-.425.296h.19l-.412.416.142.584h.298l.206-.536.242.536h.249l.159-.584-.47-.416h.232z"
-                      fill="#F7FCFF"
-                    ></path>
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_270_55071">
-                      <path fill="#fff" d="M0 0H16V12H0z"></path>
-                    </clipPath>
-                  </defs>
-                </svg>
-              </Icon>
-              United States
-            </SelectItem>
-            <SelectItem id="mexican" textValue="Mexico">
-              <Icon>
-                <svg className="w-5 sm:w-4" viewBox="0 0 16 12" fill="none">
-                  <g clipPath="url(#clip0_270_55118)">
-                    <path fill="#fff" d="M0 0H16V12H0z"></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M11 0h5v12h-5V0z"
-                      fill="#D9071E"
-                    ></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M0 0h6v12H0V0z"
-                      fill="#006923"
-                    ></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M5 0h6v12H5V0z"
-                      fill="#fff"
-                    ></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M7.192 3.957s-.343.266-.279.55c.064.284.74 0 .66-.275-.083-.275-.38-.275-.38-.275z"
-                      fill="#FCCA3D"
-                    ></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M6.668 4.634c-.257 0-.364-.214-.311-.442.028-.121.102-.276.222-.476l.43.257a2.861 2.861 0 00-.11.198.96.96 0 01.25.113c.234.154.32.428.07.631-.05.04-.128.173-.171.302.12.007.204.025.283.071.221.13.2.37.032.553-.12.13-.278.237-.429.29-.25.091-.516.057-.516-.263v-.002c0-.013-.002-.036.11-.038h.022-.022c-.19-.003-.231-.104-.255-.283a1.853 1.853 0 01-.012-.182l-.002-.06-.002-.06-.001-.013c-.004-.058-.007-.097.123-.097h-.29v-.5h.29c.164 0 .255.055.307.17.03-.052.06-.101.094-.145a.386.386 0 00-.112-.024zm.318.878l.008-.008-.002.004-.006.004zm-.218.149zm0-.189v.008-.015.007z"
-                      fill="#A8AC71"
-                    ></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M9.633 6.201s.463-1.37-.272-2.08c-.736-.71-1.585-.662-1.585-.662s-.245.182 0 .32c.245.14.142.272.142.272s-.41-.416-.682-.173c-.272.243.254.206.199.39-.056.182-.292.995.053 1.405.344.41-.326.321-.19.321.137 0 .62.096.62 0 0-.095.168.371.312.371s.255-.164.255-.164.201.164.324.164.552-.107.552-.107l-.81-.682s.049-.301-.066-.366.92.577 1.002.784c.08.207.146.207.146.207z"
-                      fill="#8F4620"
-                    ></path>
-                    <path
-                      d="M5.533 5.863s.075-.239.156-.256c.07-.014.216.115.216.115.26 1.445.889 2.01 1.933 2.01 1.055 0 1.695-.43 2.069-1.762 0 0 .198-.203.268-.18.077.024.172.292.172.292-.095 1.559-1.22 2.482-2.492 2.482-1.284 0-2.333-1.035-2.322-2.7z"
-                      fill="#9FAB2F"
-                    ></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M6.667 6.828s1.502.319 2.095.319c.593 0-.52.484-.954.484-.435 0-1.14-.803-1.14-.803z"
-                      fill="#2FC2DC"
-                    ></path>
-                    <rect
-                      x="7.33337"
-                      y="7.05"
-                      width="1"
-                      height="0.535714"
-                      rx="0.0833333"
-                      fill="#F9AA51"
-                    ></rect>
-                    <path
-                      d="M6.088 6.068l.41-.287c.532.76 1.328 1.009 2.443.748l.114.487c-1.303.305-2.31-.01-2.967-.948z"
-                      fill="#259485"
-                    ></path>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M8.296 6.175s-.607.32-.405.32c.202 0 .994.16.84 0-.154-.16-.435-.32-.435-.32zM7.578 5.794s-.115-.333-.355-.333-.172.273-.288.273c-.115 0 .108.193.207.193.1 0 .436-.133.436-.133z"
-                      fill="#FCCA3D"
-                    ></path>
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_270_55118">
-                      <path fill="#fff" d="M0 0H16V12H0z"></path>
-                    </clipPath>
-                  </defs>
-                </svg>
-              </Icon>
-              Mexico
-            </SelectItem>
-          </Select>
-        </SelectField>
+        <WithFlags />
 
         <TextField>
           <Label>About</Label>
@@ -331,25 +194,27 @@ export const Example = () => {
 
         <CheckboxGroup defaultValue={['Post']}>
           <Label>Audience, media and tagging</Label>
-          <Text className="pb-4">
+          <Description>
             Manage what information you allow other people to see.
-          </Text>
+          </Description>
 
-          <CheckboxField>
-            <Checkbox value="Post">Protect your post</Checkbox>
-            <Description>
-              Your posts and other account information are only visible to
-              people who follow you.
-            </Description>
-          </CheckboxField>
+          <Checkboxes>
+            <CheckboxField>
+              <Checkbox value="Post">Protect your post</Checkbox>
+              <Description>
+                Your posts and other account information are only visible to
+                people who follow you.
+              </Description>
+            </CheckboxField>
 
-          <CheckboxField>
-            <Checkbox value="Video">Protect your videos</Checkbox>
-            <Description>
-              your posts and other account information are only visible to
-              people who follow you.
-            </Description>
-          </CheckboxField>
+            <CheckboxField>
+              <Checkbox value="Video">Protect your videos</Checkbox>
+              <Description>
+                your posts and other account information are only visible to
+                people who follow you.
+              </Description>
+            </CheckboxField>
+          </Checkboxes>
         </CheckboxGroup>
       </div>
 
@@ -364,78 +229,75 @@ export const Example = () => {
           </DateRangePicker>
         </div>
       </div>
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-4">
-          <div className="flex flex-col gap-4">
-            <div className="text-2xl font-bold">
-              Craft world-class accessible components
-            </div>
-            <div className="flex gap-2">
-              <Button asChild outline>
-                <Link
-                  href="https://react-spectrum.adobe.com/react-aria/components.html"
-                  target="_blank"
-                  className="flex-1"
-                >
-                  <img
-                    aria-hidden
-                    className="size-5"
-                    alt="react aria component"
-                    src="https://spectrum.adobe.com/_next/static/media/adobe_logo_spectrum_site.b6d47fe3.svg"
-                  />{' '}
-                  React React Component
-                </Link>
-              </Button>
+      <div className="space-y-8">
+        <div className="space-y-8">
+          <div className="text-2xl font-bold">
+            Craft world-class accessible components
+          </div>
+          <div className="space-x-4">
+            <Button asChild variant="outline">
+              <Link
+                href="https://react-spectrum.adobe.com/react-aria/components.html"
+                target="_blank"
+                className="flex-1"
+              >
+                <img
+                  aria-hidden
+                  className="size-5"
+                  alt="react aria component"
+                  src="https://spectrum.adobe.com/_next/static/media/adobe_logo_spectrum_site.b6d47fe3.svg"
+                />{' '}
+                React React Component
+              </Link>
+            </Button>
 
-              <Button asChild outline>
-                <Link
-                  href="https://tailwindcss.com"
-                  target="_blank"
-                  className="flex-1"
-                >
-                  <img
-                    aria-hidden
-                    className="size-5"
-                    alt="tailwind css"
-                    src="https://tailwindcss.com/_next/static/media/tailwindcss-mark.3c5441fc7a190fb1800d4a5c7f07ba4b1345a9c8.svg"
-                  />
-                  Tailwind CSS
-                </Link>
-              </Button>
-            </div>
+            <Button asChild variant="outline">
+              <Link
+                href="https://tailwindcss.com"
+                target="_blank"
+                className="flex-1"
+              >
+                <img
+                  aria-hidden
+                  className="size-5"
+                  alt="tailwind css"
+                  src="https://tailwindcss.com/_next/static/media/tailwindcss-mark.3c5441fc7a190fb1800d4a5c7f07ba4b1345a9c8.svg"
+                />
+                Tailwind CSS
+              </Link>
+            </Button>
           </div>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="space-y-8">
           <Tabs>
             <TabList>
-              <Tab className="px-2">My Account</Tab>
-              <Tab className="px-2">Company</Tab>
-              <Tab className="px-2">Team Members</Tab>
-              <Tab className="px-2">Billing</Tab>
+              <Tab>My Account</Tab>
+              <Tab>Company</Tab>
+              <Tab>Team Members</Tab>
+              <Tab>Billing</Tab>
             </TabList>
           </Tabs>
           <Tabs variant="pills">
             <TabList>
-              <Tab className="px-4">Overview</Tab>
-              <Tab className="px-4">Analytics</Tab>
-              <Tab className="px-4">Reports</Tab>
-              <Tab className="px-4">Notifications</Tab>
+              <Tab>Overview</Tab>
+              <Tab>Analytics</Tab>
+              <Tab>Reports</Tab>
+              <Tab>Notifications</Tab>
             </TabList>
           </Tabs>
           <Tabs variant="segment">
             <TabList>
-              <Tab className="px-4">Overview</Tab>
-              <Tab className="px-4">Analytics</Tab>
-              <Tab className="px-4">Reports</Tab>
-              <Tab className="px-4">Notifications</Tab>
+              <Tab>Profile</Tab>
+              <Tab>Account</Tab>
+              <Tab>Billing</Tab>
             </TabList>
           </Tabs>
           <Tabs orientation="vertical">
             <TabList>
-              <Tab className="p-2">Overview</Tab>
-              <Tab className="p-2">Analytics</Tab>
-              <Tab className="p-2">Reports</Tab>
-              <Tab className="p-2">Notifications</Tab>
+              <Tab>Overview</Tab>
+              <Tab>Analytics</Tab>
+              <Tab>Reports</Tab>
+              <Tab>Notifications</Tab>
             </TabList>
           </Tabs>
         </div>
@@ -466,7 +328,7 @@ function ChangeProfile() {
           setSrc(URL.createObjectURL(file));
         }}
       >
-        <Button outline>Change</Button>
+        <Button variant="outline">Change</Button>
       </FileTrigger>
     </div>
   );
@@ -486,12 +348,12 @@ function DialogExample() {
             </Text>
             <Form className="py-4" id="edit-profile-form">
               <TextField isRequired className="grid grid-cols-4 gap-x-4">
-                <Label className="ml-auto">Name</Label>
+                <Label className="ms-auto">Name</Label>
                 <Input className="col-span-3"></Input>
                 <FieldError className="col-span-3 col-start-2" />
               </TextField>
               <TextField isRequired className="grid grid-cols-4 gap-4">
-                <Label className="ml-auto">Username</Label>
+                <Label className="ms-auto">Username</Label>
                 <Input className="col-span-3"></Input>
                 <FieldError className="col-span-3 col-start-2" />
               </TextField>

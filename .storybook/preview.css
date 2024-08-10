@@ -1,0 +1,85 @@
+.sbdocs-preview {
+  box-shadow: none !important;
+  border-radius: 8px !important;
+}
+
+.sbdocs-a > code {
+  background: none !important;
+  border: none !important;
+  font-weight: bold !important;
+  border-radius: 0 !important;
+  border-bottom: 1px solid #d4d4d8 !important;
+}
+
+.sbdocs-a > code:hover {
+  border-bottom: 1px solid #a1a1aa !important;
+}
+
+p > code[class^='css'] {
+  border: none !important;
+  font-weight: bold;
+  background: none !important;
+  margin: 0 !important;
+}
+
+p > code[class^='css']:before,
+p > code[class^='css']:after {
+  content: '`';
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    Liberation Mono,
+    Courier New,
+    monospace !important;
+  font-weight: bold;
+}
+
+/* Update font family */
+.sbdocs-content > h1.sbdocs-title,
+.sbdocs-content > h1.sbdocs-title + p:first-of-type,
+.sb-anchor > h3[class^='css']:first-child,
+.sb-anchor > h3[class^='css'] + p:first-of-type,
+.docblock-code-toggle,
+code {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv11';
+}
+
+/* Story title */
+.sbdocs-content > h1.sbdocs-title {
+  font-weight: 500;
+}
+
+/* Change story title case */
+.sb-anchor > h3[class^='css']:first-child {
+  text-transform: lowercase !important;
+  font-size: 1rem !important;
+  line-height: 1.75rem !important;
+  font-weight: 500;
+}
+
+.sb-anchor > h3[class^='css']:first-child:first-letter {
+  text-transform: capitalize !important;
+}
+
+/* Remove heading STORIES */
+#stories {
+  display: none;
+}
+
+/* Remove basic example story which is the duplicate with the first story */
+h3[id^='basic'],
+h3[id*='hidden'],
+h3[id^='basic'] + div.sbdocs-preview {
+  display: none;
+}
+
+#storybook-root {
+  max-width: 100%;
+}

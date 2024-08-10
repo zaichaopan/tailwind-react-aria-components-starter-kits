@@ -10,7 +10,7 @@ const meta: Meta<typeof Meter> = {
     docs: {
       description: {
         component:
-          'A <a href="https://react-spectrum.adobe.com/react-aria/Meter.html#meter" target="_blank">**meter**</a> represents a quantity within a known range, or a fractional value.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/Meter.html#meter" target="_blank">`meter`</a> represents a quantity within a known range, or a fractional value.',
       },
       ...docs,
       controls: {
@@ -23,7 +23,7 @@ const meta: Meta<typeof Meter> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
     <div className="flex flex-col gap-4">
       <Meter label="Storage space" value={20} />

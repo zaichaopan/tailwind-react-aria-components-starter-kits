@@ -9,10 +9,8 @@ const meta: Meta<HeadingProps> = {
     layout: 'centered',
     docs: {
       description: {
-        component: `**Heading** is used to render semantic HTML heading elements.
-          \n\n- **level**: render heading from h1 to h4. Default level **1**.
-          \n\n- **displayLevel**: use display style of another level.
-          `,
+        component:
+          '`Heading` is used to render semantic HTML heading elements. Use the `level` prop to render heading from h1 to h4. Default level `1`. Use the `displayLevel` to render display style of another level.',
       },
       ...docs,
       controls: {
@@ -25,14 +23,22 @@ const meta: Meta<HeadingProps> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
-    <div className='flex flex-col gap-4'>
-    <Heading>H1: The quick brown fox jumps over the lazy dog.</Heading>
-    <Heading level={2}>H2: The quick brown fox jumps over the lazy dog.</Heading>
-    <Heading level={3}>h3: The quick brown fox jumps over the lazy dog.</Heading>
-    <Heading level={4}>H4: The quick brown fox jumps over the lazy dog.</Heading>
-    <Heading level={4} displayLevel={1}>H4 with H1 style: The quick brown fox jumps over the lazy dog.</Heading>
-  </div>
-  )
+    <div className="flex flex-col gap-4">
+      <Heading>H1: The quick brown fox jumps over the lazy dog.</Heading>
+      <Heading level={2}>
+        H2: The quick brown fox jumps over the lazy dog.
+      </Heading>
+      <Heading level={3}>
+        h3: The quick brown fox jumps over the lazy dog.
+      </Heading>
+      <Heading level={4}>
+        H4: The quick brown fox jumps over the lazy dog.
+      </Heading>
+      <Heading level={4} displayLevel={1}>
+        H4 with H1 style: The quick brown fox jumps over the lazy dog.
+      </Heading>
+    </div>
+  );
 };

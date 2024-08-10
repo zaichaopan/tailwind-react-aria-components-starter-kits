@@ -1,8 +1,8 @@
 import React from 'react';
-import { TextFieldProps, type Key } from 'react-aria-components';
+import { LabelContext, TextFieldProps, type Key } from 'react-aria-components';
 import { Tag, TagGroup, TagList } from './tag-group';
 import { ListData } from 'react-stately';
-import { Input, TextField, WithLabelContext } from './field';
+import { Input, TextField} from './field';
 import { twMerge } from 'tailwind-merge';
 
 interface TagItem {
@@ -127,43 +127,42 @@ export function TagsInput({
     onTagRemove?.(list.getItem([...keys][0]));
   }
 
-  return (
-    <WithLabelContext>
-      {(context) => {
-        return (
-          <TagGroup
-            aria-labelledby={context?.['aria-labelledBy']}
-            onRemove={handleRemove}
-            className={twMerge(className, 'w-full')}
-          >
-            <div
-              className={twMerge(
-                'flex min-h-9 items-center rounded-md shadow-sm',
-                'border has-[input[data-focused=true]]:border-blue-500',
-                'has-[input[data-invalid=true][data-focused=true]]:border-blue-500 has-[input[data-invalid=true]]:border-destructive',
-                'has-[input[data-focused=true]]:ring-1 has-[input[data-focused=true]]:ring-blue-500',
-              )}
-            >
-              <div className="inline-flex  flex-1 flex-wrap items-center gap-1 px-1.5 py-[5px]">
-                <TagList items={list.items} className="contents">
-                  {(item) => <Tag>{item.name}</Tag>}
-                </TagList>
+  const { id: labelId } = (React.useContext(LabelContext) ?? {}) as {
+    id?: string;
+  };
 
-                <div className="flex flex-1">
-                  <Input
-                    value={inputValue}
-                    onChange={(e) => {
-                      setInputValue(e.target.value);
-                    }}
-                    onKeyDown={handleKeyDown}
-                    className="border-0 px-0.5 py-0 shadow-none ring-0"
-                  />
-                </div>
-              </div>
-            </div>
-          </TagGroup>
-        );
-      }}
-    </WithLabelContext>
+  return (
+    <TagGroup
+      aria-labelledby={labelId}
+      onRemove={handleRemove}
+      className={twMerge(className, 'w-full')}
+      data-ui="control"
+    >
+      <div
+        className={twMerge(
+          'flex min-h-9 items-center rounded-md shadow-sm',
+          'border has-[input[data-focused=true]]:border-blue-500',
+          'has-[input[data-invalid=true][data-focused=true]]:border-blue-500 has-[input[data-invalid=true]]:border-destructive',
+          'has-[input[data-focused=true]]:ring-1 has-[input[data-focused=true]]:ring-blue-500',
+        )}
+      >
+        <div className="inline-flex flex-1 flex-wrap items-center gap-1 px-1.5 py-[5px]">
+          <TagList items={list.items} className="contents">
+            {(item) => <Tag>{item.name}</Tag>}
+          </TagList>
+
+          <div className="flex flex-1">
+            <Input
+              value={inputValue}
+              onChange={(e) => {
+                setInputValue(e.target.value);
+              }}
+              onKeyDown={handleKeyDown}
+              className="border-0 px-0.5 py-0 shadow-none ring-0"
+            />
+          </div>
+        </div>
+      </div>
+    </TagGroup>
   );
 }

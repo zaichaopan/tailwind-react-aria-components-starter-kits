@@ -17,98 +17,65 @@ import {
   TextArea as RACTextArea,
   TextAreaProps as RACTextAreaProps,
   Text as RACText,
-  SearchField as RACSearchField,
-  SearchFieldProps as RACSearchFieldProps,
 } from 'react-aria-components';
 import { twMerge } from 'tailwind-merge';
-import { composeTailwindRenderProps, focusRingStyle } from './utils';
+import {
+  composeTailwindRenderProps,
+  focusRingStyle,
+  inputFieldStyle,
+} from './utils';
 import { Text } from './text';
-import { CloseButton } from './button';
 
-export const Group = React.forwardRef<HTMLDivElement, GroupProps>(
-  function (props, ref) {
-    const labelId = React.useId();
+// https://react-spectrum.adobe.com/react-aria/Group.html#advanced-customization
+export function LabeledGroup({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const labelId = React.useId();
 
-    const { id } = (React.useContext(LabelContext) ?? {}) as { id?: string };
+  return (
+    <LabelContext.Provider value={{ id: labelId, elementType: 'span' }}>
+      <GroupContext.Provider value={{ 'aria-labelledby': labelId }}>
+        <div
+          className={twMerge(
+            ['[&>[data-ui=label]:not([class*=mb])]:mb-2'],
+            className,
+          )}
+        >
+          {children}
+        </div>
+      </GroupContext.Provider>
+    </LabelContext.Provider>
+  );
+}
 
-    // When label id is already provided
-    if (id) {
-      return (
-        <GroupContext.Provider value={{ 'aria-labelledby': id }}>
-          <RACGroup
-            {...props}
-            ref={ref}
-            className={composeRenderProps(props.className, (className) => {
-              return twMerge('relative flex flex-col gap-1', className);
-            })}
-          />
-        </GroupContext.Provider>
-      );
-    }
-
-    return (
-      <LabelContext.Provider value={{ id: labelId, elementType: 'span' }}>
-        <GroupContext.Provider value={{ 'aria-labelledby': labelId }}>
-          <RACGroup
-            {...props}
-            ref={ref}
-            className={composeRenderProps(props.className, (className) => {
-              return twMerge('relative flex flex-col gap-1', className);
-            })}
-          />
-        </GroupContext.Provider>
-      </LabelContext.Provider>
-    );
-  },
-);
-
-export function Label(props: LabelProps) {
+export function Label({
+  requiredHint,
+  ...props
+}: LabelProps & {
+  requiredHint?: boolean;
+}) {
   return (
     <RACLabel
       {...props}
+      data-ui="label"
       className={twMerge(
-        'w-fit cursor-default text-pretty text-base/6 font-medium sm:text-sm/6',
-        // When it is inside disabled group
-        ' group-disabled:opacity-50',
+        'inline-block min-w-fit text-pretty text-base/6 font-medium sm:text-sm/6',
+        'group-disabled:opacity-50',
+        requiredHint &&
+          "after:ms-0.5 after:text-destructive after:content-['*']",
         props.className,
       )}
     />
   );
 }
 
-export function WithLabelContext({
-  children,
-}: {
-  children: (
-    context: {
-      'aria-labelledBy'?: string;
-    } | null,
-  ) => React.ReactNode;
-}) {
-  const context = (React.useContext(LabelContext) ?? {}) as { id?: string };
-
-  return children({
-    'aria-labelledBy': context?.id,
-  });
-}
-
 export const DescriptionContext = React.createContext<{
   'aria-describedby'?: string;
 } | null>(null);
-
-export function WithDescriptionContext({
-  children,
-}: {
-  children: (
-    context: {
-      'aria-describedby'?: string;
-    } | null,
-  ) => React.ReactNode;
-}) {
-  const context = React.useContext(DescriptionContext);
-
-  return children(context);
-}
 
 export function DescriptionProvider({
   children,
@@ -135,37 +102,33 @@ export function DescriptionProvider({
   );
 }
 
+/**
+ * RAC will auto associate <RACText slot="description"/> with TextField/NumberField/RadioGroup/CheckboxGroup/DatePicker etc,
+ * but not for Switch/Checkbox/Radio and our custom components. We use follow pattern to associate description for
+ * Switch/Checkbox/Radio https://react-spectrum.adobe.com/react-aria/Switch.html#advanced-customization
+ */
 export function Description({ className, ...props }: TextProps) {
-  return (
-    <WithDescriptionContext>
-      {(context) => {
-        const describedby = context?.['aria-describedby'];
-        return describedby ? (
-          <Text
-            {...props}
-            id={describedby}
-            slot="description"
-            className={twMerge(
-              'mb-1',
-              // When it is inside disabled group
-              'group-disabled:opacity-50',
-              className,
-            )}
-          />
-        ) : (
-          <RACText
-            {...props}
-            slot="description"
-            className={twMerge(
-              'mb-1 text-pretty text-base/6 text-muted sm:text-sm/6',
-              // When it is inside disabled group
-              'group-disabled:opacity-50',
-              className,
-            )}
-          />
-        );
-      }}
-    </WithDescriptionContext>
+  const describedby =
+    React.useContext(DescriptionContext)?.['aria-describedby'];
+
+  return describedby ? (
+    <Text
+      {...props}
+      id={describedby}
+      data-ui="description"
+      className={twMerge('block group-disabled:opacity-50', className)}
+    />
+  ) : (
+    <RACText
+      {...props}
+      data-ui="description"
+      slot="description"
+      className={twMerge(
+        'block text-pretty text-base/6 text-muted sm:text-sm/6',
+        'group-disabled:opacity-50',
+        className,
+      )}
+    />
   );
 }
 
@@ -173,10 +136,7 @@ export function TextField(props: RACTextFieldProps) {
   return (
     <RACTextField
       {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        'group flex flex-col gap-1',
-      )}
+      className={composeTailwindRenderProps(props.className, inputFieldStyle)}
     />
   );
 }
@@ -187,7 +147,7 @@ export function FieldError(props: FieldErrorProps) {
       {...props}
       className={composeTailwindRenderProps(
         props.className,
-        'text-base/6 text-destructive sm:text-sm/6',
+        'block text-base/6 text-destructive sm:text-sm/6',
       )}
     />
   );
@@ -201,15 +161,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         ref={ref}
         className={composeRenderProps(
           props.className,
-          (className, renderProps) => {
+          (className, { isDisabled, isInvalid, isFocused }) => {
             return twMerge(
-              'flex flex w-full rounded-md border bg-inherit px-2 py-[5px] text-base/6 shadow-sm outline-none placeholder:text-muted sm:text-sm/6',
-              renderProps.isInvalid && 'border-destructive',
-              renderProps.isDisabled && 'disabled:opacity-50',
-              renderProps.isFocused && focusRingStyle,
-              // When it is inside input group with role=presentation|group and it has border
-              '[[role=presentation]_&.border]:h-fit [[role=presentation]_&.border]:border-none [[role=presentation]_&.border]:shadow-none [[role=presentation]_&.border]:ring-0 [[role=presentation]_&.border]:disabled:opacity-100',
-              '[[role=group]_&.border]:h-fit [[role=group]_&.border]:border-none [[role=group]_&.border]:shadow-none [[role=group]_&.border]:ring-0 [[role=group]_&.border]:invalid:ring-0 [[role=group]_&.border]:disabled:opacity-100',
+              'w-full rounded-lg border bg-inherit shadow-sm outline-none',
+              'px-2.5 py-[calc(theme(spacing[2.5])-1px)] sm:py-[calc(theme(spacing[1.5])-1px)]',
+              'text-base/6 placeholder:text-muted sm:text-sm/6',
+              isInvalid && 'border-destructive',
+              isDisabled && 'opacity-50',
+              isFocused && focusRingStyle,
               className,
             );
           },
@@ -225,12 +184,13 @@ export function TextArea(props: RACTextAreaProps) {
       {...props}
       className={composeRenderProps(
         props.className,
-        (className, renderProps) => {
+        (className, { isDisabled, isInvalid, isFocused }) => {
           return twMerge(
-            'w-full rounded-md border bg-inherit p-2 text-base/6 text-foreground outline-none sm:text-sm/6',
-            renderProps.isInvalid && 'border-destructive',
-            renderProps.isDisabled && 'disabled:opacity-50',
-            renderProps.isFocused && focusRingStyle,
+            'w-full rounded-lg border bg-inherit px-2.5 py-1 outline-none',
+            'text-base/6 placeholder:text-muted sm:text-sm/6 ',
+            isDisabled && 'opacity-50',
+            isInvalid && 'border-destructive',
+            isFocused && focusRingStyle,
             className,
           );
         },
@@ -239,72 +199,87 @@ export function TextArea(props: RACTextAreaProps) {
   );
 }
 
-export const InputFieldGroup = React.forwardRef<HTMLDivElement, GroupProps>(
-  function InputFieldGroup(props, ref) {
-    return (
-      <RACGroup
-        {...props}
-        ref={ref}
-        className={composeRenderProps(
-          props.className,
-          (className, renderProps) => {
-            return twMerge(
-              'group relative flex w-full items-center overflow-hidden rounded-md border bg-inherit shadow-sm',
-              'group-invalid:border-destructive',
-              '[&:not(:hover)_svg]:opacity-75',
-              renderProps.isFocusWithin && focusRingStyle,
-              className,
-            );
-          },
-        )}
-      />
-    );
-  },
-);
-
-export interface SearchFieldProps extends RACSearchFieldProps {}
-
-export function SearchField(props: SearchFieldProps) {
+export function InputGroup(props: GroupProps) {
   return (
-    <RACSearchField
+    <RACGroup
       {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        'group flex flex-col',
-      )}
-    ></RACSearchField>
+      data-ui="control"
+      className={composeTailwindRenderProps(props.className, [
+        'isolate',
+        'grid',
+        'items-center',
+        'grid-cols-[minmax(40px,max-content)_1fr_minmax(calc(theme(size.5)+20px),max-content)]',
+        'sm:grid-cols-[minmax(calc(theme(size.4)+20px),max-content)_1fr_minmax(calc(theme(size.4)+20px),max-content)]',
+
+        // Icon, Addon & Control
+        '[&>:is([data-ui=icon],[data-ui=addon],[data-ui=control]):first-child]:col-start-1',
+        '[&>:is([data-ui=icon],[data-ui=addon],[data-ui=control]):first-child]:row-start-1',
+        '[&>:is([data-ui=icon],[data-ui=addon],[data-ui=control]):last-child]:-col-end-1',
+        '[&>:is([data-ui=icon],[data-ui=addon],[data-ui=control]):last-child]:row-start-1',
+
+        // Trailing Button
+        '[&:has(input+button)>button]:justify-self-center',
+        '[&:has(input+button)>button]:-col-end-1',
+        '[&:has(input+button)>button]:row-start-1',
+        '[&:has(input+button)>button]:-outline-offset-1',
+
+        // Icon & Addon
+        '[&>:is([data-ui=icon],[data-ui=addon],button)]:place-self-center',
+
+        // Icon
+        '[&>[data-ui=icon]]:size-5',
+        'sm:[&>[data-ui=icon]]:size-4',
+        '[&>[data-ui=icon]]:text-muted/65',
+
+        // Input
+        '[&>input]:col-span-full',
+        '[&>input]:row-start-1',
+
+        // icon before input
+        '[&:has([data-ui=icon]+input)>input]:ps-10',
+        'sm:[&:has([data-ui=icon]+input)>input]:ps-8',
+
+        // icon after input
+        '[&:has(input+[data-ui=icon])>input]:pe-10',
+        'sm:[&:has(input+[data-ui=icon])>input]:pe-8',
+
+        '[&:has(input+button)>input]:pe-10',
+        'sm:[&:has(input+button)>input]:pe-9',
+      ])}
+    />
   );
 }
 
-export function SearchInput({
-  className,
-  ...props
-}: InputProps & { className?: GroupProps['className'] }) {
+export function InputGroups(props: GroupProps) {
   return (
-    <InputFieldGroup
-      className={composeTailwindRenderProps(
-        className,
-        '[&_input::-webkit-search-cancel-button]:hidden',
-      )}
-    >
-      <svg
-        aria-hidden
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={2}
-        stroke="currentColor"
-        className="ml-2 size-5"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-        />
-      </svg>
+    <RACGroup
+      {...props}
+      data-ui="control"
+      className={composeRenderProps(
+        props.className,
+        (className, renderProps) => {
+          return twMerge(
+            'shadow-sm',
+            'grid',
+            'grid-flow-col',
+            'group',
+            'items-center',
+            'w-max',
+            'rounded-lg border',
+            'data-[invalid]:border-destructive',
 
-      <Input {...props} />
-      <CloseButton plain size="sm" className="mr-1 group-empty:invisible" />
-    </InputFieldGroup>
+            '[&>input]:border-0',
+            '[&>input]:ring-0',
+            '[&>input]:shadow-none',
+            '[&>input]:min-w-12',
+            'sm:[&>input]:min-w-11',
+            '[&>input:not(:first-of-type):not(:last-of-type)]:text-center',
+            '[&>:not(input)]:text-muted',
+            renderProps.isFocusWithin && focusRingStyle,
+            className,
+          );
+        },
+      )}
+    />
   );
 }

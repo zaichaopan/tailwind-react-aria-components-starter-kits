@@ -11,7 +11,7 @@ const meta: Meta = {
     docs: {
       description: {
         component:
-          '<a href="https://react-spectrum.adobe.com/react-aria/useToast.html#usetoast" target="_blank">**Toasts**</a> display brief, temporary notifications of actions, errors, or other events in an application.',
+          '<a href="https://react-spectrum.adobe.com/react-aria/useToast.html#usetoast" target="_blank">`Toasts`</a> display brief, temporary notifications of actions, errors, or other events in an application.',
       },
       ...docs,
       controls: {
@@ -24,11 +24,11 @@ const meta: Meta = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
     <div className="flex flex-col items-center gap-4 p-12">
       <Button
-        outline
+        variant="outline"
         onPress={() => {
           toast.add({
             title: 'Templates unavailable',
@@ -41,7 +41,7 @@ export const Example = () => {
       </Button>
 
       <Button
-        outline
+        variant="outline"
         onPress={() => {
           toast.add({
             description:
@@ -53,7 +53,7 @@ export const Example = () => {
       </Button>
 
       <Button
-        outline
+        variant="outline"
         onPress={() => {
           toast.add({
             type: 'error',
@@ -67,7 +67,7 @@ export const Example = () => {
       </Button>
 
       <Button
-        outline
+        variant="outline"
         onPress={() => {
           toast.add({
             type: 'warning',
@@ -81,7 +81,7 @@ export const Example = () => {
       </Button>
 
       <Button
-        outline
+        variant="outline"
         onPress={() => {
           toast.add({
             title: 'Payment details saved',

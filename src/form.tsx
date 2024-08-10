@@ -5,7 +5,7 @@ export function Form(props: FormProps) {
   return (
     <RACForm
       {...props}
-      className={twMerge('flex flex-col gap-4', props.className)}
+      className={twMerge("max-w-4xl space-y-6", props.className)}
     />
   );
 }

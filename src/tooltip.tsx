@@ -20,7 +20,7 @@ export function Tooltip({ children, ...props }: TooltipProps) {
       offset={10}
       className={composeTailwindRenderProps(
         props.className,
-        'shadow-xs group max-w-56 text-wrap rounded-md bg-zinc-950 p-2 text-center text-xs text-white dark:shadow-none',
+        'shadow-xs group max-w-56 text-wrap text-pretty rounded-lg bg-zinc-950 dark:bg-zinc-800 p-2 text-xs text-white dark:shadow-none',
       )}
     >
       <OverlayArrow>

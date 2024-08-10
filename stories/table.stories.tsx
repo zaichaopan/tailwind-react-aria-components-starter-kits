@@ -12,7 +12,7 @@ const meta: Meta<typeof Table> = {
     docs: {
       description: {
         component:
-          'A <a href="https://react-spectrum.adobe.com/react-aria/Table.html" target="_blank">**table**</a> displays data in rows and columns and enables a user to navigate its contents via directional navigation keys, and optionally supports row selection and sorting.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/Table.html" target="_blank">`table`</a> displays data in rows and columns and enables a user to navigate its contents via directional navigation keys, and optionally supports row selection and sorting.',
       },
 
       ...docs,
@@ -35,7 +35,7 @@ const rows = [
   { id: 9, name: 'Budget.xls', date: '1/6/2024', type: 'Excel file' },
 ];
 
-export const Example = () => {
+export const BasicExample = () => {
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
     column: 'name',
     direction: 'ascending',

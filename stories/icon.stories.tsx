@@ -1,18 +1,17 @@
 import type { Meta } from '@storybook/react';
 import { Available, Away, Busy, DoNotDisturb } from '../src/status';
-import { Icon } from '../src/icon';
+import { AccessibleIcon } from '../src/accessible-icon';
 import { docs } from '../.storybook/docs';
-import { Mail } from 'lucide-react';
+import { MailIcon } from 'lucide-react';
 
-const meta: Meta<typeof Icon> = {
+const meta: Meta<typeof AccessibleIcon> = {
   title: 'Icon',
-  component: Icon,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component:
-          'Use <a href="https://www.radix-ui.com/themes/docs/components/accessible-icon" target="_blank">**Icon**</a> component with **aria-label=*** to render accessible icon.',
+          'Use the <a href="https://www.radix-ui.com/themes/docs/components/accessible-icon" target="_blank">`AccessibleIcon`</a> component with `aria-label=*` to render accessible icons. It is recommend to wrap your icons with the `AccessibleIcon` component.',
       },
       ...docs,
       controls: {
@@ -25,38 +24,38 @@ const meta: Meta<typeof Icon> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
     <div className="flex gap-4">
-      <Icon aria-label="Available">
+      <AccessibleIcon aria-label="Available">
         <Available className="size-4" />
-      </Icon>
-      <Icon aria-label="Away">
+      </AccessibleIcon>
+      <AccessibleIcon aria-label="Away">
         <Away className="size-4" />
-      </Icon>
-      <Icon aria-label="Do not disturb">
+      </AccessibleIcon>
+      <AccessibleIcon aria-label="Do not disturb">
         <DoNotDisturb className="size-4" />
-      </Icon>
-      <Icon aria-label="Busy">
+      </AccessibleIcon>
+      <AccessibleIcon aria-label="Busy">
         <Busy className="size-4" />
-      </Icon>
+      </AccessibleIcon>
     </div>
   );
 };
 
-export const DecorationIcons = () => {
+export const DecorativeIcons = () => {
   return (
-    <Icon>
-      <Mail aria-label="test"/>
-    </Icon>
+    <AccessibleIcon>
+      <MailIcon strokeWidth={1.5}/>
+    </AccessibleIcon>
   );
 };
 
-DecorationIcons.parameters = {
+DecorativeIcons.parameters = {
   docs: {
     description: {
       story:
-        'When **aria-label=*** is not provided, **aria-hidden="true"** is added automatically to create a decoration only icon.',
+        'When `aria-label=*` is not provided, `aria-hidden="true"` is added automatically to create a decoration only icon.',
     },
   },
 };

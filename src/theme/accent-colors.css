@@ -7,11 +7,11 @@
 }
 
 .blue-theme {
-  --accent: 211 83% 53%;
+  --accent: 221 83% 53%;
 }
 
 .dark .blue-theme {
-  --accent: 211 83% 53%;
+  --accent: 221 83% 53%;
 }
 
 .indigo-theme {

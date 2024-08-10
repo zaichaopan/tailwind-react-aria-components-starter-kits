@@ -1,11 +1,11 @@
 import type { Meta } from '@storybook/react';
 import { Link } from '../src/link';
-import { ExternalLink, MessageCircle, Phone, Video } from 'lucide-react';
+import { MessageCircle, Phone, Video } from 'lucide-react';
 import { docs } from '../.storybook/docs';
 import { Button } from '../src/button';
 import { NotificationBadge } from '../src/notification-badge';
 import { Avatar } from '../src/avatar';
-import { Icon } from '../src/icon';
+import { AccessibleIcon } from '../src/accessible-icon';
 
 const meta: Meta<typeof Link> = {
   title: 'Link',
@@ -15,7 +15,7 @@ const meta: Meta<typeof Link> = {
     docs: {
       description: {
         component:
-          'A <a href="https://react-spectrum.adobe.com/react-aria/Link.html#link" target="_blank">**link**</a> allows a user to navigate to another page or resource within a web page or application.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/Link.html#link" target="_blank">`link`</a> allows a user to navigate to another page or resource within a web page or application.',
       },
       ...docs,
       controls: {
@@ -28,7 +28,7 @@ const meta: Meta<typeof Link> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return <Link>React Aria Component Link</Link>;
 };
 
@@ -39,35 +39,44 @@ export const WithIcons = () => {
       target="_blank"
     >
       React Aria Component Link
-      <Icon>
-        <ExternalLink className="size-5" strokeWidth={1.5} />
-      </Icon>
+      <AccessibleIcon>
+        <ExternalLink className="size-4" />
+      </AccessibleIcon>
     </Link>
   );
 };
 
-WithIcons.parameters = {
-  docs: {
-    description: {
-      story:
-        'Use the **Icon** component to render a decoration icon inside a link:',
-    },
-  },
-};
+function ExternalLink(props: JSX.IntrinsicElements['svg']) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      {...props}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+      />
+    </svg>
+  );
+}
 
 export function NavLinks() {
   return (
     <nav className="flex w-16 flex-col gap-4 rounded border border-border p-3">
       <Link
-        className="flex-col p-2 hover:no-underline"
+        className="group flex-col p-2 hover:no-underline"
         aria-label="Chat - 6 new messages"
       >
-        <Icon>
+        <AccessibleIcon>
           <MessageCircle
             size={20}
             className="transition group-hover:scale-110"
           />
-        </Icon>
+        </AccessibleIcon>
         <NotificationBadge count={6} />
         <span className="text-xs" aria-hidden="true">
           Chat
@@ -75,11 +84,11 @@ export function NavLinks() {
       </Link>
       <Link
         aria-label="Calls - new calls"
-        className="flex-col p-2 hover:no-underline"
+        className="group flex-col p-2 hover:no-underline"
       >
-        <Icon>
+        <AccessibleIcon>
           <Phone size={20} className="transition group-hover:scale-110" />
-        </Icon>
+        </AccessibleIcon>
 
         <NotificationBadge show />
         <span className="text-xs" aria-hidden="true">
@@ -88,11 +97,11 @@ export function NavLinks() {
       </Link>
       <Link
         aria-label="Meet - 9 new meet alerts"
-        className="flex-col p-2 hover:no-underline"
+        className="group flex-col p-2 hover:no-underline"
       >
-        <Icon>
+        <AccessibleIcon>
           <Video size={20} className="transition group-hover:scale-110" />
-        </Icon>
+        </AccessibleIcon>
 
         <NotificationBadge count={20} />
         <span className="text-xs" aria-hidden="true">
@@ -114,7 +123,7 @@ export const AvatarLinks = () => {
 AvatarLinks.parameters = {
   docs: {
     description: {
-      story: 'Use the **Avatar** component to render avatar inside a link:',
+      story: 'Use the `Avatar` component to render avatar inside a link:',
     },
   },
 };
@@ -127,17 +136,14 @@ export const DisabledLinks = () => {
       target="_blank"
     >
       React Aria Component Link
-      <Icon>
-        <ExternalLink className="size-5" strokeWidth={1.5} />
-      </Icon>
     </Link>
   );
 };
 
 export const AsChild = () => {
   return (
-    <Link>
-      <Button unstyle>Edit Profile</Button>
+    <Link asChild>
+      <Button variant='unstyle'>Edit Profile</Button>
     </Link>
   );
 };
@@ -146,7 +152,7 @@ AsChild.parameters = {
   docs: {
     description: {
       story:
-        'Use **asChild** prop to render other react components like <a href="https://reactrouter.com/en/main/components/link" target="_blank">**Router router Link**</a>:',
+        'Use the `asChild` prop to render other react components like <a href="https://reactrouter.com/en/main/components/link" target="_blank">`Router router Link`</a>.',
     },
   },
 };

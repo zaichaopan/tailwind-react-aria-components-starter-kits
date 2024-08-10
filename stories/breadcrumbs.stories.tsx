@@ -11,7 +11,7 @@ const meta: Meta<typeof Breadcrumbs> = {
     docs: {
       description: {
         component:
-          '<a href="https://react-spectrum.adobe.com/react-aria/Breadcrumbs.html#breadcrumbs" target="_blank">**Breadcrumbs**</a> display a hierarchy of links to the current page or resource in an application.',
+          '<a href="https://react-spectrum.adobe.com/react-aria/Breadcrumbs.html#breadcrumbs" target="_blank">`Breadcrumbs`</a> display a hierarchy of links to the current page or resource in an application.',
       },
       ...docs,
     },
@@ -21,7 +21,7 @@ const meta: Meta<typeof Breadcrumbs> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
     <Breadcrumbs>
       <Breadcrumb href="/">Home</Breadcrumb>

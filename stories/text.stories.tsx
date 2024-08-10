@@ -10,9 +10,7 @@ const meta: Meta<typeof Text> = {
     docs: {
       description: {
         component:
-          `The <a href="https://catalyst.tailwindui.com/docs/text" target="_blank">**Text**</a> component is the used to render text and paragraphs within an interface.
-          \n\nThe **Strong** component is used to render text you want to emphasize.
-          \n\nThe **TextLink** component is used to render links within a Text component.`,
+          'The <a href="https://catalyst.tailwindui.com/docs/text" target="_blank">`Text`</a> component is the used to render text and paragraphs within an interface. The `Strong` component is used to render text you want to emphasize. The `TextLink` component is used to render links within a Text component.',
       },
       ...docs,
       controls: {
@@ -25,7 +23,7 @@ const meta: Meta<typeof Text> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
     <Text>
       <Strong>React Aria </Strong> is a library of unstyled React components and
@@ -65,7 +63,7 @@ export const ElementTypes = () => {
 ElementTypes.parameters = {
   docs: {
     description: {
-      story: 'Use the **elementType** prop to render a different html element rather than the default **p** tag:',
+      story: 'Use the `elementType` prop to render a different html element rather than the default `p` tag.',
     },
   },
 };

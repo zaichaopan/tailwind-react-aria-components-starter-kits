@@ -5,18 +5,19 @@ import {
   ComboBox,
   ComboBoxListBox,
   ComboBoxPopover,
-  ClearButton,
-  ComboBoxControl,
+  ComboBoxClearButton,
+  ComboBoxSection,
+  ComboBoxGroup,
+  ComboBoxInput,
+  CommandButton,
+  ComboBoxListItem,
 } from '../src/combobox';
-import { Input } from '../src/field';
 import { docs } from '../.storybook/docs';
 import { Search } from 'lucide-react';
-import { Icon } from '../src/icon';
+import { AccessibleIcon } from '../src/accessible-icon';
 import { Modal } from '../src/modal';
 import { Dialog } from '../src/dialog';
 import { Text } from '../src/text';
-import { DropdownItem, DropdownSection } from '../src/list-box';
-import { Keyboard } from 'react-aria-components';
 
 const meta: Meta<typeof Button> = {
   title: 'CommandK',
@@ -25,7 +26,7 @@ const meta: Meta<typeof Button> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Combobox can be used as a **Command Menu**.',
+        component: 'Combobox can be used as a `Command Menu`.',
       },
       ...docs,
       controls: {
@@ -63,77 +64,80 @@ export function CommandK() {
         aria-label="Search"
         className="w-full p-4 sm:w-96"
       >
-        <ComboBoxControl>
-          <Icon>
-            <Search className="absolute left-2 top-1/2 w-4 -translate-y-1/2 text-muted" />
-          </Icon>
+        <ComboBoxGroup>
+          <AccessibleIcon>
+            <Search />
+          </AccessibleIcon>
 
-          <Input
+          <ComboBoxInput
             ref={ref}
             placeholder="Search for apps and commands&hellip;"
-            className="peer pl-7"
+            className="peer pe-12"
           />
-          <Button
-            unstyle
-            size="sm"
-            className="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-md border px-2 py-0.5 text-[0.6rem] text-muted sm:flex sm:peer-data-[focused=true]:hidden"
-          >
-            <Keyboard className="font-sans">⌘K</Keyboard>
-          </Button>
-
-          <Keyboard className="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-md border px-2 py-0.5 text-[0.6rem] text-muted sm:peer-data-[focused=true]:flex">
-            ESC
-          </Keyboard>
-        </ComboBoxControl>
+          <CommandButton />
+        </ComboBoxGroup>
 
         <ComboBoxPopover>
           <ComboBoxListBox
+            selectionMode="none"
             renderEmptyState={() => (
               <div className="text-center">
                 <Text>Not result found </Text>
               </div>
             )}
           >
-            <DropdownSection title="Suggestion">
-              <DropdownItem textValue="linear">
-                <Icon>
-                  <Linear />
-                </Icon>
-                Linear
-              </DropdownItem>
-              <DropdownItem textValue="slack">
-                <Icon>
-                  <Slack />
-                </Icon>
-                Slack
-              </DropdownItem>
-              <DropdownItem textValue="youtube">
-                <Icon>
-                  <Youtube />
-                </Icon>
-                Youtube
-              </DropdownItem>
-              <DropdownItem textValue="raycast">
-                <Icon>
-                  <Raycast />
-                </Icon>
-                Raycast
-              </DropdownItem>
-            </DropdownSection>
-            <DropdownSection title="Commands">
-              <DropdownItem textValue="clipboard history">
-                <Icon>
-                  <Clipboard />
-                </Icon>
-                Clipboard history
-              </DropdownItem>
-              <DropdownItem textValue="import extension">
-                <Icon>
-                  <Extension />
-                </Icon>
-                Import Extension
-              </DropdownItem>
-            </DropdownSection>
+            <ComboBoxSection title="Suggestion">
+              <ComboBoxListItem textValue="linear">
+                <div className="flex items-center gap-x-2">
+                  <AccessibleIcon>
+                    <Linear />
+                  </AccessibleIcon>
+                  Linear
+                </div>
+              </ComboBoxListItem>
+              <ComboBoxListItem textValue="slack">
+                <div className="flex items-center gap-x-2">
+                  <AccessibleIcon>
+                    <Slack />
+                  </AccessibleIcon>
+                  Slack
+                </div>
+              </ComboBoxListItem>
+              <ComboBoxListItem textValue="youtube">
+                <div className="flex items-center gap-x-2">
+                  <AccessibleIcon>
+                    <Youtube />
+                  </AccessibleIcon>
+                  Youtube
+                </div>
+              </ComboBoxListItem>
+              <ComboBoxListItem textValue="raycast">
+                <div className="flex items-center gap-x-2">
+                  <AccessibleIcon>
+                    <Raycast />
+                  </AccessibleIcon>
+                  Raycast
+                </div>
+              </ComboBoxListItem>
+            </ComboBoxSection>
+            <ComboBoxSection title="Commands">
+              <ComboBoxListItem textValue="clipboard history">
+                <div className="flex items-center gap-x-2">
+                  <AccessibleIcon>
+                    <Clipboard />
+                  </AccessibleIcon>
+                  Clipboard history
+                </div>
+              </ComboBoxListItem>
+              <ComboBoxListItem textValue="import extension">
+                <div className="flex items-center gap-x-2">
+                  <AccessibleIcon>
+                    <Extension />
+                  </AccessibleIcon>
+                  Import Extension
+                </div>
+              </ComboBoxListItem>
+            </ComboBoxSection>
           </ComboBoxListBox>
         </ComboBoxPopover>
       </ComboBox>
@@ -161,7 +165,7 @@ export function OpenInDialog() {
   return (
     <div className="h-min-screen flex w-full flex-col">
       <div className="flex flex-1 justify-center p-6">
-        <Button outline onPress={() => setIsModalOpen(true)}>
+        <Button variant="outline" onPress={() => setIsModalOpen(true)}>
           ⌘ K
         </Button>
       </div>
@@ -190,22 +194,22 @@ export function OpenInDialog() {
             autoFocus
             allowsEmptyCollection
           >
-            <ComboBoxControl>
-              <Icon>
-                <Search className="absolute left-2 top-1/2 w-4 -translate-y-1/2 text-muted" />
-              </Icon>
+            <ComboBoxGroup>
+              <AccessibleIcon>
+                <Search />
+              </AccessibleIcon>
 
-              <Input
+              <ComboBoxInput
+                className="rounded-b-none border-border bg-background ring-0"
                 placeholder="Search for apps and commands&hellip;"
-                className="rounded-b-none border-border bg-background pl-7 ring-0"
               />
 
-              <ClearButton
+              <ComboBoxClearButton
                 onPress={() => {
                   setIsModalOpen(false);
                 }}
               />
-            </ComboBoxControl>
+            </ComboBoxGroup>
 
             <ComboBoxPopover
               className="rounded-t-none border border-t-0 ring-0"
@@ -219,46 +223,58 @@ export function OpenInDialog() {
                   </div>
                 )}
               >
-                <DropdownSection title="Suggestion">
-                  <DropdownItem textValue="linear">
-                    <Icon>
-                      <Linear />
-                    </Icon>
-                    Linear
-                  </DropdownItem>
-                  <DropdownItem textValue="slack">
-                    <Icon>
-                      <Slack />
-                    </Icon>
-                    Slack
-                  </DropdownItem>
-                  <DropdownItem textValue="youtube">
-                    <Icon>
-                      <Youtube />
-                    </Icon>
-                    Youtube
-                  </DropdownItem>
-                  <DropdownItem textValue="raycast">
-                    <Icon>
-                      <Raycast />
-                    </Icon>
-                    Raycast
-                  </DropdownItem>
-                </DropdownSection>
-                <DropdownSection title="Commands">
-                  <DropdownItem textValue="clipboard history">
-                    <Icon>
-                      <Clipboard />
-                    </Icon>
-                    Clipboard history
-                  </DropdownItem>
-                  <DropdownItem textValue="import extension">
-                    <Icon>
-                      <Extension />
-                    </Icon>
-                    Import Extension
-                  </DropdownItem>
-                </DropdownSection>
+                <ComboBoxSection title="Suggestion">
+                  <ComboBoxListItem textValue="linear">
+                    <div className="flex items-center gap-x-2">
+                      <AccessibleIcon>
+                        <Linear />
+                      </AccessibleIcon>
+                      Linear
+                    </div>
+                  </ComboBoxListItem>
+                  <ComboBoxListItem textValue="slack">
+                    <div className="flex items-center gap-x-2">
+                      <AccessibleIcon>
+                        <Slack />
+                      </AccessibleIcon>
+                      Slack
+                    </div>
+                  </ComboBoxListItem>
+                  <ComboBoxListItem textValue="youtube">
+                    <div className="flex items-center gap-x-2">
+                      <AccessibleIcon>
+                        <Youtube />
+                      </AccessibleIcon>
+                      Youtube
+                    </div>
+                  </ComboBoxListItem>
+                  <ComboBoxListItem textValue="raycast">
+                    <div className="flex items-center gap-x-2">
+                      <AccessibleIcon>
+                        <Raycast />
+                      </AccessibleIcon>
+                      Raycast
+                    </div>
+                  </ComboBoxListItem>
+                </ComboBoxSection>
+                <ComboBoxSection title="Commands">
+                  <ComboBoxListItem textValue="clipboard history">
+                    <div className="flex items-center gap-x-2">
+                      <AccessibleIcon>
+                        <Clipboard />
+                      </AccessibleIcon>
+                      Clipboard history
+                    </div>
+                  </ComboBoxListItem>
+                  <ComboBoxListItem textValue="import extension">
+                    <div className="flex items-center gap-x-2">
+                      <AccessibleIcon>
+                        <Extension />
+                      </AccessibleIcon>
+                      Import Extension
+                    </div>
+                  </ComboBoxListItem>
+                </ComboBoxSection>
               </ComboBoxListBox>
             </ComboBoxPopover>
           </ComboBox>

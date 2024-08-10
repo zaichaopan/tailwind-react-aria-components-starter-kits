@@ -4,7 +4,7 @@ import { Label } from '../src/field';
 
 const meta: Meta<typeof Example> = {
   component: TagGroup,
-  title: 'TagGroup',
+  title: 'Tag group',
   parameters: {
     layout: 'centered',
   },
@@ -17,6 +17,7 @@ export const Example = (args: any) => {
   return (
     <TagGroup
       {...args}
+      defaultSelectedKeys={['strawberry']}
       selectionMode="single"
       onRemove={() => {
         //
@@ -24,10 +25,10 @@ export const Example = (args: any) => {
     >
       <Label>Ice cream flavor</Label>
       <TagList>
-        <Tag isDisabled>Chocolate</Tag>
-        <Tag id="Mint">Mint</Tag>
-        <Tag>Strawberry</Tag>
-        <Tag>Vanilla</Tag>
+        <Tag isDisabled id="chocolate">Chocolate</Tag>
+        <Tag id="mint">Mint</Tag>
+        <Tag id="strawberry">Strawberry</Tag>
+        <Tag id="vanilla">Vanilla</Tag>
       </TagList>
     </TagGroup>
   );

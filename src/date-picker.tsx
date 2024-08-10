@@ -4,16 +4,17 @@ import {
   DatePickerProps as RACDatePickerProps,
   DateValue,
   DatePickerStateContext,
-  GroupProps,
   useLocale,
+  Group,
 } from 'react-aria-components';
 import { Button } from './button';
 import { Calendar } from './calendar';
-import { DateInput } from './date-field';
+import { DateInput, DateInputProps } from './date-field';
 import { Dialog } from './dialog';
-import { InputFieldGroup } from './field';
 import { Popover } from './popover';
-import { composeTailwindRenderProps } from './utils';
+import { composeTailwindRenderProps, inputFieldStyle } from './utils';
+import { twMerge } from 'tailwind-merge';
+import { CalendarIcon } from './icons';
 
 export interface DatePickerProps<T extends DateValue>
   extends RACDatePickerProps<T> {}
@@ -22,53 +23,50 @@ export function DatePicker<T extends DateValue>(props: DatePickerProps<T>) {
   return (
     <RACDatePicker
       {...props}
-      className={composeTailwindRenderProps(props.className, [
-        'group flex flex-col gap-1',
-      ])}
+      className={composeTailwindRenderProps(props.className, inputFieldStyle)}
     />
   );
 }
 
-export function DatePickerInput({ className, ...props }: GroupProps) {
+export function DatePickerInput(props: DateInputProps) {
   return (
     <>
-      <InputFieldGroup
+      <Group
+        data-ui="control"
         {...props}
-        className={composeTailwindRenderProps(
-          className,
-          'h-9 w-auto min-w-[208px]',
-        )}
+        className={[
+          'grid w-auto min-w-52',
+          'grid-cols-[1fr_calc(theme(size.5)+20px)]',
+          'sm:grid-cols-[1fr_calc(theme(size.4)+20px)]',
+        ].join(' ')}
       >
-        <DateInput />
-
+        <DateInput
+          {...props}
+          className={composeTailwindRenderProps(props.className, [
+            'col-span-full',
+            'row-start-1',
+            'sm:pe-9',
+            'pe-10',
+          ])}
+        />
         <Button
-          plain
+          variant="plain"
           size="sm"
-          className="mx-1.5 size-auto rounded p-0.5 outline-offset-0"
+          isIconOnly
+          data-ui="trigger"
+          className={[
+            '-outline-offset-1',
+            'row-start-1',
+            '-col-end-1',
+            'place-self-center',
+          ].join(' ')}
         >
-         <svg
-            aria-hidden
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="size-4"
-          >
-            <path d="M8 2v4" />
-            <path d="M16 2v4" />
-            <rect width="18" height="18" x="3" y="4" rx="2" />
-            <path d="M3 10h18" />
-          </svg>
+          <CalendarIcon />
         </Button>
-      </InputFieldGroup>
+      </Group>
 
-      <Popover className="max-w-none" placement="bottom">
-        <Dialog className="overflow-auto px-3 py-2">
+      <Popover className="max-w-none rounded-xl" placement="bottom">
+        <Dialog className="overflow-auto p-3">
           <Calendar />
         </Dialog>
       </Popover>
@@ -76,45 +74,41 @@ export function DatePickerInput({ className, ...props }: GroupProps) {
   );
 }
 
-export function DatePickerButton(props: GroupProps) {
+export function DatePickerButton({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: React.ReactNode;
+}) {
   const { locale } = useLocale();
   const state = React.useContext(DatePickerStateContext);
   const formattedDate = state.formatValue(locale, {});
 
   return (
     <>
-      <InputFieldGroup {...props}>
-        <Button className="text flex-1 px-2 font-normal" plain>
+      <Group data-ui="control">
+        <Button
+          className={twMerge(
+            'text w-auto min-w-52 flex-1 justify-between px-2.5 font-normal',
+            className,
+          )}
+          variant="outline"
+        >
           {formattedDate === '' ? (
-            <span className="text-muted">Select date</span>
+            <span className="text-muted">{children}</span>
           ) : (
             <span className="text-sm">{formattedDate}</span>
           )}
-          <svg
-            aria-hidden
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="ml-auto size-4"
-          >
-            <path d="M8 2v4" />
-            <path d="M16 2v4" />
-            <rect width="18" height="18" x="3" y="4" rx="2" />
-            <path d="M3 10h18" />
-          </svg>
+
+          <CalendarIcon />
         </Button>
 
         <DateInput className="hidden" aria-hidden />
-      </InputFieldGroup>
+      </Group>
 
-      <Popover className="max-w-none" placement="bottom">
-        <Dialog className="overflow-auto px-3 py-2">
+      <Popover className="max-w-none rounded-xl" placement="bottom">
+        <Dialog className="overflow-auto p-3">
           <Calendar />
         </Dialog>
       </Popover>

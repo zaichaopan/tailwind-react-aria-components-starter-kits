@@ -11,7 +11,7 @@ import {
 } from 'react-aria-components';
 import { twMerge } from 'tailwind-merge';
 import { composeTailwindRenderProps, focusOutlineStyle } from './utils';
-
+import { XIcon } from './icons';
 
 const colors = {
   default: {
@@ -83,7 +83,7 @@ export function Tag({ children, color, ...props }: TagProps) {
         (className, renderProps) => {
           return twMerge(
             'flex max-w-fit cursor-default items-center gap-1 rounded-md border px-1 py-0.5 text-xs transition',
-            renderProps.allowsRemoving && 'pr-1',
+            renderProps.allowsRemoving && 'pe-1',
             colors[color || groupColor].base,
             renderProps.isSelected && colors[color || groupColor].selected,
             renderProps.isFocusVisible && [
@@ -111,22 +111,7 @@ export function Tag({ children, color, ...props }: TagProps) {
                   );
                 })}
               >
-                <svg
-                  aria-hidden
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="size-3"
-                >
-                  <path d="M18 6 6 18" />
-                  <path d="m6 6 12 12" />
-                </svg>
+                <XIcon className="size-3"></XIcon>
               </Button>
             )}
           </>

@@ -13,7 +13,7 @@ const meta: Meta<typeof Disclosure> = {
     docs: {
       description: {
         component:
-          'A <a href="https://govtnz.github.io/web-a11y-guidance/wct/disclosures-and-accordions/#what-are-disclosures-and-accordions" target="_blank">**disclosure**</a> is a single component or widget for showing and hiding one section of content.',
+          'A <a href="https://govtnz.github.io/web-a11y-guidance/wct/disclosures-and-accordions/#what-are-disclosures-and-accordions" target="_blank">`disclosure`</a> is a single component or widget for showing and hiding one section of content.',
       },
       ...docs,
       controls: {
@@ -26,7 +26,7 @@ const meta: Meta<typeof Disclosure> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
     <div className="p-6">
       <Disclosure>
@@ -59,7 +59,7 @@ export const DefaultOpen = () => {
 DefaultOpen.parameters = {
   docs: {
     description: {
-      story: 'Use **open** prop to expand the content by default.',
+      story: 'Use the `open` prop to expand the content by default.',
     },
   },
 };
@@ -88,7 +88,7 @@ export const WithToggleIcon = () => {
 WithToggleIcon.parameters = {
   docs: {
     description: {
-      story: 'Use **group-open:** modifier to style the toggle icon.',
+      story: 'Use `className="group-open:*"` modifier to style the toggle icon.',
     },
   },
 };
@@ -159,7 +159,7 @@ export const UsingAsAccordion = () => {
 UsingAsAccordion.parameters = {
   docs: {
     description: {
-      story: `An **accordion** can be thought of as a collection of 2 or more disclosures one after the other. Use the **name** prop to only expand one disclosure at one time.`,
+      story: 'An `accordion` can be thought of as a collection of 2 or more disclosures one after the other. Use the `name` prop to only expand one disclosure at one time.',
     },
   },
 };

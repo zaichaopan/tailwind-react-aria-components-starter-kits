@@ -2,22 +2,24 @@ import React from 'react';
 import type { Meta } from '@storybook/react';
 import { Settings } from 'lucide-react';
 import { Button } from '../src/button.tsx';
-import { Popover} from '../src/popover.tsx';
+import { Popover } from '../src/popover.tsx';
 import { docs } from '../.storybook/docs.ts';
 import { Avatar, AvatarBadge } from '../src/avatar.tsx';
 import { Separator } from '../src/separator.tsx';
 import { Switch } from '../src/switch.tsx';
-import { Text } from '../src/text.tsx';
+import { Strong, Text } from '../src/text.tsx';
 import {
   Menu,
   MenuItem,
   MenuPopover,
   MenuTrigger,
   MenuButton,
+  MenuItemLabel,
 } from '../src/menu.tsx';
-import { Available } from '../src/status.tsx';
+import { Available, Away, Busy, DoNotDisturb } from '../src/status.tsx';
 import { Dialog } from '../src/dialog.tsx';
 import { DialogTrigger } from 'react-aria-components';
+import { AccessibleIcon } from '../src/accessible-icon.tsx';
 
 const meta: Meta<typeof Popover> = {
   title: 'Popover',
@@ -27,7 +29,7 @@ const meta: Meta<typeof Popover> = {
     docs: {
       description: {
         component:
-          'A <a href="https://react-spectrum.adobe.com/react-aria/Popover.html#popover" target="_blank">**popover**</a> is an overlay element positioned relative to a trigger.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/Popover.html#popover" target="_blank">`popover`</a> is an overlay element positioned relative to a trigger.',
       },
       ...docs,
       controls: {
@@ -40,42 +42,65 @@ const meta: Meta<typeof Popover> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
     <DialogTrigger>
       <>
-        <Button aria-label="Settings" outline>
-          <Settings className="h-4 w-4" />
+        <Button aria-label="Settings" variant="outline">
+          <AccessibleIcon>
+            <Settings />
+          </AccessibleIcon>
           Settings
         </Button>
-        <Popover className="w-96">
+        <Popover className="min-w-56 rounded-xl">
           <Dialog>
             <div className="flex flex-col gap-2 p-3">
               <div className="flex gap-4">
                 <Avatar
-                  src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=3220&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt="John"
+                  src="https://images.unsplash.com/photo-1578680671705-0965e325b2ba?q=80&w=2306&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
+                  alt="Lisa Wilson"
                 >
                   <AvatarBadge aria-label="Available" badge={<Available />} />
                 </Avatar>
                 <div className="flex flex-col">
-                  <div className="font-medium">Lisa Wilson</div>
-                  <Text>Admin</Text>
+                  <Strong>Lisa Wilson</Strong>
+                  <Text className="sm:leading-4">Admin</Text>
                 </div>
               </div>
 
-              <Separator className="mt-2 bg-border/5" />
+              <Separator className="mt-2" />
 
               <MenuTrigger>
-                <MenuButton plain>
-                  Language <span className="ml-auto">English (US)</span>
+                <MenuButton variant='plain' className="justify-start gap-3 font-medium">
+                  <Available className="size-3" />
+                  Available
                 </MenuButton>
                 <MenuPopover placement="end top">
                   <Menu>
-                    <MenuItem>English (US)</MenuItem>
-                    <MenuItem>French (FR)</MenuItem>
-                    <MenuItem>Japanese</MenuItem>
-                    <MenuItem>Chinese</MenuItem>
+                    <MenuItem>
+                      <AccessibleIcon>
+                        <Available className="size-3" />
+                      </AccessibleIcon>
+                      <MenuItemLabel>Available</MenuItemLabel>
+                    </MenuItem>
+                    <MenuItem>
+                      <AccessibleIcon>
+                        <Busy className="size-3" />
+                      </AccessibleIcon>
+                      <MenuItemLabel>Busy</MenuItemLabel>
+                    </MenuItem>
+                    <MenuItem>
+                      <AccessibleIcon>
+                        <Away className="size-3" />
+                      </AccessibleIcon>
+                      <MenuItemLabel>Away</MenuItemLabel>
+                    </MenuItem>
+                    <MenuItem>
+                      <AccessibleIcon>
+                        <DoNotDisturb className="size-3" />
+                      </AccessibleIcon>
+                      <MenuItemLabel>Do not disturb</MenuItemLabel>
+                    </MenuItem>
                   </Menu>
                 </MenuPopover>
               </MenuTrigger>
@@ -100,15 +125,17 @@ export const ControlledOpen = () => {
     <>
       <Button
         aria-label="Settings"
-        outline
+        
         onPress={() => setIsOpen(true)}
         ref={ref}
       >
-        <Settings className="h-4 w-4" />
+        <AccessibleIcon>
+          <Settings />
+        </AccessibleIcon>
         Settings
       </Button>
       <Popover
-        className="w-96"
+        className="min-w-56 rounded-xl"
         isOpen={isOpen}
         onOpenChange={setIsOpen}
         triggerRef={ref}
@@ -117,29 +144,50 @@ export const ControlledOpen = () => {
           <div className="flex flex-col gap-2 p-3">
             <div className="flex gap-4">
               <Avatar
-                src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=3220&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="John"
+                src="https://images.unsplash.com/photo-1578680671705-0965e325b2ba?q=80&w=2306&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
+                alt="Lisa Wilson"
               >
                 <AvatarBadge aria-label="Available" badge={<Available />} />
               </Avatar>
               <div className="flex flex-col">
-                <div className="font-medium">Lisa Wilson</div>
-                <Text>Admin</Text>
+                <Strong>Lisa Wilson</Strong>
+                <Text className="sm:leading-4">Admin</Text>
               </div>
             </div>
 
-            <Separator className="mt-2 bg-border/5" />
+            <Separator />
 
             <MenuTrigger>
-              <MenuButton plain>
-                Language <span className="ml-auto">English (US)</span>
+              <MenuButton variant="plain" className="justify-start gap-3 font-medium">
+                <Available className="size-3" />
+                Available
               </MenuButton>
               <MenuPopover placement="end top">
                 <Menu>
-                  <MenuItem>English (US)</MenuItem>
-                  <MenuItem>French (FR)</MenuItem>
-                  <MenuItem>Japanese</MenuItem>
-                  <MenuItem>Chinese</MenuItem>
+                  <MenuItem>
+                    <AccessibleIcon>
+                      <Available className="size-3" />
+                    </AccessibleIcon>
+                    <MenuItemLabel>Available</MenuItemLabel>
+                  </MenuItem>
+                  <MenuItem>
+                    <AccessibleIcon>
+                      <Busy className="size-3" />
+                    </AccessibleIcon>
+                    <MenuItemLabel>Busy</MenuItemLabel>
+                  </MenuItem>
+                  <MenuItem>
+                    <AccessibleIcon>
+                      <Away className="size-3" />
+                    </AccessibleIcon>
+                    <MenuItemLabel>Away</MenuItemLabel>
+                  </MenuItem>
+                  <MenuItem>
+                    <AccessibleIcon>
+                      <DoNotDisturb className="size-3" />
+                    </AccessibleIcon>
+                    <MenuItemLabel>Do not disturb</MenuItemLabel>
+                  </MenuItem>
                 </Menu>
               </MenuPopover>
             </MenuTrigger>

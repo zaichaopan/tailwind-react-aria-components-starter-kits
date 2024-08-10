@@ -1,11 +1,8 @@
 import React from 'react';
 import type { Meta } from '@storybook/react';
-import {
-  DatePicker,
-  DatePickerButton,
-} from '../src/date-picker';
+import { DatePicker, DatePickerButton } from '../src/date-picker';
 import { docs } from '../.storybook/docs';
-import { FieldError, Group, Label } from '../src/field';
+import { FieldError, LabeledGroup, Label } from '../src/field';
 import {
   today,
   getLocalTimeZone,
@@ -16,14 +13,21 @@ import {
   toTime,
 } from '@internationalized/date';
 import { getRoundMinute, useTimePicker } from '../src/time-picker';
-import { Select, SelectField, SelectItem } from '../src/select';
+import {
+  Select,
+  SelectButton,
+  SelectListItem,
+  SelectListBox,
+  SelectPopover,
+} from '../src/select';
+import { Group } from 'react-aria-components';
 
 const t = now(getLocalTimeZone());
 
 toCalendarDateTime(t);
 
 const meta: Meta = {
-  title: 'TimePicker',
+  title: 'Time picker',
   parameters: {
     layout: 'centered',
     docs: {
@@ -38,7 +42,6 @@ const meta: Meta = {
 
 export default meta;
 
-
 export const TimePickerButtons = () => {
   const options = useTimePicker({
     intervalInMinute: 15,
@@ -49,17 +52,20 @@ export const TimePickerButtons = () => {
   })?.id;
 
   return (
-    <SelectField
+    <Select
       aria-label="meeting start time"
       className="min-w-[110px]"
       defaultSelectedKey={startTime}
     >
-      <Select items={options}>
-        {(item) => {
-          return <SelectItem>{item.value}</SelectItem>;
-        }}
-      </Select>
-    </SelectField>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox items={options}>
+          {(item) => {
+            return <SelectListItem>{item.value}</SelectListItem>;
+          }}
+        </SelectListBox>
+      </SelectPopover>
+    </Select>
   );
 };
 
@@ -139,45 +145,19 @@ export const DateAndTimerPicker = () => {
     .map((option) => option.id);
 
   return (
-    <Group className="flex flex-col">
+    <LabeledGroup>
       <Label>Date and time</Label>
-      <div className="flex gap-4">
-        <div className="flex gap-1">
-          <DatePicker
-            aria-label="meeting start date"
-            value={startDate}
-            minValue={today(getLocalTimeZone())}
-            onChange={(value) => {
-              const newCalendarTime = toCalendarDateTime(
-                value,
-                toTime(startDateTime),
-              );
-
-              setStartDateTime(newCalendarTime);
-
-              if (newCalendarTime.compare(endDateTime) >= 0) {
-                setEndDateTime(
-                  newCalendarTime.add({
-                    minutes: 30,
-                  }),
-                );
-              }
-            }}
-          >
-            <DatePickerButton />
-            <FieldError />
-          </DatePicker>
-          <SelectField
-            aria-label="meeting start time"
-            className="min-w-[110px]"
-            selectedKey={startTime}
-            disabledKeys={disabledStartTimeOptions}
-            onSelectionChange={(value) => {
-              const option = options.find((option) => option.id === value);
-              if (option) {
+      <Group className="flex flex-col">
+        <div className="flex gap-4">
+          <div className="flex gap-1">
+            <DatePicker
+              aria-label="meeting start date"
+              value={startDate}
+              minValue={today(getLocalTimeZone())}
+              onChange={(value) => {
                 const newCalendarTime = toCalendarDateTime(
-                  startDate,
-                  new Time(option.hour, option.minute, 0, 0),
+                  value,
+                  toTime(startDateTime),
                 );
 
                 setStartDateTime(newCalendarTime);
@@ -189,55 +169,89 @@ export const DateAndTimerPicker = () => {
                     }),
                   );
                 }
-              }
-            }}
-          >
-            <Select items={options}>
-              {(item) => {
-                return <SelectItem>{item.value}</SelectItem>;
               }}
-            </Select>
-          </SelectField>
-        </div>
-
-        <div className="flex gap-1">
-          <DatePicker
-            aria-label="Meeting end date"
-            value={endDate}
-            minValue={startDate}
-            onChange={(value) => {
-              setEndDateTime(toCalendarDateTime(value, toTime(endDateTime)));
-            }}
-          >
-            <DatePickerButton />
-            <FieldError />
-          </DatePicker>
-          <SelectField
-            aria-label="Meeting end time"
-            className="min-w-[110px]"
-            selectedKey={endTime}
-            disabledKeys={disabledEndTimeOptions}
-            onSelectionChange={(value) => {
-              const option = options.find((option) => option.id === value);
-
-              if (option) {
-                setEndDateTime(
-                  toCalendarDateTime(
-                    endDate,
+            >
+              <DatePickerButton />
+              <FieldError />
+            </DatePicker>
+            <Select
+              aria-label="meeting start time"
+              className="min-w-[110px]"
+              selectedKey={startTime}
+              disabledKeys={disabledStartTimeOptions}
+              onSelectionChange={(value) => {
+                const option = options.find((option) => option.id === value);
+                if (option) {
+                  const newCalendarTime = toCalendarDateTime(
+                    startDate,
                     new Time(option.hour, option.minute, 0, 0),
-                  ),
-                );
-              }
-            }}
-          >
-            <Select items={options}>
-              {(item) => {
-                return <SelectItem>{item.value}</SelectItem>;
+                  );
+
+                  setStartDateTime(newCalendarTime);
+
+                  if (newCalendarTime.compare(endDateTime) >= 0) {
+                    setEndDateTime(
+                      newCalendarTime.add({
+                        minutes: 30,
+                      }),
+                    );
+                  }
+                }
               }}
+            >
+              <SelectButton />
+              <SelectPopover>
+                <SelectListBox items={options}>
+                  {(item) => {
+                    return <SelectListItem>{item.value}</SelectListItem>;
+                  }}
+                </SelectListBox>
+              </SelectPopover>
             </Select>
-          </SelectField>
+          </div>
+
+          <div className="flex gap-1">
+            <DatePicker
+              aria-label="Meeting end date"
+              value={endDate}
+              minValue={startDate}
+              onChange={(value) => {
+                setEndDateTime(toCalendarDateTime(value, toTime(endDateTime)));
+              }}
+            >
+              <DatePickerButton />
+              <FieldError />
+            </DatePicker>
+            <Select
+              aria-label="Meeting end time"
+              className="min-w-[110px]"
+              selectedKey={endTime}
+              disabledKeys={disabledEndTimeOptions}
+              onSelectionChange={(value) => {
+                const option = options.find((option) => option.id === value);
+
+                if (option) {
+                  setEndDateTime(
+                    toCalendarDateTime(
+                      endDate,
+                      new Time(option.hour, option.minute, 0, 0),
+                    ),
+                  );
+                }
+              }}
+            >
+              <SelectButton />
+              <SelectPopover>
+                <SelectListBox items={options}>
+                  {(item) => {
+                    return <SelectListItem>{item.value}</SelectListItem>;
+                  }}
+                </SelectListBox>
+              </SelectPopover>
+            </Select>
+          </div>
         </div>
-      </div>
-    </Group>
+      </Group>
+    </LabeledGroup>
   );
 };

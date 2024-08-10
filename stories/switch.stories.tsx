@@ -1,8 +1,13 @@
 import type { Meta } from '@storybook/react';
-import { Switch, SwitchField } from '../src/switch';
+import {
+  Switch,
+  SwitchField,
+  SwitchGroup,
+  Switches,
+} from '../src/switch';
 import { Text, TextLink } from '../src/text';
 import { docs } from '../.storybook/docs';
-import { Group, Description, Label } from '../src/field';
+import { Description, Label } from '../src/field';
 
 const meta: Meta<typeof Switch> = {
   title: 'Switch',
@@ -12,7 +17,7 @@ const meta: Meta<typeof Switch> = {
     docs: {
       description: {
         component:
-          'A <a href="https://react-spectrum.adobe.com/react-aria/Switch.html#switch">**switch**</a> allows a user to turn a setting on or off.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/Switch.html#switch">`switch`</a> allows a user to turn a setting on or off.',
       },
       ...docs,
       controls: {
@@ -25,11 +30,22 @@ const meta: Meta<typeof Switch> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return <Switch>Email notification</Switch>;
 };
 
 export const WithDescription = () => {
+  return (
+    <SwitchField>
+      <Switch>Email notifications</Switch>
+      <Description>
+        Get email to find out what's going on when you'are not online.
+      </Description>
+    </SwitchField>
+  );
+};
+
+export const WithDisabled = () => {
   return (
     <SwitchField>
       <Switch isDisabled>Email notifications</Switch>
@@ -40,10 +56,10 @@ export const WithDescription = () => {
   );
 };
 
-export const LabelPosition = () => {
+export const WithReadonly = () => {
   return (
     <SwitchField>
-      <Switch labelPosition="right">Email notifications</Switch>
+      <Switch isReadOnly>Email notifications</Switch>
       <Description>
         Get email to find out what's going on when you'are not online.
       </Description>
@@ -51,15 +67,35 @@ export const LabelPosition = () => {
   );
 };
 
-export const GroupExample = () => {
+export const LabelPosition = () => {
   return (
-    <Group className="max-w-2xl">
+    <SwitchField>
+      <Switch labelPosition="left">Email notifications</Switch>
+    </SwitchField>
+  );
+};
+
+export const SwitchGroups = () => {
+  return (
+    <SwitchGroup className="max-w-2xl">
       <Label>Audience and tagging</Label>
-      <Text>Manage what information you allow other people on X to see.</Text>
-      <div className="gap-6 pt-4">
+      <Switches>
+        <Switch>Protect your posts</Switch>
+        <Switch>Protect your videos</Switch>
+        <Switch>Photo tagging</Switch>
+      </Switches>
+    </SwitchGroup>
+  );
+};
+
+export const WithSwitchDescription = () => {
+  return (
+    <SwitchGroup className="max-w-2xl">
+      <Label>Audience and tagging</Label>
+      <Switches>
         <SwitchField>
-          <Switch>Protect your posts</Switch>
-          <Description className="flex pb-4" elementType="div">
+          <Switch labelPosition="left">Protect your posts</Switch>
+          <Description elementType="div">
             <Text>
               When selected, your posts and other account information are only
               visible to people who follow you.{' '}
@@ -69,8 +105,8 @@ export const GroupExample = () => {
         </SwitchField>
 
         <SwitchField>
-          <Switch>Protect your videos</Switch>
-          <Description className="pb-4">
+          <Switch labelPosition="left">Protect your videos</Switch>
+          <Description>
             If selected, videos in your posts will not be downloadable by
             default. This setting applies to posts going forward and is not
             retroactive.
@@ -78,9 +114,45 @@ export const GroupExample = () => {
         </SwitchField>
 
         <SwitchField>
-          <Switch>Photo tagging</Switch>
+          <Switch labelPosition="left">Photo tagging</Switch>
         </SwitchField>
-      </div>
-    </Group>
+      </Switches>
+    </SwitchGroup>
+  );
+};
+
+export const WithGroupDescription = () => {
+  return (
+    <SwitchGroup className="max-w-2xl">
+      <Label>Audience and tagging</Label>
+      <Description>
+        Manage what information you allow other people on X to see
+      </Description>
+      <Switches>
+        <SwitchField>
+          <Switch labelPosition="left">Protect your posts</Switch>
+          <Description elementType="div">
+            <Text>
+              When selected, your posts and other account information are only
+              visible to people who follow you.{' '}
+              <TextLink className="inline">Learn more</TextLink>
+            </Text>
+          </Description>
+        </SwitchField>
+
+        <SwitchField>
+          <Switch labelPosition="left">Protect your videos</Switch>
+          <Description>
+            If selected, videos in your posts will not be downloadable by
+            default. This setting applies to posts going forward and is not
+            retroactive.
+          </Description>
+        </SwitchField>
+
+        <SwitchField>
+          <Switch labelPosition="left">Photo tagging</Switch>
+        </SwitchField>
+      </Switches>
+    </SwitchGroup>
   );
 };

@@ -12,8 +12,9 @@ import {
 } from 'react-aria-components';
 import { composeTailwindRenderProps, focusOutlineStyle } from './utils';
 import { twMerge } from 'tailwind-merge';
+import { CheckIcon } from './icons';
 
-interface ListBoxProps<T>
+export interface ListBoxProps<T>
   extends Omit<RACListBoxProps<T>, 'layout' | 'orientation'> {}
 
 export function ListBox<T extends object>({
@@ -44,7 +45,7 @@ export function ListBox<T extends object>({
   return (
     <RACListBox
       {...props}
-      className={composeTailwindRenderProps(props.className, 'outline-none')}
+      className={composeTailwindRenderProps(props.className, ['outline-none'])}
       ref={ref}
     >
       {children}
@@ -94,44 +95,31 @@ export function DropdownItem({
         props.className,
         (className, { isDisabled, isFocused }) => {
           return twMerge([
-            'group flex cursor-default select-none items-center gap-1 outline-none outline-0',
-            'rounded-md text-base/6 sm:text-sm/6',
-            'p-1.5 has-submenu:pr-0',
+            'group flex cursor-default select-none items-center gap-x-1 rounded-md outline-none',
+            'px-1.5 py-2.5 has-submenu:pe-0 sm:py-1.5',
+            'text-base/6 sm:text-sm/6',
             isDisabled && 'opacity-50',
             isFocused && 'bg-hover',
-            destructive && 'text-destructive ',
-            isFocused && destructive && 'bg-destructive/10',
+            destructive && 'text-destructive',
             className,
           ]);
         },
       )}
     >
-      {composeRenderProps(props.children, (children, { isSelected }) => (
-        <>
-          <span className="mr-0.5 flex w-4 items-center">
-            {isSelected && (
-              <svg
-                aria-hidden
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="size-4"
-              >
-                <path d="M20 6 9 17l-5-5" />
-              </svg>
-            )}
-          </span>
-          <span className="flex flex-1 items-center gap-2 text-nowrap">
-            {children}
-          </span>
-        </>
-      ))}
+      {composeRenderProps(props.children, (children, { isSelected }) => {
+        return (
+          <>
+            <CheckIcon
+              className={twMerge(
+                'mt-1 size-4 shrink-0 self-start [[data-ui=select-value]_&]:hidden',
+                isSelected ? 'visible' : 'invisible',
+              )}
+            />
+
+            <div data-ui="item">{children}</div>
+          </>
+        );
+      })}
     </RACListBoxItem>
   );
 }
@@ -140,24 +128,23 @@ export interface DropdownSectionProps<T> extends SectionProps<T> {
   title?: string;
 }
 
-export function DropdownSection<T extends object>(
-  props: DropdownSectionProps<T>,
-) {
+export function DropdownSection<T extends object>({
+  className,
+  ...props
+}: DropdownSectionProps<T>) {
   return (
     <Section
       className={twMerge(
         '[&:first-child]:-mt-[1px]',
         '[&:not(:first-child)]:my-1.5',
         '[&:not(:first-child)]:border-t [&:not(:first-child)]:border-t-border/40',
-        '[&_header]:has-[[role=option]]:pl-7',
-        '[&_header]:has-[[role=menuitem]]:pl-3',
+        className,
       )}
     >
       <Header
         className={twMerge(
-          'sticky z-10 truncate bg-background px-2 pt-2 text-xs/6 text-muted',
-          '-top-[1px] -mx-[1px]',
-          props.className,
+          'sticky z-10 truncate bg-background px-7 pt-2 text-xs/4 text-muted',
+          'top-[0px] -mx-[1px] rounded-md backdrop-blur-md',
         )}
       >
         {props.title}

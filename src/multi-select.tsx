@@ -6,22 +6,23 @@ import {
   ListBoxItemProps,
   composeRenderProps,
   GroupProps,
+  LabelContext,
+  Group,
 } from 'react-aria-components';
 import { useListData, ListData } from 'react-stately';
 import { useFilter } from 'react-aria';
 import {
   DescriptionProvider,
-  Group,
+  LabeledGroup,
   Input,
-  WithDescriptionContext,
-  WithLabelContext,
+  DescriptionContext,
 } from './field';
 import { Popover } from './popover';
 import { ListBox, ListBoxItem } from './list-box';
 import { Button } from './button';
 import { twMerge } from 'tailwind-merge';
 import { TagGroup, TagList } from './tag-group';
-import { VisuallyHidden } from './visually-hidden';
+import { composeTailwindRenderProps, inputFieldStyle } from './utils';
 
 export interface MultiSelectProps<T extends object>
   extends Omit<
@@ -49,12 +50,15 @@ export interface MultiSelectProps<T extends object>
 
 export function MultiSelectField({
   children,
+  className,
   ...props
 }: GroupProps & { children: React.ReactNode }) {
   return (
-    <Group role="presentation" {...props}>
-      <DescriptionProvider>{children}</DescriptionProvider>
-    </Group>
+    <LabeledGroup {...props}>
+      <Group className={composeTailwindRenderProps(className, inputFieldStyle)}>
+        <DescriptionProvider>{children}</DescriptionProvider>
+      </Group>
+    </LabeledGroup>
   );
 }
 
@@ -197,145 +201,132 @@ export function MultiSelect<
 
   const triggerButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
+  const labelContext = (React.useContext(LabelContext) ?? {}) as {
+    id?: string;
+  };
+  const descriptionContext = React.useContext(DescriptionContext);
+
   return (
     <>
-      <WithLabelContext>
-        {(labelContext) => {
-          return (
-            <WithDescriptionContext>
-              {(descriptionContext) => {
-                return (
-                  <div
-                    ref={triggerRef}
-                    className={twMerge(
-                      'relative',
-                      'pr-2',
-                      'flex min-h-9 w-[350px] flex-row flex-wrap items-center rounded-md shadow-sm',
-                      'border has-[input[data-focused=true]]:border-blue-500',
-                      'has-[input[data-invalid=true][data-focused=true]]:border-blue-500 has-[input[data-invalid=true]]:border-destructive',
-                      'has-[input[data-focused=true]]:ring-1 has-[input[data-focused=true]]:ring-blue-500',
-                      className,
-                    )}
-                  >
-                    <TagGroup
-                      id={tagGroupId}
-                      aria-labelledby={labelContext?.['aria-labelledBy']}
-                      className="contents"
-                      onRemove={onRemove}
-                    >
-                      <TagList
-                        items={selectedList.items}
-                        className={twMerge(
-                          selectedList.items.length !== 0 && 'p-1',
-                          'outline-none',
-                        )}
-                      >
-                        {props.tag}
-                      </TagList>
-                    </TagGroup>
-                    <ComboBox
-                      {...props}
-                      allowsEmptyCollection
-                      className={twMerge('group flex flex-1', className)}
-                      items={availableList.items}
-                      selectedKey={fieldState.selectedKey}
-                      inputValue={fieldState.inputValue}
-                      onSelectionChange={onSelectionChange}
-                      onInputChange={onInputChange}
-                      aria-labelledby={labelContext?.['aria-labelledBy']}
-                    >
-                      <div className="inline-flex flex-1 flex-wrap items-center gap-1 px-1.5 py-[5px]">
-                        <Input
-                          className="flex-1 border-0 px-0.5 py-0 shadow-none ring-0"
-                          onBlur={() => {
-                            setFieldState({
-                              inputValue: '',
-                              selectedKey: null,
-                            });
-                            availableList.setFilterText('');
-                          }}
-                          aria-describedby={[
-                            tagGroupId,
-                            descriptionContext?.['aria-describedby'] ?? '',
-                          ].join(' ')}
-                          onKeyDownCapture={onKeyDownCapture}
-                        />
-
-                        <VisuallyHidden>
-                          <Button
-                            plain
-                            className="mr-1 size-6 rounded p-0.5"
-                            ref={triggerButtonRef}
-                          >
-                            <svg
-                              aria-hidden
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="size-4"
-                            >
-                              <path d="m6 9 6 6 6-6" />
-                            </svg>
-                          </Button>
-                        </VisuallyHidden>
-                      </div>
-                      <Popover
-                        style={{ width: `${width}px` }}
-                        triggerRef={triggerRef}
-                        className="max-w-none duration-0"
-                      >
-                        <ListBox<T>
-                          renderEmptyState={() =>
-                            renderEmptyState(fieldState.inputValue)
-                          }
-                          selectionMode="multiple"
-                          className="flex max-h-[inherit] flex-col gap-1.5 overflow-auto p-1.5 outline-none has-[header]:pt-0 sm:gap-0"
-                        >
-                          {children}
-                        </ListBox>
-                      </Popover>
-                    </ComboBox>
-                    <Button plain asChild>
-                      <div
-                        className="top-50 absolute right-0 mr-1 size-6 rounded p-0.5"
-                        aria-hidden
-                      >
-                        {/* React Aria Button does not allow tabIndex */}
-                        <button
-                          type="button"
-                          onClick={() => triggerButtonRef.current?.click()}
-                          tabIndex={-1}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="size-4 opacity-75"
-                          >
-                            <path d="m6 9 6 6 6-6" />
-                          </svg>
-                        </button>
-                      </div>
-                    </Button>
-                  </div>
-                );
+      <div
+        data-ui="control"
+        ref={triggerRef}
+        className={twMerge(
+          'relative',
+          'pe-2',
+          'flex min-h-9 w-[350px] flex-row flex-wrap items-center rounded-lg shadow-sm',
+          'border has-[input[data-focused=true]]:border-blue-500',
+          'has-[input[data-invalid=true][data-focused=true]]:border-blue-500 has-[input[data-invalid=true]]:border-destructive',
+          'has-[input[data-focused=true]]:ring-1 has-[input[data-focused=true]]:ring-blue-500',
+          className,
+        )}
+      >
+        <TagGroup
+          id={tagGroupId}
+          aria-labelledby={labelContext.id}
+          className="contents"
+          onRemove={onRemove}
+        >
+          <TagList
+            items={selectedList.items}
+            className={twMerge(
+              selectedList.items.length !== 0 && 'p-1',
+              'outline-none',
+            )}
+          >
+            {props.tag}
+          </TagList>
+        </TagGroup>
+        <ComboBox
+          {...props}
+          allowsEmptyCollection
+          className={twMerge('group flex flex-1', className)}
+          items={availableList.items}
+          selectedKey={fieldState.selectedKey}
+          inputValue={fieldState.inputValue}
+          onSelectionChange={onSelectionChange}
+          onInputChange={onInputChange}
+          aria-labelledby={labelContext.id}
+        >
+          <div className="inline-flex flex-1 flex-wrap items-center gap-1 px-1.5">
+            <Input
+              className="flex-1 border-0 px-0.5 py-0 shadow-none ring-0"
+              onBlur={() => {
+                setFieldState({
+                  inputValue: '',
+                  selectedKey: null,
+                });
+                availableList.setFilterText('');
               }}
-            </WithDescriptionContext>
-          );
-        }}
-      </WithLabelContext>
+              aria-describedby={[
+                tagGroupId,
+                descriptionContext?.['aria-describedby'] ?? '',
+              ].join(' ')}
+              onKeyDownCapture={onKeyDownCapture}
+            />
+
+            <div className="sr-only" aria-hidden>
+              <Button variant='plain' ref={triggerButtonRef}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="size-4"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </Button>
+            </div>
+          </div>
+          <Popover
+            style={{ width: `${width}px` }}
+            triggerRef={triggerRef}
+            className="max-w-none duration-0"
+          >
+            <ListBox<T>
+              renderEmptyState={() => renderEmptyState(fieldState.inputValue)}
+              selectionMode="multiple"
+              className="flex max-h-[inherit] flex-col gap-1.5 overflow-auto p-1.5 outline-none has-[header]:pt-0 sm:gap-0"
+            >
+              {children}
+            </ListBox>
+          </Popover>
+        </ComboBox>
+        <Button variant='plain' asChild>
+          <div
+            className="top-50 absolute end-0 me-1 size-6 rounded p-0.5"
+            aria-hidden
+          >
+            {/* React Aria Button does not allow tabIndex */}
+            <button
+              type="button"
+              onClick={() => triggerButtonRef.current?.click()}
+              tabIndex={-1}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="size-4 opacity-75"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+          </div>
+        </Button>
+      </div>
 
       {name && (
         <input hidden name={name} value={selectedKeys.join(',')} readOnly />
@@ -352,7 +343,7 @@ export function MultiSelectItem(props: ListBoxItemProps) {
         props.className,
         (className, { isFocused }) => {
           return twMerge([
-            'rounded-md p-1.5 text-base/6 outline-0 sm:text-sm/6',
+            'rounded-lg p-1.5 text-base/6 outline-0 sm:text-sm/6',
             isFocused && 'bg-hover',
             className,
           ]);

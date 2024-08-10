@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 import { Button } from '../src/button';
 import { CopyButton, Clipboard } from '../src/clipboard';
 import { docs } from '../.storybook/docs';
-import { Text } from '../src/text';
+import { Input, InputGroup, TextField } from '../src/field';
 
 const meta: Meta = {
   title: 'Clipboard',
@@ -10,7 +10,8 @@ const meta: Meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A **Clipboard** copies given text to clipboard.',
+        component:
+          'A clipboard copies given text to clipboard. Use the `CopyButton` component to copy text to clipboard.',
       },
       ...docs,
       controls: {
@@ -23,28 +24,27 @@ const meta: Meta = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
-    <div className="flex items-center gap-1">
-      <Text>http://example.com</Text>
-
-      <CopyButton
-        plain
-        copyText="http://example.com"
-        label="Copy link"
-        labelCopied="Link is copied"
-      ></CopyButton>
-    </div>
+    <CopyButton
+      copyText="http://example.com"
+      label="Copy link"
+      labelCopied="Link is copied"
+    ></CopyButton>
   );
 };
 
-Example.parameters = {
-  docs: {
-    description: {
-      story: 'Use the **CopyButton** component to copy text to clipboard.'
-    }
-  }
-}
+export const WithReadonlyInput = () => {
+  const value = `npm i tailwindcss-react-aria-components`;
+  return (
+    <TextField aria-label="Install command" isReadOnly>
+      <InputGroup>
+        <Input value={value} className="truncate" />
+        <CopyButton size="sm" copyText={value}></CopyButton>
+      </InputGroup>
+    </TextField>
+  );
+};
 
 export const CopyToClipboard = () => {
   return (
@@ -67,7 +67,7 @@ CopyToClipboard.parameters = {
   docs: {
     description: {
       story:
-        'Use the **Clipboard** component to build your own copy to clipboard UI.',
+        'Use the `Clipboard` component to build your own copy to clipboard UI.',
     },
   },
 };

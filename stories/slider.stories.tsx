@@ -12,7 +12,7 @@ const meta: Meta<typeof Slider> = {
     docs: {
       description: {
         component:
-          ' A <a href="https://react-spectrum.adobe.com/react-aria/Slider.html#slider" target="_blank">**slider**</a> allows a user to select one or more values within a range.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/Slider.html#slider" target="_blank">`slider`</a> allows a user to select one or more values within a range.',
       },
       ...docs,
       controls: {
@@ -25,7 +25,7 @@ const meta: Meta<typeof Slider> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
     <Slider minValue={50} maxValue={200} defaultValue={[100, 150]}>
       <Label className="text-xl">Price range</Label>
@@ -92,7 +92,7 @@ export const OneThumb = () => {
       className="flex w-[350px] flex-col"
     >
       <div className="flex flex-1 items-end">
-        <Label className="text-nowrap pr-4 font-normal pb-1">Output Volume:</Label>
+        <Label className="text-nowrap pe-4 font-normal pb-1">Output Volume:</Label>
         <div className="flex flex-1 flex-col">
           <SliderOutput className="self-center">
             {({ state }) => {

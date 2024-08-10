@@ -1,4 +1,4 @@
-# Tailwind React Aria Components Starter kits
+# React Aria Components Tailwind Starter
 
 ![hero](./screenshots/overview.png)
 
@@ -7,6 +7,7 @@ This project is heavily inspired by below amazing projects. All credits go to th
 - <a href="https://react-spectrum.adobe.com/react-aria-tailwind-starter/?path=/docs/alertdialog--docs" target="_blank">React Aria Tailwind Starter</a>
 - <a href="https://tailwindui.com/templates/catalyst" target="_blank">Tailwind Catalyst</a>
 - <a href="https://ui.shadcn.com/docs" target="_blank">Shadcn UI</a>
+- <a href="https://nextui.org" target="_blank">NextUI</a>
 
 If you are looking for something like [Tailwind Catalyst](https://tailwindui.com/templates/catalyst) but using [React Aria Components](https://react-spectrum.adobe.com/react-aria/components.html), give it a try!
 
@@ -35,5 +36,4 @@ npm i react-aria
 
 4. Copy components from **`src`** to your project
 
-Visit the storybook page - <a href="https://zaichaopan.github.io/tailwind-react-aria-components-starter-kits" target="_blank">Tailwind React Aria Components Starter Kits</a> to explore all available components.
-
+Visit the storybook page - <a href="https://zaichaopan.github.io/react-aria-components-tailwind-starter" target="_blank" >React Aria Components Tailwind Starter</a> to explore all available components.

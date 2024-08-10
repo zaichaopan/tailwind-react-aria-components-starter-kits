@@ -8,7 +8,7 @@ import { Form } from '../src/form';
 import { Button } from '../src/button';
 
 const meta: Meta = {
-  title: 'TagsInput',
+  title: 'Tag input',
   parameters: {
     layout: 'centered',
     docs: {
@@ -57,7 +57,7 @@ export const Example = () => {
         <TagsInput />
         <FieldError>Please fill out this field.</FieldError>
       </TagsInputField>
-      <Button className="self-start" type="submit">
+      <Button type="submit">
         Save
       </Button>
     </Form>

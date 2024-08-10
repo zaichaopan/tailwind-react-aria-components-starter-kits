@@ -1,23 +1,32 @@
 import React from 'react';
 import type { Meta } from '@storybook/react';
-import { RadioField, RadioGroup, Radio } from '../src/radio-group';
+import { RadioField, RadioGroup, Radio, Radios } from '../src/radio-group';
 import { Form } from '../src/form';
 import { Button } from '../src/button';
 import { docs } from '../.storybook/docs';
-import { FieldError, Label, Description } from '../src/field';
+import {
+  FieldError,
+  Label,
+  Description,
+  TextField,
+  Input,
+  InputGroup,
+} from '../src/field';
 import { twMerge } from 'tailwind-merge';
-import { CheckCircle } from 'lucide-react';
-import { focusOutlineStyle } from '../src/utils';
+import { focusOutlineStyle, focusRingStyle } from '../src/utils';
+import { Strong, Text } from '../src/text';
+import { SolidStar, Star, CheckCircle } from './~icons';
+import { CopyButton } from '../src/clipboard';
 
 const meta: Meta<typeof RadioGroup> = {
-  title: 'RadioGroup',
+  title: 'Radio group',
   component: RadioGroup,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component:
-          'A <a href="https://react-spectrum.adobe.com/react-aria/RadioGroup.html#radiogroup" target="_blank">**radio group**</a> allows a user to select a single item from a list of mutually exclusive options.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/RadioGroup.html#radiogroup" target="_blank">`radio group`</a> allows a user to select a single item from a list of mutually exclusive options.',
       },
       ...docs,
       controls: {
@@ -30,111 +39,320 @@ const meta: Meta<typeof RadioGroup> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
-    <div className="w-full max-w-sm p-3">
-      <RadioGroup defaultValue="automatic">
-        <Label>Show scrollbars</Label>
-        <Radio value="automatic">Automatic</Radio>
-        <Radio value="scrolling">While scrolling</Radio>
-        <Radio value="always">Always</Radio>
-      </RadioGroup>
-    </div>
+    <RadioGroup defaultValue="system" className="max-w-md">
+      <Label>Autoplay animated images</Label>
+      <Radios>
+        <Radio value="system">Sync with system</Radio>
+        <Radio value="enable">Enable</Radio>
+        <Radio value="disabled">Disabled</Radio>
+      </Radios>
+    </RadioGroup>
   );
 };
 
-export const DisabledRadioItems = () => {
+export const WithRadioItemDescription = () => {
   return (
-    <div className="w-full max-w-sm p-3">
-      <RadioGroup>
-        <Label>Show scrollbars</Label>
-        <Radio value="automatic">Automatic</Radio>
-        <Radio value="scrolling" isDisabled>
-          While scrolling
+    <RadioGroup className="max-w-md">
+      <Label>Autoplay animated images</Label>
+
+      <Radios>
+        <RadioField>
+          <Radio value="system">Sync with system</Radio>
+          <Description>
+            Adopts your system preference for reduced motion
+          </Description>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="enable">Approve</Radio>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="disabled">Disabled</Radio>
+        </RadioField>
+      </Radios>
+    </RadioGroup>
+  );
+};
+
+export const WithRadioItemDescriptionHidden = () => {
+  return (
+    <RadioGroup className="max-w-md">
+      <Label>Autoplay animated images</Label>
+
+      <Radios>
+        <RadioField>
+          <Radio value="system">Sync with system</Radio>
+          <Description>
+            Adopts your system preference for reduced motion
+          </Description>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="enable">Approve</Radio>
+          <Description>Automatically plays animated images</Description>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="disabled">Disabled</Radio>
+          <Description>
+            Prevents animated images from playing automatically
+          </Description>
+        </RadioField>
+      </Radios>
+    </RadioGroup>
+  );
+};
+
+export const WithRadioGroupDescription = () => {
+  return (
+    <RadioGroup className="max-w-md">
+      <Label>Autoplay animated images</Label>
+      <Description>
+        Select whether animated images should play automatically.
+      </Description>
+      <Radios>
+        <RadioField>
+          <Radio value="system">Sync with system</Radio>
+          <Description>
+            Adopts your system preference for reduced motion
+          </Description>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="enable">Approve</Radio>
+          <Description>Automatically plays animated images</Description>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="disabled">Disabled</Radio>
+          <Description>
+            Prevents animated images from playing automatically
+          </Description>
+        </RadioField>
+      </Radios>
+    </RadioGroup>
+  );
+};
+
+export const WithRadioGroupDescriptionHiddenTitle = () => {
+  return (
+    <RadioGroup className="max-w-md">
+      <Label>Autoplay animated images</Label>
+
+      <Radios>
+        <RadioField>
+          <Radio value="system">Sync with system</Radio>
+          <Description>
+            Adopts your system preference for reduced motion
+          </Description>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="enable">Approve</Radio>
+          <Description>Automatically plays animated images</Description>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="disabled">Disabled</Radio>
+          <Description>
+            Prevents animated images from playing automatically
+          </Description>
+        </RadioField>
+      </Radios>
+    </RadioGroup>
+  );
+};
+
+export const WithLabelPosition = () => {
+  return (
+    <RadioGroup className="max-w-md">
+      <Label>Autoplay animated images</Label>
+
+      <Radios>
+        <Radio value="system" labelPosition="left">
+          Sync with system
         </Radio>
-        <Radio value="always">Always</Radio>
-      </RadioGroup>
-    </div>
+
+        <Radio value="enable" labelPosition="left">
+          Approve
+        </Radio>
+
+        <Radio value="disabled" labelPosition="left">
+          Disabled
+        </Radio>
+      </Radios>
+    </RadioGroup>
   );
 };
 
-export const DisabledRadioGroup = () => {
+export const WithLabelPositionHidden = () => {
   return (
-    <div className="w-full max-w-sm p-3">
-      <RadioGroup isDisabled>
-        <Label>Show scrollbars</Label>
-        <Radio value="automatic">Automatic</Radio>
-        <Radio value="scrolling">While scrolling</Radio>
-        <Radio value="always">Always</Radio>
-      </RadioGroup>
-    </div>
-  );
-};
+    <RadioGroup className="max-w-md">
+      <Label>Autoplay animated images</Label>
 
-export const WithDescription = () => {
-  return (
-    <div className="w-full p-3">
-      <RadioGroup>
-        <Label>Show scrollbars</Label>
+      <Radios>
         <RadioField>
-          <Radio value="automatic">Automatic</Radio>
+          <Radio value="system" labelPosition="left">
+            Sync with system
+          </Radio>
           <Description>
-            Scrollbars will always be visible when using a mouse, and only while
-            scrolling when using a trackpad.
+            Adopts your system preference for reduced motion
           </Description>
         </RadioField>
 
         <RadioField>
-          <Radio value="while_scrolling">While scrolling</Radio>
+          <Radio value="enable" labelPosition="left">
+            Approve
+          </Radio>
+          <Description>Automatically plays animated images</Description>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="disabled" labelPosition="left">
+            Disabled
+          </Radio>
           <Description>
-            Scrollbars will appear only while you are scrolling.
+            Prevents animated images from playing automatically
+          </Description>
+        </RadioField>
+      </Radios>
+    </RadioGroup>
+  );
+};
+
+export const WithDisabledRadioItems = () => {
+  return (
+    <RadioGroup className="max-w-md">
+      <Label>Autoplay animated images</Label>
+      <Description>
+        Select whether animated images should play automatically.
+      </Description>
+      <Radios>
+        <RadioField>
+          <Radio value="system">Sync with system</Radio>
+          <Description>
+            Adopts your system preference for reduced motion
           </Description>
         </RadioField>
 
         <RadioField>
-          <Radio value="always">Always</Radio>
-          <Description>Scrollbars will always be visible.</Description>
+          <Radio value="enable">Approve</Radio>
+          <Description>Automatically plays animated images</Description>
         </RadioField>
-      </RadioGroup>
-    </div>
+
+        <RadioField>
+          <Radio value="disabled" isDisabled>
+            Disabled
+          </Radio>
+          <Description>
+            Prevents animated images from playing automatically
+          </Description>
+        </RadioField>
+      </Radios>
+    </RadioGroup>
+  );
+};
+
+export const WithDisabledRadioGroup = () => {
+  return (
+    <RadioGroup className="max-w-md" isDisabled>
+      <Label>Autoplay animated images</Label>
+      <Description>
+        Select whether animated images should play automatically.
+      </Description>
+      <Radios>
+        <RadioField>
+          <Radio value="system">Sync with system</Radio>
+          <Description>
+            Adopts your system preference for reduced motion
+          </Description>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="enable">Approve</Radio>
+          <Description>Automatically plays animated images</Description>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="disabled">Disabled</Radio>
+          <Description>
+            Prevents animated images from playing automatically
+          </Description>
+        </RadioField>
+      </Radios>
+    </RadioGroup>
+  );
+};
+
+export const WithReadonlyRadioGroup = () => {
+  return (
+    <RadioGroup className="max-w-md" isReadOnly>
+      <Label>Autoplay animated images</Label>
+      <Description>
+        Select whether animated images should play automatically.
+      </Description>
+      <Radios>
+        <RadioField>
+          <Radio value="system">Sync with system</Radio>
+          <Description>
+            Adopts your system preference for reduced motion
+          </Description>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="enable">Approve</Radio>
+          <Description>Automatically plays animated images</Description>
+        </RadioField>
+
+        <RadioField>
+          <Radio value="disabled">Disabled</Radio>
+          <Description>
+            Prevents animated images from playing automatically
+          </Description>
+        </RadioField>
+      </Radios>
+    </RadioGroup>
   );
 };
 
 export const WithValidation = () => {
   return (
     <Form>
-      <div className="w-full max-w-sm p-3">
-        <RadioGroup isRequired>
-          <Label>Show scrollbars</Label>
-          <Radio value="automatic">Automatic</Radio>
-          <Radio value="scrolling">While scrolling</Radio>
-          <Radio value="always">Always</Radio>
-          <FieldError />
-        </RadioGroup>
-      </div>
-      <Button type="submit" className="self-start">
-        Save
-      </Button>
+      <RadioGroup isRequired className="max-w-md">
+        <Label>Autoplay animated images</Label>
+        <Description>
+          Select whether animated images should play automatically.
+        </Description>
+        <Radios>
+          <RadioField>
+            <Radio value="system">Sync with system</Radio>
+            <Description>
+              Adopts your system preference for reduced motion
+            </Description>
+          </RadioField>
+
+          <RadioField>
+            <Radio value="enable">Approve</Radio>
+            <Description>Automatically plays animated images</Description>
+          </RadioField>
+
+          <RadioField>
+            <Radio value="disabled">Disabled</Radio>
+            <Description>
+              Prevents animated images from playing automatically
+            </Description>
+          </RadioField>
+        </Radios>
+        <FieldError />
+      </RadioGroup>
+
+      <Button type="submit">Save motion preferences</Button>
     </Form>
   );
 };
-
-export function HorizontalRadioGroup() {
-  return (
-    <div className="w-full p-3">
-      <RadioGroup name="rate">
-        <Label>How do you rate your experience?</Label>
-        <div className="flex gap-4">
-          <Radio value="1">1</Radio>
-          <Radio value="2">2</Radio>
-          <Radio value="3">3</Radio>
-          <Radio value="4">4</Radio>
-          <Radio value="5">5</Radio>
-        </div>
-      </RadioGroup>
-    </div>
-  );
-}
 
 export const RadioCardGroups = () => {
   const options = [
@@ -144,185 +362,287 @@ export const RadioCardGroups = () => {
   ];
 
   return (
-    <div className="flex flex-1">
-      <RadioGroup
-        defaultValue={options[0].name}
-        className="flex-1"
-      >
-        <Label>Shipping</Label>
-        <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2">
-          {options.map((option) => {
-            return (
-              <Radio
-                value={option.name}
-                className={({ isSelected }) => {
-                  return twMerge(
-                    'items-start rounded-md border p-3 shadow-sm [&_[slot=radio]]:mt-1.5',
-                    isSelected && 'border-accent ring-1 ring-accent',
-                  );
-                }}
-              >
-                <div className="flex w-full items-center justify-between gap-3">
-                  <div className="flex flex-1 flex-col">
-                    <div className="font-semibold">{option.name}</div>
-                    <div className="text-gray-500">{option.description}</div>
-                  </div>
-                  <div className="font-medium text-muted">{option.price}</div>
+    <RadioGroup defaultValue={options[0].name}>
+      <Label>Shipping</Label>
+      <Radios className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {options.map((option) => {
+          return (
+            <Radio
+              value={option.name}
+              className={({ isSelected }) => {
+                return twMerge(
+                  'items-start rounded-md border p-3 shadow-sm [&_[slot=radio]]:mt-1.5',
+                  isSelected && 'min-w-52 border-accent ring-1 ring-accent',
+                );
+              }}
+            >
+              <div className="flex w-full items-center justify-between gap-3">
+                <div className="flex flex-1 flex-col">
+                  <div className="font-medium">{option.name}</div>
+                  <div className="text-gray-500">{option.description}</div>
                 </div>
-              </Radio>
-            );
-          })}
-        </div>
-      </RadioGroup>
-    </div>
+                <div className="font-medium text-muted">{option.price}</div>
+              </div>
+            </Radio>
+          );
+        })}
+      </Radios>
+    </RadioGroup>
   );
 };
 
-export const CustomRadioGroups = () => {
-  const options = [
-    { name: 'Standard', description: ' 4-6 business days', price: ' $4.99' },
-    { name: 'Express', description: ' 2-5 business days', price: ' $15.99' },
-    { name: 'Lightning', description: ' 1 business day', price: ' $24.99' },
-  ];
-
+export const WithCustomRender = () => {
   return (
-    <div className="flex flex-1">
-      <RadioGroup
-        defaultValue={options[0].name}
-        className="flex-1"
-      >
-        <Label>Shipping</Label>
-        <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2">
-          {options.map((option) => {
+    <RadioGroup defaultValue={'private_with_link'}>
+      <Label>Private Generations</Label>
+      <Description>Who can view this generation?</Description>
+      <Radios className="gap-y-0 divide-y rounded-xl border shadow-sm">
+        <Radio
+          value="public"
+          render={({ isSelected, isFocusVisible }) => {
             return (
-              <Radio
-                value={option.name}
-                className={({ isSelected, isFocusVisible }) => {
-                  return twMerge(
-                    'items-start rounded-md border p-3 shadow-sm',
-                    isSelected && 'border-accent ring-1 ring-accent',
-                    isFocusVisible && focusOutlineStyle,
-                  );
-                }}
-                render={({ isSelected }) => {
-                  return (
-                    <div className="flex w-full items-center justify-between gap-3">
-                      <div
-                        className={twMerge(
-                          'flex shrink-0 items-center text-accent/25',
-                          isSelected && ' text-accent',
-                        )}
-                      >
-                        <CheckCircle />
-                      </div>
-                      <div className="flex flex-1 flex-col">
-                        <div className='font-semibold'>
-                          {option.name}
-                        </div>
-                        <div className='inline text-gray-500'>
-                          {option.description}
-                        </div>
-                      </div>
-                      <div className='font-medium text-muted'>
-                        {option.price}
-                      </div>
-                    </div>
-                  );
-                }}
-              />
+              <div
+                className={twMerge(
+                  'flex flex-1 items-center justify-between space-x-6 p-4',
+                  isFocusVisible && ['rounded-t-xl', focusOutlineStyle],
+                )}
+              >
+                <div className="flex-1">
+                  <Strong>Public</Strong>
+
+                  <Text className="max-w-80">
+                    Anyone with a link can see this. It appears on your public
+                    profile and access app galleries
+                  </Text>
+                </div>
+                {isSelected ? (
+                  <CheckCircle className="size-5 text-accent" />
+                ) : (
+                  <div className="size-5 p-0.5">
+                    <div className="border-1.5 size-full rounded-full border"></div>
+                  </div>
+                )}
+              </div>
             );
-          })}
-        </div>
-      </RadioGroup>
-    </div>
+          }}
+        ></Radio>
+        <Radio
+          value="private_with_link"
+          render={({ isSelected, isFocusVisible }) => {
+            return (
+              <div
+                className={twMerge(
+                  'flex flex-1 items-center justify-between space-x-6 p-4',
+                  isFocusVisible && [focusOutlineStyle],
+                )}
+              >
+                <div className="flex-1">
+                  <Strong>Private with Link</Strong>
+
+                  <Text className="mb-2 max-w-md">
+                    Anyone with a link can see this.
+                  </Text>
+
+                  <TextField aria-label="link" isReadOnly>
+                    <InputGroup>
+                      <Input
+                        value="https://example.dev/r/YgqgxwxwVIy?share=ybOBQ"
+                        className="truncate"
+                      />
+                      <CopyButton
+                        size="sm"
+                        copyText="https://example.dev/r/YgqgxwxwVIy?share=ybOBQ"
+                      ></CopyButton>
+                    </InputGroup>
+                  </TextField>
+                </div>
+                {isSelected ? (
+                  <CheckCircle className="size-5 text-accent" />
+                ) : (
+                  <div className="size-5 p-0.5">
+                    <div className="border-1.5 size-full rounded-full border"></div>
+                  </div>
+                )}
+              </div>
+            );
+          }}
+        ></Radio>
+        <Radio
+          value="private"
+          render={({ isSelected, isFocusVisible }) => {
+            return (
+              <div
+                className={twMerge(
+                  'flex flex-1 items-center justify-between space-x-6 p-4',
+                  isFocusVisible && ['rounded-b-xl', focusOutlineStyle],
+                )}
+              >
+                <div className="">
+                  <Strong>Private</Strong>
+                  <Text className="max-w-64">Only you can see this.</Text>
+                </div>
+                {isSelected ? (
+                  <CheckCircle className="size-5 text-accent" />
+                ) : (
+                  <div className="size-5 p-0.5">
+                    <div className="border-1.5 size-full rounded-full border"></div>
+                  </div>
+                )}
+              </div>
+            );
+          }}
+        ></Radio>
+      </Radios>
+    </RadioGroup>
   );
 };
 
-CustomRadioGroups.parameters = {
+WithCustomRender.parameters = {
   docs: {
     description: {
       story:
-        'Use the **render** prop of **Radio** to render completely custom radio groups.',
+        'Use the `render` prop of `Radio` to render completely custom radio groups.',
     },
   },
 };
 
-export const StarRatings = () => {
-  const options = [
-    { value: '1' },
-    { value: '2' },
-    { value: '3' },
-    { value: '4' },
-    { value: '5' },
-  ];
+export function HorizontalRadioGroup() {
+  return (
+    <RadioGroup orientation="horizontal">
+      <Label>Select your favorite city</Label>
+      <Radios>
+        <Radio value="buenos-aires">Buenos Aires</Radio>
+        <Radio value="sydney">Sydney</Radio>
+        <Radio value="san-francisco">San Francisco</Radio>
+        <Radio value="london">London</Radio>
+        <Radio value="tokyo">Tokyo</Radio>
+      </Radios>
+    </RadioGroup>
+  );
+}
 
+export function HorizontalRadioGroupRatingHidden() {
+  return (
+    <RadioGroup name="rate" orientation="horizontal">
+      <Label>How do you rate your experience?</Label>
+      <Radios className="gap-x-6">
+        <Radio value="1" className="gap-2">
+          1
+        </Radio>
+        <Radio value="2" className="gap-2">
+          2
+        </Radio>
+        <Radio value="3" className="gap-2">
+          3
+        </Radio>
+        <Radio value="4" className="gap-2">
+          4
+        </Radio>
+        <Radio value="5" className="gap-2">
+          5
+        </Radio>
+      </Radios>
+    </RadioGroup>
+  );
+}
+
+export function PreferredEmojisTitleHidden() {
+  return (
+    <RadioGroup name="emoji_preference" orientation="horizontal">
+      <Label>Preferred default emoji skin tone</Label>
+      <Radios>
+        <Radio value="Neutral Tone" aria-label="Neutral">
+          👋
+        </Radio>
+        <Radio
+          value="Light Skin Tone"
+          aria-label="Light Skin Tone"
+          className="gap-1"
+        >
+          👋🏻
+        </Radio>
+        <Radio
+          value="Medium-Light Skin Tone"
+          aria-label="Medium-Light SKin Tone"
+        >
+          👋🏼
+        </Radio>
+        <Radio
+          value="Medium Skin Tone"
+          aria-label="Medium Skin Tone"
+          className="gap-1"
+        >
+          👋🏽
+        </Radio>
+        <Radio
+          value="Medium-Dark Skin Tone"
+          aria-label="Medium-Dark Skin Tone"
+          className="gap-1"
+        >
+          👋🏾
+        </Radio>
+        <Radio
+          value="Dark Skin Tone"
+          aria-label="Dark Skin Tone"
+          className="gap-1"
+        >
+          👋🏿
+        </Radio>
+      </Radios>
+    </RadioGroup>
+  );
+}
+
+const options = [
+  { value: '1' },
+  { value: '2' },
+  { value: '3' },
+  { value: '4' },
+  { value: '5' },
+];
+
+export const StarRatingsTitleHidden = () => {
   const [rating, setRating] = React.useState<string | null>(null);
 
   return (
-    <div className="flex flex-1">
-      <RadioGroup
-        className="flex-1"
-        value={rating}
-        onChange={(value) => {
-          setRating(value);
-        }}
-      >
-        <Label>Rating</Label>
-        <div className="flex gap-2">
-          {options.map((option) => {
-            const shouldLHighlight = Number(rating) > Number(option.value);
-            return (
-              <Radio
-                value={option.value}
-                className={({ isSelected, isFocusVisible }) => {
-                  return twMerge(
-                    'items-start rounded-md',
-                    isSelected || shouldLHighlight
-                      ? 'text-accent'
-                      : 'text-muted',
-                    isFocusVisible && focusOutlineStyle,
-                  );
-                }}
-                render={({ isSelected }) => {
-                  return (
-                    <div className="flex w-full items-center justify-between gap-3 ">
-                      {isSelected || shouldLHighlight ? (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="size-6"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      ) : (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="currentColor"
-                          className="size-6"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                  );
-                }}
-              />
-            );
-          })}
-        </div>
-      </RadioGroup>
-    </div>
+    <RadioGroup
+      orientation="horizontal"
+      className="flex-1"
+      value={rating}
+      onChange={(value) => {
+        setRating(value);
+      }}
+    >
+      <Label>Rating</Label>
+      <Radios className="gap-x-1">
+        {options.map((option, index) => {
+          const shouldLHighlight = Number(rating) > Number(option.value);
+          return (
+            <Radio
+              value={option.value}
+              aria-label={String(index + 1)}
+              className={({ isSelected, isFocusVisible }) => {
+                return twMerge(
+                  'items-start rounded-md',
+                  isSelected || shouldLHighlight ? 'text-accent' : 'text-muted',
+                  isFocusVisible && focusOutlineStyle,
+                );
+              }}
+              render={({ isSelected }) => {
+                return (
+                  <div className="flex w-full items-center justify-between gap-3 ">
+                    {isSelected || shouldLHighlight ? (
+                      <SolidStar className="size-6 text-accent" />
+                    ) : (
+                      <Star className="size-6 text-muted/45" />
+                    )}
+                  </div>
+                );
+              }}
+            />
+          );
+        })}
+      </Radios>
+    </RadioGroup>
   );
 };

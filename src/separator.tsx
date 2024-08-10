@@ -19,20 +19,20 @@ export function Separator({
       {...separatorProps}
       className={twMerge(
         'text-sm/6',
+        '[&>svg:not([class*=size])]:size-5',
         children
           ? [
-              'after:border-border/50 before:border-border/50',
+              'before:border-foreground/10 after:border-foreground/10',
               orientation === 'vertical'
                 ? [
-                    'mx-2 flex flex-col items-center',
+                    'mx-4 flex flex-col items-center',
                     "before:content-['']",
                     'before:border-l',
                     'before:flex-1',
-                    'before:mb-2',
                     "after:content-['']",
                     'after:border-r',
                     'after:flex-1',
-                    'after:mt-2',
+                    typeof children === 'string' && ['before:mb-4 after:mt-4'],
                   ]
                 : [
                     'self-stretch',
@@ -40,18 +40,24 @@ export function Separator({
                     "before:content-['']",
                     'before:border-t',
                     'before:flex-1',
-                    'before:mr-2',
+
                     "after:content-['']",
                     'after:border-t',
                     'after:flex-1',
-                    'after:ml-2',
+                    typeof children === 'string' && ['before:me-4 after:ms-4'],
                   ],
             ]
           : [
-              'border-border/50',
+              'border-foreground/10',
               orientation === 'vertical'
-                ? 'mx-1 h-auto self-stretch border-l'
-                : 'my-0.5 h-px w-full self-stretch border-b',
+                ? [
+                    'h-auto self-stretch border-l',
+                    typeof children === 'string' && ['mx-1'],
+                  ]
+                : [
+                    'h-px w-full self-stretch border-b',
+                    typeof children === 'string' && ['my-1'],
+                  ],
             ],
         className,
       )}

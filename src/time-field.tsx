@@ -5,6 +5,7 @@ import {
   composeRenderProps,
 } from 'react-aria-components';
 import { twMerge } from 'tailwind-merge';
+import { inputFieldStyle } from './utils';
 
 export interface TimeFieldProps<T extends TimeValue>
   extends RACTimeFieldProps<T> {}
@@ -17,8 +18,11 @@ export function TimeField<T extends TimeValue>(props: RACTimeFieldProps<T>) {
         props.className,
         (className, { isDisabled }) => {
           return twMerge(
-            'flex flex-col items-start',
-            isDisabled && 'opacity-50',
+            inputFieldStyle,
+            'items-start',
+            // RAC does not set disable to time field when it is disable
+            // So we have to style disable state for none input
+            isDisabled && '[&>:not(input)]:opacity-50',
             className,
           );
         },
@@ -26,5 +30,3 @@ export function TimeField<T extends TimeValue>(props: RACTimeFieldProps<T>) {
     />
   );
 }
-
-

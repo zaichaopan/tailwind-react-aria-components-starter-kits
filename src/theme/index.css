@@ -4,25 +4,37 @@
 
 @layer base {
   :root {
+    /* white */
     --background: 0 0% 100%;
-    --foreground: 20 14.3% 4.1%;
-    --hover: 210 12% 97%;
+    /* zinc-950 */
+    --foreground: 240 10% 4%;
+    /* bg-zinc-100 */
+    --hover: 240 5% 96%;
+    /* zinc-300 */
+    --border: 240 5% 84%;
+    /** zinc-500 **/
+    --muted: 240 4% 46%;
     --success: 142 72% 29%;
     --destructive: 0 72% 51%;
+    /* yellow-600 */
     --warning: 41 96% 40%;
-    --muted: 240 4% 46%;
-    --border: 216 12% 84%;
   }
 
   .dark {
+    /* zinc-950 */
     --background: 240 10% 4%;
+    /* zinc-50 */
     --foreground: 0 0% 98%;
+    /* zinc-800: 240 4% 16%*/
     --hover: 240 3.7% 15.9%;
+    /* zinc-700 */
+    --border: 240 5% 26%;
+    /** zinc-400 **/
+    --muted: 240 5% 65%;
     --success: 142 72% 29%;
     --destructive: 0 72% 51%;
+    /* yellow-600 */
     --warning: 41 96% 40%;
-    --muted: 240 5% 65%;
-    --border: 240 5% 26%;
   }
 }
 
@@ -35,6 +47,5 @@
 
   body {
     @apply h-full bg-background font-sans text-foreground antialiased;
-    font-feature-settings: 'cv11';
   }
 }

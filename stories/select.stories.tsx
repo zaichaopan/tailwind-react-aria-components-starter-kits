@@ -1,11 +1,25 @@
 import React from 'react';
 import type { Meta } from '@storybook/react';
-import { Form, Key } from 'react-aria-components';
+import { Key } from 'react-aria-components';
+import { users } from './users';
 import { Button } from '../src/button';
-import { SelectField, Select, SelectItem, SelectSection } from '../src/select';
+import { Form } from '../src/form';
+import {
+  Select,
+  SelectPopover,
+  SelectButton,
+  SelectListItem,
+  SelectSection,
+  SelectListItemLabel,
+  SelectListItemDescription,
+  SelectListBox,
+} from '../src/select';
 import { Avatar } from '../src/avatar';
 import { Description, FieldError, Label } from '../src/field';
 import { docs } from '../.storybook/docs';
+import { AccessibleIcon } from '../src/accessible-icon';
+import { Canada, Justified, Left, Mexico, Right, US } from './~icons';
+import { Text } from '../src/text';
 
 const meta: Meta<typeof Select> = {
   title: 'Select',
@@ -15,7 +29,7 @@ const meta: Meta<typeof Select> = {
     docs: {
       description: {
         component:
-          'A <a href="https://react-spectrum.adobe.com/react-aria/Select.html#select" target="_blank">**select**</a> displays a collapsible list of options and allows a user to select one of them.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/Select.html#select" target="_blank">`select`</a> displays a collapsible list of options and allows a user to select one of them.',
       },
       ...docs,
       controls: {
@@ -28,257 +42,603 @@ const meta: Meta<typeof Select> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
-    <SelectField className="w-full" placeholder="Pick sound">
-      <Label>Notification sound</Label>
-      <Select>
-        <SelectItem id="none">None</SelectItem>
-        <SelectItem id="ding">Ding</SelectItem>
-        <SelectItem id="boring">Boring</SelectItem>
-        <SelectItem>Drop</SelectItem>
-        <SelectItem>Ta-da</SelectItem>
-        <SelectItem>Plink</SelectItem>
-        <SelectItem>Wow</SelectItem>
-        <SelectItem>Here you go</SelectItem>
-        <SelectItem>Hi</SelectItem>
-      </Select>
-    </SelectField>
+    <Select placeholder="Select status&hellip;">
+      <Label>Project status</Label>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox>
+          <SelectListItem id="1">Backlog</SelectListItem>
+          <SelectListItem id="2">In Progress</SelectListItem>
+          <SelectListItem id="3">In Review</SelectListItem>
+          <SelectListItem id="4">Done</SelectListItem>
+          <SelectListItem id="5">Won't do</SelectListItem>
+        </SelectListBox>
+      </SelectPopover>
+      <FieldError />
+    </Select>
   );
 };
 
-export const SectionDescription = () => {
+export const WithDescription = () => {
   return (
-    <SelectField placeholder="Pick sound">
-      <Label>Notification sound</Label>
-      <Description>Select a sound for incoming notifications</Description>
-      <Select>
-        <SelectItem id="none">None</SelectItem>
-        <SelectItem id="ding">Ding</SelectItem>
-        <SelectItem id="boring">Boring</SelectItem>
-        <SelectItem>Drop</SelectItem>
-        <SelectItem>Ta-da</SelectItem>
-        <SelectItem>Plink</SelectItem>
-        <SelectItem>Wow</SelectItem>
-        <SelectItem>Here you go</SelectItem>
-        <SelectItem>Hi</SelectItem>
-      </Select>
-    </SelectField>
+    <Select placeholder="Select status&hellip;">
+      <Label>Project status</Label>
+      <Description>
+        This will be visible to clients involved in the project.
+      </Description>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox>
+          <SelectListItem id="1">Backlog</SelectListItem>
+          <SelectListItem id="2">In Progress</SelectListItem>
+          <SelectListItem id="3">In Review</SelectListItem>
+          <SelectListItem id="4">Done</SelectListItem>
+          <SelectListItem id="5">Won't do</SelectListItem>
+        </SelectListBox>
+      </SelectPopover>
+    </Select>
   );
 };
 
-export const ControlledSection = () => {
-  const [sound, setSound] = React.useState<Key>('ding');
-
+export const WithFollowingDescription = () => {
   return (
-    <SelectField
-      placeholder="Pick sound"
-      selectedKey={sound}
-      onSelectionChange={(selected) => setSound(selected)}
-    >
-      <Label>Notification sound</Label>
-      <Description>Select a sound for incoming notifications</Description>
-      <Select>
-        <SelectItem id="none">None</SelectItem>
-        <SelectItem id="ding">Ding</SelectItem>
-        <SelectItem id="boring">Boring</SelectItem>
-        <SelectItem id="drop">Drop</SelectItem>
-        <SelectItem id="tata">Ta-da</SelectItem>
-        <SelectItem id="plink">Plink</SelectItem>
-        <SelectItem id="wow">Wow</SelectItem>
-        <SelectItem id="here_you_go">Here you go</SelectItem>
-        <SelectItem id="hi">Hi</SelectItem>
-      </Select>
-    </SelectField>
+    <Select placeholder="Select status&hellip;">
+      <Label>Project status</Label>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox>
+          <SelectListItem id="1">Backlog</SelectListItem>
+          <SelectListItem id="2">In Progress</SelectListItem>
+          <SelectListItem id="3">In Review</SelectListItem>
+          <SelectListItem id="4">Done</SelectListItem>
+          <SelectListItem id="5">Won't do</SelectListItem>
+        </SelectListBox>
+      </SelectPopover>
+      <Description>
+        This will be visible to clients involved in the project.
+      </Description>
+    </Select>
   );
 };
 
-export const DisabledSelection = () => {
+export const WithSelectItemDescription = () => {
   return (
-    <SelectField
-      placeholder="Pick sound"
-      selectedKey="ding"
-      disabledKeys={['boring']}
-    >
-      <Label>Notification sound</Label>
-      <Description>Select a sound for incoming notifications</Description>
-      <Select>
-        <SelectItem id="none">None</SelectItem>
-        <SelectItem id="ding">Ding</SelectItem>
-        <SelectItem id="boring">Boring</SelectItem>
-        <SelectItem>Drop</SelectItem>
-        <SelectItem>Ta-da</SelectItem>
-        <SelectItem>Plink</SelectItem>
-        <SelectItem>Wow</SelectItem>
-        <SelectItem>Here you go</SelectItem>
-        <SelectItem>Hi</SelectItem>
-      </Select>
-    </SelectField>
+    <Select placeholder="Select status&hellip;">
+      <Label>Project status</Label>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox>
+          <SelectListItem id="1" textValue="Backlog">
+            <SelectListItemLabel>Backlog</SelectListItemLabel>
+            <SelectListItemDescription className="block w-full">
+              A backlog is a list of tasks waiting to be prioritized and
+              completed.
+            </SelectListItemDescription>
+          </SelectListItem>
+          <SelectListItem id="2">
+            <SelectListItemLabel>In Progress</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="3">
+            <SelectListItemLabel>In Review</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="4">
+            <SelectListItemLabel>Done</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="5">
+            <SelectListItemLabel>Won't do</SelectListItemLabel>
+          </SelectListItem>
+        </SelectListBox>
+      </SelectPopover>
+      <Description>
+        This will be visible to clients involved in the project.
+      </Description>
+    </Select>
   );
 };
 
-export const DisabledWholeSelect = () => {
+export const WithSections = () => {
   return (
-    <SelectField isDisabled placeholder="Pick sound" selectedKey="ding">
-      <Label>Notification sound</Label>
-      <Description>Select a sound for incoming notifications</Description>
-      <Select>
-        <SelectItem id="none">None</SelectItem>
-        <SelectItem id="ding">Ding</SelectItem>
-        <SelectItem id="boring">Boring</SelectItem>
-        <SelectItem>Drop</SelectItem>
-        <SelectItem>Ta-da</SelectItem>
-        <SelectItem>Plink</SelectItem>
-        <SelectItem>Wow</SelectItem>
-        <SelectItem>Here you go</SelectItem>
-        <SelectItem>Hi</SelectItem>
-      </Select>
-    </SelectField>
-  );
-};
-
-export const Sections = () => {
-  return (
-    <SelectField>
+    <Select>
       <Label>Preferred fruit or vegetable</Label>
+      <SelectButton />
 
-      <Select>
-        <SelectSection title="Fruit">
-          <SelectItem id="Apple">Apple</SelectItem>
-          <SelectItem id="Banana">Banana</SelectItem>
-          <SelectItem id="Orange">Orange</SelectItem>
-          <SelectItem id="Honeydew">Honeydew</SelectItem>
-          <SelectItem id="Grapes">Grapes</SelectItem>
-          <SelectItem id="Watermelon">Watermelon</SelectItem>
-          <SelectItem id="Cantaloupe">Cantaloupe</SelectItem>
-          <SelectItem id="Pear">Pear</SelectItem>
-        </SelectSection>
-        <SelectSection title="Vegetable">
-          <SelectItem id="Cabbage">Cabbage</SelectItem>
-          <SelectItem id="Broccoli">Broccoli</SelectItem>
-          <SelectItem id="Carrots">Carrots</SelectItem>
-          <SelectItem id="Lettuce">Lettuce</SelectItem>
-          <SelectItem id="Spinach">Spinach</SelectItem>
-          <SelectItem id="Bok Choy">Bok Choy</SelectItem>
-          <SelectItem id="Cauliflower">Cauliflower</SelectItem>
-          <SelectItem id="Potatoes">Potatoes</SelectItem>
-        </SelectSection>
+      <SelectPopover>
+        <SelectListBox>
+          <SelectSection title="Fruit">
+            <SelectListItem id="Apple">
+              <SelectListItemLabel>Apple</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Banana">
+              <SelectListItemLabel>Banana</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Orange">
+              <SelectListItemLabel>Orange</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Honeydew">
+              <SelectListItemLabel>Honeydew</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Grapes">
+              <SelectListItemLabel>Grapes</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Watermelon">
+              <SelectListItemLabel>Watermelon</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Cantaloupe">
+              <SelectListItemLabel>Cantaloupe</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Pear">
+              <SelectListItemLabel>Pear</SelectListItemLabel>
+            </SelectListItem>
+          </SelectSection>
+          <SelectSection title="Vegetable">
+            <SelectListItem id="Cabbage">
+              <SelectListItemLabel>Cabbage</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Broccoli">
+              <SelectListItemLabel>Broccoli</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Carrots">
+              <SelectListItemLabel>Carrots</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Lettuce">
+              <SelectListItemLabel>Lettuce</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Spinach">
+              <SelectListItemLabel>Spinach</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Bok Choy">
+              <SelectListItemLabel>Bok Choy</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Cauliflower">
+              <SelectListItemLabel>Cauliflower</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="Potatoes">
+              <SelectListItemLabel>Potatoes</SelectListItemLabel>
+            </SelectListItem>
+          </SelectSection>
+        </SelectListBox>
+      </SelectPopover>
+    </Select>
+  );
+};
+
+export const WithDisabledSelectItem = () => {
+  const [statusId, setStatusId] = React.useState<Key>('2');
+
+  return (
+    <Select
+      placeholder="Select status&hellip;"
+      selectedKey={statusId}
+      onSelectionChange={setStatusId}
+      disabledKeys={['5']}
+    >
+      <Label>Project status</Label>
+      <Description>
+        This will be visible to clients involved in the project.
+      </Description>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox>
+          <SelectListItem id="1">Backlog</SelectListItem>
+          <SelectListItem id="2">In Progress</SelectListItem>
+          <SelectListItem id="3">In Review</SelectListItem>
+          <SelectListItem id="4">Done</SelectListItem>
+          <SelectListItem id="5">Won't do</SelectListItem>
+        </SelectListBox>
+      </SelectPopover>
+    </Select>
+  );
+};
+
+export const WithDisabledSelect = () => {
+  return (
+    <Select placeholder="Select status&hellip;" isDisabled>
+      <Label>Project status</Label>
+      <Description>
+        This will be visible to clients involved in the project.
+      </Description>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox>
+          <SelectListItem id="1">Backlog</SelectListItem>
+          <SelectListItem id="2">In Progress</SelectListItem>
+          <SelectListItem id="3">In Review</SelectListItem>
+          <SelectListItem id="4">Done</SelectListItem>
+          <SelectListItem id="5">Won't do</SelectListItem>
+        </SelectListBox>
+      </SelectPopover>
+    </Select>
+  );
+};
+
+export const WithControlledSelect = () => {
+  const [statusId, setStatusId] = React.useState<Key>('3');
+
+  return (
+    <Select
+      placeholder="Select status&hellip;"
+      selectedKey={statusId}
+      onSelectionChange={setStatusId}
+    >
+      <Label>Project status</Label>
+      <Description>
+        This will be visible to clients involved in the project.
+      </Description>
+      <SelectButton />
+
+      <SelectPopover>
+        <SelectListBox>
+          <SelectListItem id="1">Backlog</SelectListItem>
+          <SelectListItem id="2">In Progress</SelectListItem>
+          <SelectListItem id="3">In Review</SelectListItem>
+          <SelectListItem id="4">Done</SelectListItem>
+          <SelectListItem id="5">Won't do</SelectListItem>
+        </SelectListBox>
+      </SelectPopover>
+    </Select>
+  );
+};
+
+export const WithIcon = () => {
+  return (
+    <Select placeholder="Select status&hellip;">
+      <Label>Project status</Label>
+      <Description>
+        This will be visible to clients involved in the project.
+      </Description>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox>
+          <SelectListItem id="1" textValue="Backlog">
+            <StatusIcon className="bg-gray-500" />
+            <SelectListItemLabel>Backlog</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="2" textValue="In Progress">
+            <StatusIcon className="bg-blue-500" />
+            <SelectListItemLabel>In Progress</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="3" textValue="In Review">
+            <StatusIcon className="bg-yellow-500" />
+            <SelectListItemLabel>In Review</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="4" textValue="Done">
+            <StatusIcon className="bg-green-500" />
+            <SelectListItemLabel>Done</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="5" textValue="Won't do">
+            <StatusIcon className="bg-red-500" />
+            <SelectListItemLabel>Won't do</SelectListItemLabel>
+          </SelectListItem>
+        </SelectListBox>
+      </SelectPopover>
+    </Select>
+  );
+};
+
+export const WithIconExampleTwoHiddenTitle = () => {
+  return (
+    <Select placeholder="Choose alignment" defaultSelectedKey="left">
+      <Label>Alignment</Label>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox>
+          <SelectListItem id="left" textValue="Left">
+            <AccessibleIcon>
+              <Left />
+            </AccessibleIcon>
+            <SelectListItemLabel>Left</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="right" textValue="Right">
+            <AccessibleIcon>
+              <Right />
+            </AccessibleIcon>
+            <SelectListItemLabel>Right</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="justified" textValue="Justified">
+            <AccessibleIcon>
+              <Justified />
+            </AccessibleIcon>
+            <SelectListItemLabel>Justified</SelectListItemLabel>
+          </SelectListItem>
+        </SelectListBox>
+      </SelectPopover>
+    </Select>
+  );
+};
+
+export const WithIconAndDescription = () => {
+  return (
+    <Select placeholder="Select status&hellip;">
+      <Label>Project status</Label>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox>
+          <SelectListItem id="1" textValue="Backlog">
+            <StatusIcon className="bg-gray-500" />
+            <SelectListItemLabel>Backlog</SelectListItemLabel>
+            <SelectListItemDescription className="block w-full">
+              A backlog is a list of tasks waiting to be prioritized and
+              completed.
+            </SelectListItemDescription>
+          </SelectListItem>
+          <SelectListItem id="2">
+            <SelectListItemLabel>In Progress</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="3">
+            <SelectListItemLabel>In Review</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="4">
+            <SelectListItemLabel>Done</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="5">
+            <SelectListItemLabel>Won't do</SelectListItemLabel>
+          </SelectListItem>
+        </SelectListBox>
+      </SelectPopover>
+      <Description>
+        This will be visible to clients involved in the project.
+      </Description>
+    </Select>
+  );
+};
+
+export const WithAvatars = () => {
+  return (
+    <Select placeholder="Assign to" defaultSelectedKey="1">
+      <Label>Assignee</Label>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox items={users}>
+          {(user) => {
+            return (
+              <SelectListItem textValue={user.name}>
+                <Avatar
+                  className="rounded-full"
+                  src={user.avatar}
+                  alt={user.name}
+                />
+                <SelectListItemLabel>{user.name}</SelectListItemLabel>
+              </SelectListItem>
+            );
+          }}
+        </SelectListBox>
+      </SelectPopover>
+    </Select>
+  );
+};
+
+export const WithAvatarItemDescriptionHiddenTitle = () => {
+  return (
+    <Select
+      placeholder="Assign to"
+      defaultSelectedKey="1"
+      // className="w-full sm:min-w-72"
+    >
+      <Label>Assignee</Label>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox items={users}>
+          {(user) => {
+            return (
+              <SelectListItem textValue={user.name}>
+                <Avatar
+                  className="rounded-full"
+                  src={user.avatar}
+                  alt={user.name}
+                />
+
+                <SelectListItemLabel className="">
+                  {user.name}
+                </SelectListItemLabel>
+                <SelectListItemDescription>
+                  {user.description}
+                </SelectListItemDescription>
+              </SelectListItem>
+            );
+          }}
+        </SelectListBox>
+      </SelectPopover>
+    </Select>
+  );
+};
+
+export const WithFlags = () => {
+  return (
+    <Select defaultSelectedKey="ca">
+      <Label>Country</Label>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox>
+          <SelectListItem id="ca" textValue="Canada">
+            <AccessibleIcon>
+              <Canada />
+            </AccessibleIcon>
+            <SelectListItemLabel>Canada</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="us" textValue="United States">
+            <AccessibleIcon>
+              <US />
+            </AccessibleIcon>
+            <SelectListItemLabel>United States</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="mexican" textValue="Mexico">
+            <AccessibleIcon>
+              <Mexico />
+            </AccessibleIcon>
+            <SelectListItemLabel>Mexico</SelectListItemLabel>
+          </SelectListItem>
+        </SelectListBox>
+      </SelectPopover>
+    </Select>
+  );
+};
+
+export const WithSecondaryText = () => {
+  return (
+    <Select
+      placeholder="Assign to"
+      defaultSelectedKey="1"
+      className="w-full sm:min-w-72"
+    >
+      <Label>Assignee</Label>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox items={users}>
+          {(user) => {
+            return (
+              <SelectListItem textValue={user.name}>
+                <SelectListItemLabel>
+                  {user.name}
+                  <Text className="inline ps-1.5">{user.description}</Text>
+                </SelectListItemLabel>
+              </SelectListItem>
+            );
+          }}
+        </SelectListBox>
+      </SelectPopover>
+    </Select>
+  );
+};
+export const Validation = () => {
+  return (
+    <Form>
+      <Select isRequired placeholder="Select status&hellip;">
+        <Label>Project status</Label>
+        <Description>
+          This will be visible to clients involved in the project.
+        </Description>
+        <SelectButton />
+        <SelectPopover>
+          <SelectListBox>
+            <SelectListItem id="1" textValue="Backlog">
+              <StatusIcon className="bg-gray-500" />
+              <SelectListItemLabel>Backlog</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="2" textValue="In Progress">
+              <StatusIcon className="bg-blue-500" />
+              <SelectListItemLabel>In Progress</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="3" textValue="In Review">
+              <StatusIcon className="bg-yellow-500" />
+              <SelectListItemLabel>In Review</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="4" textValue="Done">
+              <StatusIcon className="bg-green-500" />
+              <SelectListItemLabel>Done</SelectListItemLabel>
+            </SelectListItem>
+            <SelectListItem id="5" textValue="Won't do">
+              <StatusIcon className="bg-red-500" />
+              <SelectListItemLabel>Won't do</SelectListItemLabel>
+            </SelectListItem>
+          </SelectListBox>
+        </SelectPopover>
+        <FieldError />
       </Select>
-    </SelectField>
+      <Button type="submit">Submit</Button>
+    </Form>
   );
 };
 
 export const CustomWidth = () => {
   return (
-    <SelectField className="min-w-[250px]" placeholder="Pick sound">
-      <Label>Notification sound</Label>
-      <Select>
-        <SelectItem id="none">None</SelectItem>
-        <SelectItem id="ding">Ding</SelectItem>
-        <SelectItem id="boring">Boring</SelectItem>
-        <SelectItem>Drop</SelectItem>
-        <SelectItem>Ta-da</SelectItem>
-        <SelectItem>Plink</SelectItem>
-        <SelectItem>Wow</SelectItem>
-        <SelectItem>Here you go</SelectItem>
-        <SelectItem>Hi</SelectItem>
-      </Select>
-    </SelectField>
+    <Select className="min-w-96" isRequired placeholder="Select status&hellip;">
+      <Label>Project status</Label>
+      <Description>
+        This will be visible to clients involved in the project.
+      </Description>
+      <SelectButton />
+      <SelectPopover>
+        <SelectListBox>
+          <SelectListItem id="1" textValue="Backlog">
+            <StatusIcon className="bg-gray-500" />
+            <SelectListItemLabel>Backlog</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="2" textValue="In Progress">
+            <StatusIcon className="bg-blue-500" />
+            <SelectListItemLabel>In Progress</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="3" textValue="In Review">
+            <StatusIcon className="bg-yellow-500" />
+            <SelectListItemLabel>In Review</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="4" textValue="Done">
+            <StatusIcon className="bg-green-500" />
+            <SelectListItemLabel>Done</SelectListItemLabel>
+          </SelectListItem>
+          <SelectListItem id="5" textValue="Won't do">
+            <StatusIcon className="bg-red-500" />
+            <SelectListItemLabel>Won't do</SelectListItemLabel>
+          </SelectListItem>
+        </SelectListBox>
+      </SelectPopover>
+      <FieldError />
+    </Select>
   );
 };
 
 CustomWidth.parameters = {
   docs: {
     description: {
-      story: 'Use **min-w-\\*** to set **SelectField** width.',
+      story:
+        'Use `className="min-w-*"`on the `SelectField` component to set select field width.',
     },
   },
 };
 
-export const CustomSelectionItem = () => {
-  return (
-    <SelectField
-      placeholder="Assign to"
-      defaultSelectedKey="1"
-      className="min-w-[250px]"
-    >
-      <Label>Assignee</Label>
-      <Select>
-        <SelectItem id="1" textValue="Lesly Juarez">
-          <Avatar
-            className="size-5 rounded-full"
-            src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=3220&auto=format&fit=facearea&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="Lesly Juarez"
-          />
-          Lesly Juarez
-        </SelectItem>
-        <SelectItem id="2" textValue="Christopher Campbell">
-          <Avatar
-            className="size-5 rounded-full"
-            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt="Christopher Campbell"
-          />
-          Christopher Campbell
-        </SelectItem>
-        <SelectItem id="3" textValue="Jake Nackos">
-          <Avatar className="size-5 rounded-full" alt=" Jake Nackos" />
-          Jake Nackos
-        </SelectItem>
-        <SelectItem id="4" textValue="Aiony Haust">
-          <Avatar className="size-5 rounded-full" alt="Aiony Haust" />
-          Aiony Haust
-        </SelectItem>
-      </Select>
-    </SelectField>
-  );
-};
-
-export const Validation = () => {
-  return (
-    <Form className="flex flex-col items-start gap-2">
-      <SelectField isRequired placeholder="Pick sound">
-        <Label>Notification sound</Label>
-        <Description>Select a sound for incoming notifications</Description>
-        <Select>
-          <SelectItem id="none">None</SelectItem>
-          <SelectItem id="ding">Ding</SelectItem>
-          <SelectItem id="boring">Boring</SelectItem>
-          <SelectItem>Drop</SelectItem>
-          <SelectItem>Ta-da</SelectItem>
-          <SelectItem>Plink</SelectItem>
-          <SelectItem>Wow</SelectItem>
-          <SelectItem>Here you go</SelectItem>
-          <SelectItem>Hi</SelectItem>
-        </Select>
-        <FieldError></FieldError>
-      </SelectField>
-      <Button type="submit">Submit</Button>
-    </Form>
-  );
-};
-
 export const CustomLayout = () => {
   return (
-    <Form className="flex flex-col items-start gap-2">
-      <SelectField className=" gap-2" placeholder="Pick sound" isRequired>
+    <Form>
+      <Select
+        isRequired
+        placeholder="Select status&hellip;"
+        className="min-w-72 gap-2"
+      >
         <div className="flex items-center gap-2">
-          <Label className="text-nowrap pt-1">Favorite sounds</Label>
-          <Select>
-            <SelectItem id="none">None</SelectItem>
-            <SelectItem id="ding">Ding</SelectItem>
-            <SelectItem id="boring">Boring</SelectItem>
-            <SelectItem>Drop</SelectItem>
-            <SelectItem>Ta-da</SelectItem>
-            <SelectItem>Plink</SelectItem>
-            <SelectItem>Wow</SelectItem>
-            <SelectItem>Here you go</SelectItem>
-            <SelectItem>Hi</SelectItem>
-          </Select>
-        </div>
+          <Label className="mb-0 self-start mt-1">Project status</Label>
+          <div>
+            <SelectButton />
+            <FieldError className="mt-2"/>
+          </div>
 
-        <FieldError></FieldError>
-      </SelectField>
+          <SelectPopover>
+            <SelectListBox>
+              <SelectListItem id="1" textValue="Backlog">
+                <StatusIcon className="bg-gray-500" />
+                <SelectListItemLabel>Backlog</SelectListItemLabel>
+              </SelectListItem>
+              <SelectListItem id="2" textValue="In Progress">
+                <StatusIcon className="bg-blue-500" />
+                <SelectListItemLabel>In Progress</SelectListItemLabel>
+              </SelectListItem>
+              <SelectListItem id="3" textValue="In Review">
+                <StatusIcon className="bg-yellow-500" />
+                <SelectListItemLabel>In Review</SelectListItemLabel>
+              </SelectListItem>
+              <SelectListItem id="4" textValue="Done">
+                <StatusIcon className="bg-green-500" />
+                <SelectListItemLabel>Done</SelectListItemLabel>
+              </SelectListItem>
+              <SelectListItem id="5" textValue="Won't do">
+                <StatusIcon className="bg-red-500" />
+                <SelectListItemLabel>Won't do</SelectListItemLabel>
+              </SelectListItem>
+            </SelectListBox>
+          </SelectPopover>
+        </div>
+      </Select>
+
       <Button type="submit">Submit</Button>
     </Form>
   );
 };
+
+function StatusIcon({ className }: { className: string }) {
+  return (
+    <span
+      data-ui="icon"
+      className={`size-3 rounded-full border border-solid border-white ${className}`}
+    />
+  );
+}

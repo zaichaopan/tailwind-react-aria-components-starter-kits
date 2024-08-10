@@ -6,13 +6,13 @@ import { FileTrigger } from '../src/file-trigger';
 import { Avatar } from '../src/avatar';
 
 const meta: Meta<typeof Button> = {
-  title: 'FileTrigger',
+  title: 'File trigger',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component:
-          'A <a href="https://react-spectrum.adobe.com/react-aria/FileTrigger.html" target="_blank">**FileTrigger**</a> allows a user to access the file system with any pressable React Aria or React Spectrum component, or custom components built with usePress.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/FileTrigger.html" target="_blank">`FileTrigger`</a> allows a user to access the file system with any pressable React Aria component.',
       },
       ...docs,
       controls: {
@@ -25,7 +25,7 @@ const meta: Meta<typeof Button> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   const [file, setFile] = React.useState<Array<string> | null>(null);
 
   return (
@@ -41,7 +41,7 @@ export const Example = () => {
           setFile(filenames);
         }}
       >
-        <Button outline>Select a file</Button>
+        <Button variant="outline">Select a file</Button>
       </FileTrigger>
       {file && file}
     </>
@@ -64,7 +64,7 @@ export const ChangeProfile = () => {
           setSrc(URL.createObjectURL(file));
         }}
       >
-        <Button outline>Change</Button>
+        <Button variant="outline">Change</Button>
       </FileTrigger>
     </div>
   );

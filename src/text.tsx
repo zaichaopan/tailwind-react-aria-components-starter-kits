@@ -41,7 +41,7 @@ export function Small({ className, ...props }: JSX.IntrinsicElements['small']) {
     <Text
       {...props}
       elementType="small"
-      className={twMerge('text-sm/6 sm:text-xs/6', className)}
+      className={twMerge('text-sm sm:text-xs', className)}
     />
   );
 }

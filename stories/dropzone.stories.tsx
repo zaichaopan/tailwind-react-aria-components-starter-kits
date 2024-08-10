@@ -5,18 +5,18 @@ import { DropZone } from '../src/dropzone';
 import { FileTrigger, isFileDropItem } from 'react-aria-components';
 import { Button } from '../src/button';
 import { Text } from '../src/text';
-import { Icon } from '../src/icon';
+import { AccessibleIcon } from '../src/accessible-icon';
 import { Image } from 'lucide-react';
 
 const meta: Meta<typeof DropZone> = {
-  title: 'DropZone',
+  title: 'Dropzone',
   component: DropZone,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component:
-          'A <a href="https://react-spectrum.adobe.com/react-aria/DropZone.html#dropzone" target="_blank">**drop zone**</a> is an area into which one or multiple objects can be dragged and dropped..',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/DropZone.html#dropzone" target="_blank">`drop zone`</a> is an area into which one or multiple objects can be dragged and dropped.',
       },
       ...docs,
       controls: {
@@ -29,7 +29,7 @@ const meta: Meta<typeof DropZone> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   const [droppedImage, setDroppedImage] = React.useState<string | undefined>(
     undefined,
   );
@@ -57,11 +57,11 @@ export const Example = () => {
           className="aspect-square h-full w-full object-contain"
         />
       ) : (
-        <div className="flex flex-1 flex-col gap-2 pt-6">
+        <div className="flex flex-1 flex-col gap-2 py-6">
           <div className="flex flex-1 justify-center">
-            <Icon>
+            <AccessibleIcon>
               <Image />
-            </Icon>
+            </AccessibleIcon>
           </div>
           <div className="flex flex-1">
             <FileTrigger
@@ -79,8 +79,8 @@ export const Example = () => {
               }}
             >
               <Button
-                unstyle
-                className="text-nowrap text-base/6 font-medium text-foreground sm:text-sm/6"
+                variant="unstyle"
+                className="text-nowrap text-base/6 font-medium text-accent sm:text-sm/6"
               >
                 Upload a file
               </Button>

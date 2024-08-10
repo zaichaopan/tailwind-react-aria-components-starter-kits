@@ -1,21 +1,27 @@
 import React from 'react';
 import type { Meta } from '@storybook/react';
-import { Form } from 'react-aria-components';
+import { Form } from '../src/form';
 import { Button } from '../src/button';
 import {
   ComboBox,
   ComboBoxListBox,
   ComboBoxPopover,
-  ClearButton,
-  TriggerButton,
-  ComboBoxControl,
+  ComboBoxClearButton,
+  ComboBoxButton,
+  ComboBoxListItem,
+  ComboBoxSection,
+  ComboBoxGroup,
+  ComboBoxInput,
+  ComboBoxListItemLabel,
+  ComboBoxListItemDescription,
 } from '../src/combobox';
-import { DropdownItem, DropdownSection } from '../src/list-box';
-import { Description, FieldError, Input, Label } from '../src/field';
+import { Description, FieldError, Label } from '../src/field';
 import { docs } from '../.storybook/docs';
 import { Text } from '../src/text';
 import { Search } from 'lucide-react';
-import { Icon } from '../src/icon';
+import { AccessibleIcon } from '../src/accessible-icon';
+import { users } from './users';
+import { Avatar } from '../src/avatar';
 
 const meta: Meta<typeof ComboBox> = {
   title: 'ComboBox',
@@ -25,7 +31,7 @@ const meta: Meta<typeof ComboBox> = {
     docs: {
       description: {
         component:
-          'A <a href="https://react-spectrum.adobe.com/react-aria/ComboBox.html#combobox" target="_blank">**combo box**</a> combines a text input with a listbox, allowing users to filter a list of options to items matching a query.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/ComboBox.html#combobox" target="_blank">`combo box`</a> combines a text input with a listbox, allowing users to filter a list of options to items matching a query.',
       },
       ...docs,
       controls: {
@@ -38,25 +44,75 @@ const meta: Meta<typeof ComboBox> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
+  return (
+    <ComboBox>
+      <Label>Favorite Animal</Label>
+      <Description>Choose your favorite animal</Description>
+      <ComboBoxGroup>
+        <ComboBoxInput />
+        <ComboBoxClearButton />
+        <ComboBoxButton />
+      </ComboBoxGroup>
+
+      <ComboBoxPopover>
+        <ComboBoxListBox>
+          <ComboBoxListItem>Aardvark</ComboBoxListItem>
+          <ComboBoxListItem>Cat</ComboBoxListItem>
+          <ComboBoxListItem>Dog</ComboBoxListItem>
+          <ComboBoxListItem>Kangaroo</ComboBoxListItem>
+          <ComboBoxListItem>Panda</ComboBoxListItem>
+          <ComboBoxListItem>Snake</ComboBoxListItem>
+        </ComboBoxListBox>
+      </ComboBoxPopover>
+    </ComboBox>
+  );
+};
+
+export const WithDescription = () => {
   return (
     <ComboBox>
       <Label>Favorite Animal</Label>
       <Description>Choose your favorite animal</Description>
 
-      <ComboBoxControl>
-        <Input />
-        <TriggerButton />
-      </ComboBoxControl>
+      <ComboBoxGroup>
+        <ComboBoxInput />
+        <ComboBoxButton />
+      </ComboBoxGroup>
 
       <ComboBoxPopover>
         <ComboBoxListBox>
-          <DropdownItem>Aardvark</DropdownItem>
-          <DropdownItem>Cat</DropdownItem>
-          <DropdownItem>Dog</DropdownItem>
-          <DropdownItem>Kangaroo</DropdownItem>
-          <DropdownItem>Panda</DropdownItem>
-          <DropdownItem>Snake</DropdownItem>
+          <ComboBoxListItem>Aardvark</ComboBoxListItem>
+          <ComboBoxListItem>Cat</ComboBoxListItem>
+          <ComboBoxListItem>Dog</ComboBoxListItem>
+          <ComboBoxListItem>Kangaroo</ComboBoxListItem>
+          <ComboBoxListItem>Panda</ComboBoxListItem>
+          <ComboBoxListItem>Snake</ComboBoxListItem>
+        </ComboBoxListBox>
+      </ComboBoxPopover>
+    </ComboBox>
+  );
+};
+
+export const WithDescriptionHidden = () => {
+  return (
+    <ComboBox>
+      <Label>Favorite Animal</Label>
+
+      <ComboBoxGroup>
+        <ComboBoxInput />
+        <ComboBoxButton />
+      </ComboBoxGroup>
+      <Description>Choose your favorite animal</Description>
+
+      <ComboBoxPopover>
+        <ComboBoxListBox>
+          <ComboBoxListItem>Aardvark</ComboBoxListItem>
+          <ComboBoxListItem>Cat</ComboBoxListItem>
+          <ComboBoxListItem>Dog</ComboBoxListItem>
+          <ComboBoxListItem>Kangaroo</ComboBoxListItem>
+          <ComboBoxListItem>Panda</ComboBoxListItem>
+          <ComboBoxListItem>Snake</ComboBoxListItem>
         </ComboBoxListBox>
       </ComboBoxPopover>
     </ComboBox>
@@ -69,19 +125,19 @@ export const OpenOnInputFocus = () => {
       <Label>Favorite Animal</Label>
       <Description>Choose your favorite animal</Description>
 
-      <ComboBoxControl>
-        <Input />
-        <TriggerButton />
-      </ComboBoxControl>
+      <ComboBoxGroup>
+        <ComboBoxInput />
+        <ComboBoxButton />
+      </ComboBoxGroup>
 
       <ComboBoxPopover>
         <ComboBoxListBox>
-          <DropdownItem>Aardvark</DropdownItem>
-          <DropdownItem>Cat</DropdownItem>
-          <DropdownItem>Dog</DropdownItem>
-          <DropdownItem>Kangaroo</DropdownItem>
-          <DropdownItem>Panda</DropdownItem>
-          <DropdownItem>Snake</DropdownItem>
+          <ComboBoxListItem>Aardvark</ComboBoxListItem>
+          <ComboBoxListItem>Cat</ComboBoxListItem>
+          <ComboBoxListItem>Dog</ComboBoxListItem>
+          <ComboBoxListItem>Kangaroo</ComboBoxListItem>
+          <ComboBoxListItem>Panda</ComboBoxListItem>
+          <ComboBoxListItem>Snake</ComboBoxListItem>
         </ComboBoxListBox>
       </ComboBoxPopover>
     </ComboBox>
@@ -94,10 +150,10 @@ export const AllowsEmptyCollection = () => {
       <Label>Favorite Animal</Label>
       <Description>Choose your favorite animal</Description>
 
-      <ComboBoxControl>
-        <Input />
-        <TriggerButton />
-      </ComboBoxControl>
+      <ComboBoxGroup>
+        <ComboBoxInput />
+        <ComboBoxButton />
+      </ComboBoxGroup>
 
       <ComboBoxPopover>
         <ComboBoxListBox
@@ -105,12 +161,12 @@ export const AllowsEmptyCollection = () => {
             return <Text className="py-4 text-center">Not result found</Text>;
           }}
         >
-          <DropdownItem>Aardvark</DropdownItem>
-          <DropdownItem>Cat</DropdownItem>
-          <DropdownItem>Dog</DropdownItem>
-          <DropdownItem>Kangaroo</DropdownItem>
-          <DropdownItem>Panda</DropdownItem>
-          <DropdownItem>Snake</DropdownItem>
+          <ComboBoxListItem>Aardvark</ComboBoxListItem>
+          <ComboBoxListItem>Cat</ComboBoxListItem>
+          <ComboBoxListItem>Dog</ComboBoxListItem>
+          <ComboBoxListItem>Kangaroo</ComboBoxListItem>
+          <ComboBoxListItem>Panda</ComboBoxListItem>
+          <ComboBoxListItem>Snake</ComboBoxListItem>
         </ComboBoxListBox>
       </ComboBoxPopover>
     </ComboBox>
@@ -131,18 +187,18 @@ export const DisabledItems = () => {
     <ComboBox disabledKeys={['snake']}>
       <Label>Favorite Animal</Label>
       <Description>Choose your favorite animal</Description>
-      <ComboBoxControl>
-        <Input />
-        <TriggerButton />
-      </ComboBoxControl>
+      <ComboBoxGroup>
+        <ComboBoxInput />
+        <ComboBoxButton />
+      </ComboBoxGroup>
       <ComboBoxPopover>
         <ComboBoxListBox>
-          <DropdownItem>Aardvark</DropdownItem>
-          <DropdownItem>Cat</DropdownItem>
-          <DropdownItem>Dog</DropdownItem>
-          <DropdownItem>Kangaroo</DropdownItem>
-          <DropdownItem>Panda</DropdownItem>
-          <DropdownItem id="snake">Snake</DropdownItem>
+          <ComboBoxListItem>Aardvark</ComboBoxListItem>
+          <ComboBoxListItem>Cat</ComboBoxListItem>
+          <ComboBoxListItem>Dog</ComboBoxListItem>
+          <ComboBoxListItem>Kangaroo</ComboBoxListItem>
+          <ComboBoxListItem>Panda</ComboBoxListItem>
+          <ComboBoxListItem id="snake">Snake</ComboBoxListItem>
         </ComboBoxListBox>
       </ComboBoxPopover>
     </ComboBox>
@@ -154,18 +210,41 @@ export const DisabledComboBox = () => {
     <ComboBox isDisabled>
       <Label>Favorite Animal</Label>
       <Description>Choose your favorite animal</Description>
-      <ComboBoxControl>
-        <Input />
-        <TriggerButton />
-      </ComboBoxControl>
+      <ComboBoxGroup>
+        <ComboBoxInput />
+        <ComboBoxButton />
+      </ComboBoxGroup>
       <ComboBoxPopover>
         <ComboBoxListBox>
-          <DropdownItem>Aardvark</DropdownItem>
-          <DropdownItem>Cat</DropdownItem>
-          <DropdownItem>Dog</DropdownItem>
-          <DropdownItem>Kangaroo</DropdownItem>
-          <DropdownItem>Panda</DropdownItem>
-          <DropdownItem id="snake">Snake</DropdownItem>
+          <ComboBoxListItem>Aardvark</ComboBoxListItem>
+          <ComboBoxListItem>Cat</ComboBoxListItem>
+          <ComboBoxListItem>Dog</ComboBoxListItem>
+          <ComboBoxListItem>Kangaroo</ComboBoxListItem>
+          <ComboBoxListItem>Panda</ComboBoxListItem>
+          <ComboBoxListItem id="snake">Snake</ComboBoxListItem>
+        </ComboBoxListBox>
+      </ComboBoxPopover>
+    </ComboBox>
+  );
+};
+
+export const ReadonlyComboBox = () => {
+  return (
+    <ComboBox isReadOnly>
+      <Label>Favorite Animal</Label>
+      <Description>Choose your favorite animal</Description>
+      <ComboBoxGroup>
+        <ComboBoxInput />
+        <ComboBoxButton />
+      </ComboBoxGroup>
+      <ComboBoxPopover>
+        <ComboBoxListBox>
+          <ComboBoxListItem>Aardvark</ComboBoxListItem>
+          <ComboBoxListItem>Cat</ComboBoxListItem>
+          <ComboBoxListItem>Dog</ComboBoxListItem>
+          <ComboBoxListItem>Kangaroo</ComboBoxListItem>
+          <ComboBoxListItem>Panda</ComboBoxListItem>
+          <ComboBoxListItem id="snake">Snake</ComboBoxListItem>
         </ComboBoxListBox>
       </ComboBoxPopover>
     </ComboBox>
@@ -176,33 +255,108 @@ export const Sections = () => {
   return (
     <ComboBox>
       <Label>Preferred fruit or vegetable</Label>
-      <ComboBoxControl>
-        <Input />
-        <TriggerButton />
-      </ComboBoxControl>
+      <ComboBoxGroup>
+        <ComboBoxInput />
+        <ComboBoxButton />
+      </ComboBoxGroup>
 
       <ComboBoxPopover>
         <ComboBoxListBox>
-          <DropdownSection title="Fruit">
-            <DropdownItem id="Apple">Apple</DropdownItem>
-            <DropdownItem id="Banana">Banana</DropdownItem>
-            <DropdownItem id="Orange">Orange</DropdownItem>
-            <DropdownItem id="Honeydew">Honeydew</DropdownItem>
-            <DropdownItem id="Grapes">Grapes</DropdownItem>
-            <DropdownItem id="Watermelon">Watermelon</DropdownItem>
-            <DropdownItem id="Cantaloupe">Cantaloupe</DropdownItem>
-            <DropdownItem id="Pear">Pear</DropdownItem>
-          </DropdownSection>
-          <DropdownSection title="Vegetable">
-            <DropdownItem id="Cabbage">Cabbage</DropdownItem>
-            <DropdownItem id="Broccoli">Broccoli</DropdownItem>
-            <DropdownItem id="Carrots">Carrots</DropdownItem>
-            <DropdownItem id="Lettuce">Lettuce</DropdownItem>
-            <DropdownItem id="Spinach">Spinach</DropdownItem>
-            <DropdownItem id="Bok Choy">Bok Choy</DropdownItem>
-            <DropdownItem id="Cauliflower">Cauliflower</DropdownItem>
-            <DropdownItem id="Potatoes">Potatoes</DropdownItem>
-          </DropdownSection>
+          <ComboBoxSection title="Fruit">
+            <ComboBoxListItem id="Apple">Apple</ComboBoxListItem>
+            <ComboBoxListItem id="Banana">Banana</ComboBoxListItem>
+            <ComboBoxListItem id="Orange">Orange</ComboBoxListItem>
+            <ComboBoxListItem id="Honeydew">Honeydew</ComboBoxListItem>
+            <ComboBoxListItem id="Grapes">Grapes</ComboBoxListItem>
+            <ComboBoxListItem id="Watermelon">Watermelon</ComboBoxListItem>
+            <ComboBoxListItem id="Cantaloupe">Cantaloupe</ComboBoxListItem>
+            <ComboBoxListItem id="Pear">Pear</ComboBoxListItem>
+          </ComboBoxSection>
+          <ComboBoxSection title="Vegetable">
+            <ComboBoxListItem id="Cabbage">Cabbage</ComboBoxListItem>
+            <ComboBoxListItem id="Broccoli">Broccoli</ComboBoxListItem>
+            <ComboBoxListItem id="Carrots">Carrots</ComboBoxListItem>
+            <ComboBoxListItem id="Lettuce">Lettuce</ComboBoxListItem>
+            <ComboBoxListItem id="Spinach">Spinach</ComboBoxListItem>
+            <ComboBoxListItem id="Bok Choy">Bok Choy</ComboBoxListItem>
+            <ComboBoxListItem id="Cauliflower">Cauliflower</ComboBoxListItem>
+            <ComboBoxListItem id="Potatoes">Potatoes</ComboBoxListItem>
+          </ComboBoxSection>
+        </ComboBoxListBox>
+      </ComboBoxPopover>
+    </ComboBox>
+  );
+};
+
+export const WithTextSlots = () => {
+  return (
+    <ComboBox menuTrigger="focus">
+      <Label>Select action</Label>
+
+      <ComboBoxGroup>
+        <ComboBoxInput />
+        <ComboBoxButton />
+      </ComboBoxGroup>
+
+      <ComboBoxPopover>
+        <ComboBoxListBox>
+          <ComboBoxListItem textValue="Add to queue">
+            <ComboBoxListItemLabel>Add to queue</ComboBoxListItemLabel>
+            <ComboBoxListItemDescription>
+              Add to current watch queue.
+            </ComboBoxListItemDescription>
+          </ComboBoxListItem>
+          <ComboBoxListItem textValue="Add review">
+            <ComboBoxListItemLabel>Add review</ComboBoxListItemLabel>
+            <ComboBoxListItemDescription>
+              Post a review for the episode.
+            </ComboBoxListItemDescription>
+          </ComboBoxListItem>
+          <ComboBoxListItem textValue="Subscribe to series">
+            <ComboBoxListItemLabel>Subscribe to series</ComboBoxListItemLabel>
+            <ComboBoxListItemDescription>
+              Add series to your subscription list and be notified when a new
+              episode airs.
+            </ComboBoxListItemDescription>
+          </ComboBoxListItem>
+          <ComboBoxListItem textValue="Report">
+            <ComboBoxListItemLabel>Report</ComboBoxListItemLabel>
+            <ComboBoxListItemDescription>
+              Report an issue/violation.
+            </ComboBoxListItemDescription>
+          </ComboBoxListItem>
+        </ComboBoxListBox>
+      </ComboBoxPopover>
+    </ComboBox>
+  );
+};
+
+export const WithAvatar = () => {
+  return (
+    <ComboBox menuTrigger="focus">
+      <Label>Assign to</Label>
+
+      <ComboBoxGroup>
+        <ComboBoxInput />
+        <ComboBoxButton />
+      </ComboBoxGroup>
+
+      <ComboBoxPopover>
+        <ComboBoxListBox items={users}>
+          {(user) => {
+            return (
+              <ComboBoxListItem
+                textValue={user.name}
+              >
+                <Avatar
+                  className="rounded-full"
+                  src={user.avatar}
+                  alt={user.name}
+                />
+                <ComboBoxListItemLabel>{user.name}</ComboBoxListItemLabel>
+              </ComboBoxListItem>
+            );
+          }}
         </ComboBoxListBox>
       </ComboBoxPopover>
     </ComboBox>
@@ -215,18 +369,18 @@ export const Validation = () => {
       <ComboBox isRequired>
         <Label>Favorite Animal</Label>
         <Description>Choose your favorite animal</Description>
-        <ComboBoxControl>
-          <Input />
-          <TriggerButton />
-        </ComboBoxControl>
+        <ComboBoxGroup>
+          <ComboBoxInput />
+          <ComboBoxButton />
+        </ComboBoxGroup>
         <ComboBoxPopover>
           <ComboBoxListBox>
-            <DropdownItem>Aardvark</DropdownItem>
-            <DropdownItem>Cat</DropdownItem>
-            <DropdownItem>Dog</DropdownItem>
-            <DropdownItem>Kangaroo</DropdownItem>
-            <DropdownItem>Panda</DropdownItem>
-            <DropdownItem id="snake">Snake</DropdownItem>
+            <ComboBoxListItem>Aardvark</ComboBoxListItem>
+            <ComboBoxListItem>Cat</ComboBoxListItem>
+            <ComboBoxListItem>Dog</ComboBoxListItem>
+            <ComboBoxListItem>Kangaroo</ComboBoxListItem>
+            <ComboBoxListItem>Panda</ComboBoxListItem>
+            <ComboBoxListItem id="snake">Snake</ComboBoxListItem>
           </ComboBoxListBox>
         </ComboBoxPopover>
         <FieldError />
@@ -235,31 +389,6 @@ export const Validation = () => {
     </Form>
   );
 };
-
-export function ClearButtons() {
-  return (
-    <ComboBox>
-      <Label>Favorite Animal</Label>
-      <Description>Choose your favorite animal</Description>
-      <ComboBoxControl>
-        <Input />
-        <ClearButton />
-      </ComboBoxControl>
-
-      <ComboBoxPopover>
-        <ComboBoxListBox>
-          <DropdownItem>Aardvark</DropdownItem>
-          <DropdownItem>Cat</DropdownItem>
-          <DropdownItem>Dog</DropdownItem>
-          <DropdownItem>Kangaroo</DropdownItem>
-          <DropdownItem>Panda</DropdownItem>
-          <DropdownItem id="snake">Snake</DropdownItem>
-        </ComboBoxListBox>
-      </ComboBoxPopover>
-      <FieldError />
-    </ComboBox>
-  );
-}
 
 export function SearchBox() {
   const ref = React.useRef<HTMLInputElement>(null);
@@ -284,24 +413,23 @@ export function SearchBox() {
   return (
     <ComboBox menuTrigger="focus" aria-label="Search">
       <Description>Open the combobox using ⌘K</Description>
-      <ComboBoxControl>
-        <Icon>
-          <Search className="absolute left-2 top-1/2 w-4 -translate-y-1/2 text-muted" />
-        </Icon>
+      <ComboBoxGroup>
+        <AccessibleIcon>
+          <Search />
+        </AccessibleIcon>
 
-        <Input placeholder="Search&hellip;" ref={ref} className="px-7" />
-
-        <ClearButton />
-      </ComboBoxControl>
+        <ComboBoxInput placeholder="Search&hellip;" ref={ref} />
+        <ComboBoxClearButton />
+      </ComboBoxGroup>
 
       <ComboBoxPopover>
         <ComboBoxListBox>
-          <DropdownItem>Aardvark</DropdownItem>
-          <DropdownItem>Cat</DropdownItem>
-          <DropdownItem>Dog</DropdownItem>
-          <DropdownItem>Kangaroo</DropdownItem>
-          <DropdownItem>Panda</DropdownItem>
-          <DropdownItem id="snake">Snake</DropdownItem>
+          <ComboBoxListItem>Aardvark</ComboBoxListItem>
+          <ComboBoxListItem>Cat</ComboBoxListItem>
+          <ComboBoxListItem>Dog</ComboBoxListItem>
+          <ComboBoxListItem>Kangaroo</ComboBoxListItem>
+          <ComboBoxListItem>Panda</ComboBoxListItem>
+          <ComboBoxListItem id="snake">Snake</ComboBoxListItem>
         </ComboBoxListBox>
       </ComboBoxPopover>
       <FieldError />

@@ -10,11 +10,11 @@ import {
   Heading,
   Text,
   useLocale,
-  composeRenderProps,
 } from 'react-aria-components';
 import { Button } from './button';
 import { focusOutlineStyle } from './utils';
 import { twMerge } from 'tailwind-merge';
+import { ChevronLeftIcon, ChevronRightIcon } from './icons';
 
 export interface CalendarProps<T extends DateValue>
   extends Omit<RACCalendarProps<T>, 'visibleDuration'> {
@@ -30,21 +30,32 @@ export function Calendar<T extends DateValue>({
       <CalendarHeader />
       <CalendarGrid weekdayStyle="short">
         <CalendarGridHeader />
-        <CalendarGridBody className="before:block before:w-full before:leading-[0.25rem] before:opacity-0 before:content-['.']">
+        <CalendarGridBody>
           {(date) => (
             <CalendarCell
               date={date}
-              className={composeRenderProps('', (className, renderProps) => {
+              className={({
+                isSelected,
+                isDisabled,
+                isUnavailable,
+                isFocusVisible,
+              }) => {
                 return twMerge(
-                  'flex size-9 cursor-default items-center justify-center rounded-md text-sm outline-none',
-                  renderProps.isSelected
-                    ? 'bg-accent text-white invalid:bg-destructive invalid:text-white'
-                    : 'hover:bg-hover pressed:bg-accent/90 pressed:text-white',
-                  renderProps.isDisabled && 'text-muted',
-                  renderProps.isFocusVisible && focusOutlineStyle,
-                  className,
+                  'flex size-9 cursor-default items-center justify-center rounded-lg text-sm outline-none',
+                  isSelected
+                    ? [
+                        'border border-accent bg-accent text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] dark:border-0',
+                        'invalid:border-destructive invalid:bg-destructive invalid:text-white',
+                      ]
+                    : isUnavailable
+                      ? ''
+                      : 'hover:bg-hover pressed:bg-accent/90 pressed:text-white',
+                  isDisabled && 'opacity-50',
+                  isUnavailable &&
+                    'text-destructive line-through decoration-destructive',
+                  isFocusVisible && [focusOutlineStyle],
                 );
-              })}
+              }}
             />
           )}
         </CalendarGridBody>
@@ -63,81 +74,25 @@ export function CalendarHeader() {
 
   return (
     <header className="flex w-full items-center gap-1">
-      <Button slot="previous" plain iconOnly aria-label="Previous">
+      <Button slot="previous" variant="plain" isIconOnly aria-label="Previous">
         {direction === 'rtl' ? (
-          <svg
-            aria-hidden
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-muted"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
+          <ChevronRightIcon className="text-muted sm:size-5" />
         ) : (
-          <svg
-            aria-hidden
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-muted"
-          >
-            <path d="m15 18-6-6 6-6" />
-          </svg>
+          <ChevronLeftIcon className="text-muted sm:size-5" />
         )}
       </Button>
 
       <Heading
-        className="mx-2 flex-1 text-center font-medium"
+        className="mx-2 flex-1 text-center text-sm/6"
         level={2}
         aria-hidden
       />
 
-      <Button slot="next" plain iconOnly aria-label="Next">
+      <Button slot="next" variant="plain" isIconOnly aria-label="Next">
         {direction === 'rtl' ? (
-          <svg
-            aria-hidden
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-muted"
-          >
-            <path d="m15 18-6-6 6-6" />
-          </svg>
+          <ChevronLeftIcon className="text-muted sm:size-5" />
         ) : (
-          <svg
-            aria-hidden
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-muted"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
+          <ChevronRightIcon className="text-muted sm:size-5" />
         )}
       </Button>
     </header>

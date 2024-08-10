@@ -16,17 +16,6 @@ export interface RangeCalendarProps<T extends DateValue>
   errorMessage?: string;
 }
 
-const selectionStateStyle = {
-  none: 'group-hover:bg-hover group-pressed:bg-accent/90 group-hover:rounded-md',
-  middle: [
-    'group-hover:bg-accent/20 dark:group-hover:bg-accent/50',
-    'group-invalid:group-hover:bg-destructive/50',
-    'group-pressed:bg-accent group-pressed:text-white',
-    'group-invalid:group-pressed:bg-destructive group-invalid:group-pressed:text-white',
-  ],
-  cap: 'bg-accent text-white group-invalid:bg-destructive group-invalid:text-white',
-};
-
 export function RangeCalendar<T extends DateValue>({
   errorMessage,
   ...props
@@ -40,7 +29,14 @@ export function RangeCalendar<T extends DateValue>({
           {(date) => (
             <CalendarCell
               date={date}
-              className="group size-9 cursor-default text-sm outline outline-0 selected:bg-hover invalid:selected:bg-destructive/15 selection-start:rounded-s-md selection-end:rounded-e-md"
+              className={[
+                'group size-9 cursor-default text-sm outline-none',
+                'selected:bg-accent/[0.085] dark:selected:bg-accent/40',
+                'invalid:selected:bg-destructive/15 dark:invalid:selected:bg-destructive/30',
+                'selection-start:rounded-s-lg',
+                'selection-end:rounded-e-lg',
+                '[td:first-child_&]:rounded-s-lg [td:last-child_&]:rounded-e-lg',
+              ].join(' ')}
             >
               {({
                 formattedDate,
@@ -48,22 +44,37 @@ export function RangeCalendar<T extends DateValue>({
                 isSelectionStart,
                 isSelectionEnd,
                 isFocusVisible,
+                isUnavailable,
                 isDisabled,
               }) => (
                 <span
                   className={twMerge(
-                    'flex h-full w-full items-center justify-center',
-                    isSelectionStart && 'rounded-l-md',
-                    isSelectionEnd && 'rounded-r-md',
-                    selectionStateStyle[
-                      isSelected && (isSelectionStart || isSelectionEnd)
-                        ? 'cap'
-                        : isSelected
-                          ? 'middle'
-                          : 'none'
-                    ],
-                    isFocusVisible && [focusOutlineStyle, 'rounded'],
-                    isDisabled && 'text-muted',
+                    'flex size-[calc(theme(size.9)-1px)] items-center justify-center',
+                    //  selectionStateStyle
+                    isSelected && (isSelectionStart || isSelectionEnd)
+                      ? [
+                          'border border-accent bg-accent text-white dark:border-0',
+                          'rounded-lg',
+                          'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]',
+                          'group-invalid:border-destructive',
+                          'group-invalid:bg-destructive',
+                          'group-invalid:text-white',
+                        ]
+                      : isSelected
+                        ? [
+                            'rounded-lg',
+                            'group-hover:bg-accent/15 dark:group-hover:bg-accent/50',
+                            'group-pressed:bg-accent group-pressed:text-white',
+                          ]
+                        : [
+                            isUnavailable
+                              ? ''
+                              : 'group-hover:rounded-lg group-hover:bg-hover group-pressed:bg-accent/90',
+                          ],
+                    isFocusVisible && [focusOutlineStyle, 'rounded-lg'],
+                    isDisabled && 'opacity-50',
+                    isUnavailable &&
+                      'text-destructive line-through decoration-destructive',
                   )}
                 >
                   {formattedDate}

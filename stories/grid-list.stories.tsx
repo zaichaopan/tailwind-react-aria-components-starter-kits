@@ -4,13 +4,13 @@ import { docs } from '../.storybook/docs';
 
 const meta: Meta<typeof GridList> = {
   component: GridList,
-  title: 'GridList',
+  title: 'Grid list',
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component:
-          'A <a href="https://react-spectrum.adobe.com/react-aria/GridList.html#disallow-empty-selection"  target="_blank">**grid list**</a> displays a list of interactive items, with support for keyboard navigation, single or multiple selection, and row actions.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/GridList.html#disallow-empty-selection"  target="_blank">`grid list`</a> displays a list of interactive items, with support for keyboard navigation, single or multiple selection, and row actions.',
       },
       ...docs,
       controls: {
@@ -23,7 +23,7 @@ const meta: Meta<typeof GridList> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
     <GridList aria-label="Ice cream flavors" selectionMode="multiple">
       <GridListItem id="chocolate">Chocolate</GridListItem>

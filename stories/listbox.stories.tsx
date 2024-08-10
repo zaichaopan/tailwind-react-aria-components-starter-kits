@@ -10,14 +10,14 @@ import { Text } from '../src/text.tsx';
 import { Separator } from '../src/separator.tsx';
 
 const meta: Meta<typeof ListBox> = {
-  title: 'ListBox',
+  title: 'Listbox',
   component: ListBox,
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         component:
-          'A [**listbox**](https://react-spectrum.adobe.com/react-aria/ListBox.html#listbox) displays a list of options and allows a user to select one or more of them.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/ListBox.html#listbox" target="_blank">`listbox`</a> displays a list of options and allows a user to select one or more of them.',
       },
       ...docs,
     },
@@ -55,7 +55,7 @@ const statuses: Array<Status> = [
   },
 ];
 
-export const Example = () => {
+export const BasicExample = () => {
   const [selectedStatus, setSelectedStatus] = React.useState<Selection>(
     new Set([statuses[0].id]),
   );
@@ -87,7 +87,7 @@ export const Example = () => {
               <item.icon className="size-3" />
               <span className="text-sm">{item.textValue}</span>
               <Check
-                className="ml-auto hidden h-5 w-5 group-selected:flex"
+                className="ms-auto hidden h-5 w-5 group-selected:flex"
                 strokeWidth={1.5}
               />
             </ListBoxItem>
@@ -243,12 +243,12 @@ function LightTheme() {
   return (
     <div className="flex flex-col items-center gap-1">
       <div className="flex rounded-xl border-2 border-transparent  p-0.5 group-selected:border-accent">
-        <div className="flex w-32 flex-col gap-2 overflow-hidden rounded-lg border bg-white pl-2 pt-4">
+        <div className="flex w-32 flex-col gap-2 overflow-hidden rounded-lg border bg-white ps-2 pt-4">
           <div className="h-6 w-1/2 rounded-sm border border-zinc-200 bg-zinc-100 p-1.5">
             <div className="h-full rounded-sm bg-accent"></div>
           </div>
 
-          <div className="ml-auto flex h-8 w-3/4 flex-1 overflow-hidden rounded-tl-md border-t border-zinc-200 bg-white shadow-sm">
+          <div className="ms-auto flex h-8 w-3/4 flex-1 overflow-hidden rounded-tl-md border-t border-zinc-200 bg-white shadow-sm">
             <div className="flex h-8 w-3/5 gap-1 bg-zinc-100 px-2 py-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-orange-400"></span>
               <span className="h-1.5 w-1.5 rounded-full bg-amber-400"></span>
@@ -271,12 +271,12 @@ function DarkTheme() {
   return (
     <div className="flex flex-col items-center gap-1">
       <div className="flex rounded-xl border-2 border-transparent p-0.5 group-selected:border-accent">
-        <div className="flex w-32 flex-col gap-2 overflow-hidden rounded-lg border bg-zinc-900 pl-2 pt-4 ">
+        <div className="flex w-32 flex-col gap-2 overflow-hidden rounded-lg border bg-zinc-900 ps-2 pt-4 ">
           <div className="h-6 w-1/2 rounded-sm border border-zinc-700 bg-zinc-700 p-1.5">
             <div className="h-full rounded-sm bg-accent"></div>
           </div>
 
-          <div className="ml-auto flex flex h-8 w-3/4 flex-1 rounded-tl-md border-t border-zinc-800 bg-zinc-800 shadow-sm">
+          <div className="ms-auto flex flex h-8 w-3/4 flex-1 rounded-tl-md border-t border-zinc-800 bg-zinc-800 shadow-sm">
             <div className="flex h-8 w-3/5 gap-1 bg-zinc-700/20 p-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-orange-400"></span>
               <span className="h-1.5 w-1.5 rounded-full bg-amber-400"></span>
@@ -300,12 +300,12 @@ function SystemTheme() {
     <div className="flex flex-col items-center gap-1">
       <div className="flex rounded-xl border-2 border-transparent p-0.5 group-selected:border-accent">
         <div className="flex w-32">
-          <div className="flex flex-1 flex-col gap-2 overflow-hidden rounded-l-lg border-b border-l border-t bg-white pl-2 pt-4">
+          <div className="flex flex-1 flex-col gap-2 overflow-hidden rounded-l-lg border-b border-l border-t bg-white ps-2 pt-4">
             <div className="h-6 rounded-l-sm border border-zinc-200 bg-zinc-100 p-1.5">
               <div className="h-full rounded-sm bg-accent"></div>
             </div>
 
-            <div className="ml-auto flex h-8 w-3/4 flex-1 rounded-tl-md border-l border-t border-zinc-200 bg-zinc-100 shadow-sm">
+            <div className="ms-auto flex h-8 w-3/4 flex-1 rounded-tl-md border-l border-t border-zinc-200 bg-zinc-100 shadow-sm">
               <div className="flex h-8 gap-1 p-1.5">
                 <span className="h-1.5 w-1.5 rounded-full bg-orange-400"></span>
                 <span className="h-1.5 w-1.5 rounded-full bg-amber-400"></span>
@@ -314,12 +314,12 @@ function SystemTheme() {
             </div>
           </div>
 
-          <div className="flex flex-1 flex-col gap-2 overflow-hidden rounded-r-lg border-b border-r border-t border-zinc-900 bg-zinc-900 pl-2 pt-4 dark:border-b-border dark:border-r-border dark:border-t-border">
+          <div className="flex flex-1 flex-col gap-2 overflow-hidden rounded-r-lg border-b border-r border-t border-zinc-900 bg-zinc-900 ps-2 pt-4 dark:border-b-border dark:border-r-border dark:border-t-border">
             <div className="h-6 rounded-l-sm border border-zinc-700 bg-zinc-700 p-1.5">
               <div className="h-full rounded-sm border border-accent bg-accent"></div>
             </div>
 
-            <div className="ml-auto flex h-8 w-3/4 flex-1 rounded-tl-md border-l border-t border-zinc-800 bg-zinc-800 shadow-sm">
+            <div className="ms-auto flex h-8 w-3/4 flex-1 rounded-tl-md border-l border-t border-zinc-800 bg-zinc-800 shadow-sm">
               <div className="flex h-8 gap-1 p-1.5">
                 <span className="h-1.5 w-1.5 rounded-full bg-orange-400"></span>
                 <span className="h-1.5 w-1.5 rounded-full bg-amber-400"></span>

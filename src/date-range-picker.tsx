@@ -5,15 +5,20 @@ import {
   DateRangePickerStateContext,
   DateValue,
   useLocale,
+  Group,
 } from 'react-aria-components';
 import { Button } from './button';
 import { DateInput } from './date-field';
 import { Dialog } from './dialog';
-import { InputFieldGroup } from './field';
 import { Popover } from './popover';
 import { RangeCalendar } from './range-calendar';
-import { composeTailwindRenderProps } from './utils';
+import {
+  composeTailwindRenderProps,
+  focusRingStyle,
+  inputFieldStyle,
+} from './utils';
 import { twMerge } from 'tailwind-merge';
+import { CalendarIcon } from './icons';
 
 export interface DateRangePickerProps<T extends DateValue>
   extends AriaDateRangePickerProps<T> {}
@@ -24,52 +29,57 @@ export function DateRangePicker<T extends DateValue>({
   return (
     <AriaDateRangePicker
       {...props}
-      className={composeTailwindRenderProps(props.className, [
-        'group flex shrink-0 flex-col gap-1',
-      ])}
+      className={composeTailwindRenderProps(props.className, inputFieldStyle)}
     />
   );
 }
 
 export function DateRangePickerInput() {
+  const { locale } = useLocale();
+  const state = React.useContext(DateRangePickerStateContext);
+  const formattedValue = state.formatValue(locale, {});
+
   return (
     <>
-      <InputFieldGroup>
-        <DateInput slot="start" className="min-w-fit" />
+      <Group
+        data-ui="control"
+        className={(renderProps) => {
+          return twMerge(
+            '[&:has([aria-valuetext=Empty]:) w-full',
+            'grid grid-cols-[1fr_16px_1fr_40px] items-center sm:grid-cols-[1fr_16px_1fr_36px]',
+            'group relative rounded-lg border bg-inherit shadow-sm',
+            'group-invalid:border-destructive',
+            '[&:has(_input[data-disabled=true])]:border-border/50',
+            formattedValue ? 'min-w-60' : 'min-w-[278px]',
+            renderProps.isFocusWithin && focusRingStyle,
+          );
+        }}
+      >
+        <DateInput
+          slot="start"
+          className="flex min-w-fit border-none shadow-none ring-0"
+        />
         <span
           aria-hidden="true"
-          className="ml-2 text-gray-800 group-disabled:text-gray-200 dark:text-zinc-200 group-disabled:dark:text-zinc-600"
+          className="place-self-center text-muted group-disabled:opacity-50"
         >
           –
         </span>
-        <DateInput slot="end" className="min-w-fit flex-1" />
+        <DateInput
+          slot="end"
+          className="flex min-w-fit flex-1 border-none opacity-100 shadow-none ring-0"
+        />
         <Button
-          plain
+          variant="plain"
+          isIconOnly
           size="sm"
-          className="mx-1.5 size-auto rounded p-0.5 outline-offset-0"
+          className="place-self-center -outline-offset-1"
         >
-          <svg
-            aria-hidden
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="size-4"
-          >
-            <path d="M8 2v4" />
-            <path d="M16 2v4" />
-            <rect width="18" height="18" x="3" y="4" rx="2" />
-            <path d="M3 10h18" />
-          </svg>
+          <CalendarIcon />
         </Button>
-      </InputFieldGroup>
-      <Popover className="max-w-none" placement="bottom">
-        <Dialog className="overflow-auto px-3 py-2">
+      </Group>
+      <Popover className="max-w-none rounded-xl" placement="bottom">
+        <Dialog className="overflow-auto p-3">
           <RangeCalendar />
         </Dialog>
       </Popover>
@@ -77,67 +87,62 @@ export function DateRangePickerInput() {
   );
 }
 
-export function DateRangePickerButton() {
+export function DateRangePickerButton({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: React.ReactNode;
+}) {
   const { locale } = useLocale();
   const state = React.useContext(DateRangePickerStateContext);
   const formattedValue = state.formatValue(locale, {});
 
   return (
     <>
-      <InputFieldGroup>
+      <Group data-ui="control">
         <Button
-          plain
-          className={(renderProps) => {
-            return twMerge(
-              'flex-1 px-2 font-normal',
-              renderProps.isFocusVisible && 'outline-0',
-            );
-          }}
+          variant="outline"
+          className={twMerge('w-full min-w-64 px-0 font-normal', className)}
         >
-          {formattedValue ? (
-            <>
-              <span className="min-w-fit text-sm">{formattedValue.start}</span>
-              <span
-                aria-hidden="true"
-                className="ml-2 text-gray-800 group-disabled:text-gray-200 dark:text-zinc-200 group-disabled:dark:text-zinc-600"
-              >
-                –
-              </span>
-              <span className="min-w-fit flex-1 text-sm">
-                {formattedValue.end}
-              </span>
-            </>
-          ) : (
-            <span className="flex flex-1 items-center text-muted">
-              Select date range
-            </span>
-          )}
-
-          <svg
-            aria-hidden
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="size-4"
+          <div
+            className={twMerge(
+              'grid w-full items-center',
+              formattedValue
+                ? 'grid grid-cols-[1fr_16px_1fr_36px]'
+                : 'grid-cols-[1fr_36px]',
+            )}
           >
-            <path d="M8 2v4" />
-            <path d="M16 2v4" />
-            <rect width="18" height="18" x="3" y="4" rx="2" />
-            <path d="M3 10h18" />
-          </svg>
+            {formattedValue ? (
+              <>
+                <span className="min-w-fit px-2.5 text-base/6 sm:text-sm/6">
+                  {formattedValue.start}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="place-self-center text-muted group-disabled:opacity-50"
+                >
+                  –
+                </span>
+                <span className="min-w-fit px-2.5 text-base/6 sm:text-sm/6">
+                  {formattedValue.end}
+                </span>
+              </>
+            ) : (
+              <span className="justify-self-start px-2.5 text-muted">
+                {children}
+              </span>
+            )}
+
+            <CalendarIcon className='place-self-center'/>
+          </div>
         </Button>
 
         <DateInput slot="start" aria-hidden className="hidden" />
         <DateInput slot="end" aria-hidden className="hidden" />
-      </InputFieldGroup>
-      <Popover className="max-w-none" placement="bottom">
-        <Dialog className="overflow-auto px-3 py-2">
+      </Group>
+      <Popover className="max-w-none rounded-xl" placement="bottom">
+        <Dialog className="overflow-auto p-3">
           <RangeCalendar />
         </Dialog>
       </Popover>

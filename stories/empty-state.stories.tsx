@@ -9,17 +9,17 @@ import {
   EmptyStateIcon,
 } from '../src/empty-state';
 import { FolderPlus, Plus } from 'lucide-react';
-import { Icon } from '../src/icon';
+import { AccessibleIcon } from '../src/accessible-icon';
 
 const meta: Meta<typeof Button> = {
-  title: 'EmptyState',
+  title: 'Empty state',
   component: Button,
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         component:
-          '<a href="https://tailwindui.com/components/application-ui/feedback/empty-states" target="_blank">**EmptyState**</a> is used as placeholder to tell users why content is missing.',
+          '<a href="https://tailwindui.com/components/application-ui/feedback/empty-states" target="_blank">`EmptyState`</a> is used as placeholder to tell users why content is missing.',
       },
       ...docs,
       controls: {
@@ -32,7 +32,7 @@ const meta: Meta<typeof Button> = {
 
 export default meta;
 
-export const Example = () => {
+export const BasicExample = () => {
   return (
     <EmptyState className="h-screen">
       <EmptyStateIcon>
@@ -44,9 +44,9 @@ export const Example = () => {
       </EmptyStateDescription>
       <EmptyStateActions>
         <Button>
-          <Icon>
+          <AccessibleIcon>
             <Plus />
-          </Icon>
+          </AccessibleIcon>
           New Project
         </Button>
       </EmptyStateActions>

@@ -88,7 +88,7 @@ export function Modal({ animate = true, classNames, ...props }: ModalProps) {
           (className, renderProps) => {
             return twMerge(
               'max-h-full w-full overflow-hidden bg-background text-left align-middle shadow-lg',
-              'ring-1 ring-zinc-950/5 dark:ring-white/15',
+              'ring-1 ring-foreground/10 dark:ring-foreground/15',
               'w-full',
               props.size
                 ? sizes[props.size]

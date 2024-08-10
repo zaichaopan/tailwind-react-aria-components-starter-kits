@@ -9,7 +9,7 @@ import {
 } from '../src/tooltip';
 import { docs } from '../.storybook/docs';
 import { Moon, Sun } from 'lucide-react';
-import { Icon } from '../src/icon';
+import { AccessibleIcon } from '../src/accessible-icon';
 
 const meta: Meta<typeof Tooltip> = {
   title: 'Tooltip',
@@ -19,7 +19,7 @@ const meta: Meta<typeof Tooltip> = {
     docs: {
       description: {
         component:
-          'A <a href="https://react-spectrum.adobe.com/react-aria/Button.html" target="_blank">**tooltip**</a> displays a description of an element on hover or focus. Tooltip target need to be focusable.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/Button.html" target="_blank">`tooltip`</a> displays a description of an element on hover or focus. Tooltip target need to be focusable.',
       },
       ...docs,
       controls: {
@@ -32,9 +32,9 @@ const meta: Meta<typeof Tooltip> = {
 
 export default meta;
 
-export const Example = () => (
+export const BasicExample = () => (
   <TooltipTrigger>
-    <Button outline>Hover me</Button>
+    <Button variant="outline">Hover me</Button>
     <Tooltip>I am a tooltip</Tooltip>
   </TooltipTrigger>
 );
@@ -52,7 +52,7 @@ WithNonFocusableElements.parameters = {
   docs: {
     description: {
       story:
-        'Use the **NonFousableTooltipTarge** to show a tooltip on **non-focusable** element. <a href="https://argos-ci.com/blog/react-aria-migration" target="_blank">**Learn more**</a>:',
+        'Use the `NonFousableTooltipTarge` prop to show a tooltip on <a href="https://argos-ci.com/blog/react-aria-migration" target="_blank">`non-focusable`</a> element.',
     },
   },
 };
@@ -61,7 +61,7 @@ export const WithDisabledElements = () => (
   <TooltipTrigger>
     <NonFousableTooltipTarget>
       <div>
-        <Button outline isDisabled>
+        <Button variant='outline' isDisabled>
           Hover me
         </Button>
       </div>
@@ -74,7 +74,7 @@ WithDisabledElements.parameters = {
   docs: {
     description: {
       story:
-        'Use **NonFousableTooltipTarget** and **div** to show a tooltip on disabled elements:',
+        'Use the `NonFousableTooltipTarget` component and `div` to show a tooltip on disabled elements.',
     },
   },
 };
@@ -87,13 +87,13 @@ export const NativeTooltips = () => {
   return (
     <NativeTooltip title={title}>
       <Button
-        iconOnly
-        outline
+        isIconOnly
+        variant='outline'
         onPress={() =>
           setTheme((theme) => (theme === 'light' ? 'dark' : 'light'))
         }
       >
-        <Icon aria-label={title}>{theme === 'light' ? <Moon /> : <Sun />}</Icon>
+        <AccessibleIcon aria-label={title}>{theme === 'light' ? <Moon /> : <Sun />}</AccessibleIcon>
       </Button>
     </NativeTooltip>
   );
@@ -103,7 +103,7 @@ NativeTooltips.parameters = {
   docs: {
     description: {
       story:
-        '**NativeTooltip** component uses <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title" target="_blank">**title**</a> attribute to create a native html tooltip.',
+        'The `NativeTooltip` component uses <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title" target="_blank">`title`</a> attribute to create a native html tooltip.',
     },
   },
 };

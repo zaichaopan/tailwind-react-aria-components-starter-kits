@@ -2,7 +2,6 @@ import { twMerge } from 'tailwind-merge';
 import { TextProps } from 'react-aria-components';
 import { Text } from './text';
 import { Heading, HeadingProps } from './heading';
-import { Icon } from './icon';
 
 export function EmptyState({
   className,
@@ -12,7 +11,7 @@ export function EmptyState({
     <div
       {...props}
       className={twMerge(
-        'flex h-full w-full flex-1 flex-col items-center justify-center gap-1 p-4 text-center @container',
+        'flex h-full w-full flex-col items-center justify-center gap-1 p-4 text-center @container',
         className,
       )}
     />
@@ -33,7 +32,7 @@ export function EmptyStateIcon({
         className,
       )}
     >
-      <Icon>{children}</Icon>
+    {children}
     </div>
   );
 }
