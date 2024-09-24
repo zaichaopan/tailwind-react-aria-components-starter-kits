@@ -5,6 +5,7 @@ import {
   SquareArrowOutUpRight,
   FolderPlus,
   MicIcon,
+  MicOffIcon,
   MoreHorizontalIcon,
   XIcon,
   DownloadIcon,
@@ -14,7 +15,7 @@ import {
   MinusIcon,
   ChevronRightIcon,
 } from 'lucide-react';
-import { Button, ButtonGroup } from '../src/button';
+import { Button, ButtonGroup, ToggleButton } from '../src/button';
 import { docs } from '../.storybook/docs';
 import { Avatar } from '../src/avatar';
 import { Link } from '../src/link';
@@ -30,6 +31,7 @@ import {
   MenuItemDescription,
 } from '../src/menu';
 import { SpinnerIcon } from '../src/icons';
+import { TooltipTrigger, Tooltip } from '../src/tooltip';
 
 const meta: Meta<typeof Button> = {
   title: 'Button',
@@ -154,7 +156,7 @@ Icons.parameters = {
   },
 };
 
-export const isIconOnly = () => {
+export const IsIconOnly = () => {
   return (
     <div className="space-x-4">
       <Button isIconOnly size="lg">
@@ -181,7 +183,7 @@ export const isIconOnly = () => {
   );
 };
 
-isIconOnly.parameters = {
+IsIconOnly.parameters = {
   docs: {
     description: {
       story:
@@ -306,6 +308,53 @@ AsChild.parameters = {
         'Use the <a href="https://www.jacobparis.com/content/react-as-child" target="_blank">`asChild`</a> prop to render a completely different component, e.g., render the <a href="./?path=/docs/link--docs" target="_blank">`Link`</a> component with button styles.',
     },
   },
+};
+
+export function ToggleButtons() {
+  const [isPined, setIsPined] = React.useState(false);
+
+  return (
+    <ToggleButton
+      isSelected={isPined}
+      onChange={setIsPined}
+      {...(!isPined && {
+        variant: 'outline',
+      })}
+    >
+      Pin
+    </ToggleButton>
+  );
+}
+
+ToggleButtons.parameters = {
+  docs: {
+    description: {
+      story:
+        'A <a href="https://react-spectrum.adobe.com/react-aria/ToggleButton.html#togglebutton" target="_blank">`toggle button`</a> allows a user to toggle a selection on or off, for example switching between two states or modes. Use the `isSelected` and `onChange` prop to control toggle state and behavior.',
+    },
+  },
+};
+
+export const ToggleButtonWithIconAndTooltip = () => {
+  const [isMicMuted, setIsMicMuted] = React.useState(true);
+
+  return (
+    <TooltipTrigger>
+      <ToggleButton
+        variant="plain"
+        isSelected={isMicMuted}
+        onChange={setIsMicMuted}
+        size="lg"
+        className="w-16 flex-col gap-y-1.5 text-sm sm:text-xs"
+      >
+        <AccessibleIcon aria-label="Mute mic">
+          {isMicMuted ? <MicOffIcon /> : <MicIcon />}
+        </AccessibleIcon>
+        Mic
+      </ToggleButton>
+      <Tooltip>{isMicMuted ? 'Un-mute Microphone' : 'Mute Microphone'}</Tooltip>
+    </TooltipTrigger>
+  );
 };
 
 export const ButtonGroups = () => {
@@ -453,7 +502,7 @@ function CloudUploadingIcon() {
       width="1em"
       height="1em"
       viewBox="0 0 24 24"
-      className="size-5"
+      className="size-5 text-white/75"
     >
       <path
         fill="currentColor"
@@ -468,7 +517,7 @@ function CloudUploadingIcon() {
           type="translate"
           from="0 15"
           to="0 -3"
-          dur="1.25s"
+          dur="1s"
           fill="freeze"
           repeatCount="indefinite"
           keyTimes="0; 1"
@@ -479,7 +528,7 @@ function CloudUploadingIcon() {
           attributeName="opacity"
           from="1"
           to="0.25"
-          dur="1.25s"
+          dur="1s"
           fill="freeze"
           repeatCount="indefinite"
         />
@@ -493,7 +542,7 @@ function CloudUploadingIcon() {
           type="translate"
           from="0 15"
           to="0 -3"
-          dur="1.25s"
+          dur="1s"
           fill="freeze"
           repeatCount="indefinite"
           keyTimes="0; 1"
@@ -504,7 +553,7 @@ function CloudUploadingIcon() {
           attributeName="opacity"
           from="1"
           to="0.25"
-          dur="1.25s"
+          dur="1s"
           fill="freeze"
           repeatCount="indefinite"
         />

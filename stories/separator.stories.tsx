@@ -1,9 +1,9 @@
 import type { Meta } from '@storybook/react';
 import { docs } from '../.storybook/docs.ts';
-import { Mail, Calendar, Plus } from './~icons.tsx';
+import { MailIcon, PlusIcon , ChevronDownIcon} from 'lucide-react';
 import { AccessibleIcon } from '../src/accessible-icon.tsx';
 import { Separator } from '../src/separator.tsx';
-import { Button, ButtonGroup } from '../src/button.tsx';
+import { Button } from '../src/button.tsx';
 import {
   MenuItem,
   MenuTrigger,
@@ -58,8 +58,7 @@ export const VerticalSeparators = () => {
 VerticalSeparators.parameters = {
   docs: {
     description: {
-      story:
-        'Use `orientation="vertical"` to render vertical separator.',
+      story: 'Use `orientation="vertical"` to render vertical separator.',
     },
   },
 };
@@ -71,7 +70,7 @@ export const WithTextsOrIcons = () => {
 
       <Separator>
         <AccessibleIcon>
-          <Mail className="mx-2" />
+          <MailIcon className="mx-2" />
         </AccessibleIcon>
       </Separator>
 
@@ -109,30 +108,17 @@ export const WithTextsOrIcons = () => {
       <Separator>
         <Button variant="outline">
           <AccessibleIcon>
-            <Plus />
+            <PlusIcon />
           </AccessibleIcon>
           New Page
         </Button>
       </Separator>
 
       <Separator>
-        <ButtonGroup>
-          <Button variant="outline">
-            <AccessibleIcon aria-label="Mail">
-              <Mail />
-            </AccessibleIcon>
-          </Button>
-          <Button variant="outline">
-            <AccessibleIcon aria-label="Calendar">
-              <Calendar />
-            </AccessibleIcon>
-          </Button>
-          <Button variant="outline">
-            <AccessibleIcon aria-label="Add">
-              <Plus />
-            </AccessibleIcon>
-          </Button>
-        </ButtonGroup>
+        <Button variant="outline">
+          Expand
+          <ChevronDownIcon />
+        </Button>
       </Separator>
 
       <div className="flex p-8">

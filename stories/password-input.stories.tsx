@@ -45,10 +45,10 @@ export const WithDescription = () => {
 
 export const WithDescriptionHiddenTitle = () => {
   return (
-    <TextField name="password">
+    <TextField name="password" className="max-w-sm">
       <Label>Password</Label>
       <PasswordInput placeholder="Password" minLength={8} />
-      <Description>Min 8 characters</Description>
+      <Description>Must be at least 8 characters long, include an uppercase letter, a number, and a special character.</Description>
     </TextField>
   );
 };
