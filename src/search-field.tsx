@@ -25,12 +25,13 @@ export function SearchInput(props: InputProps) {
     <Group
       data-ui="control"
       className={[
+        'isolate',
         'grid',
         'grid-cols-[calc(theme(size.5)+20px)_1fr_calc(theme(size.5)+20px)]',
         'sm:grid-cols-[calc(theme(size.4)+20px)_1fr_calc(theme(size.4)+20px)]',
       ].join(' ')}
     >
-      <SearchIcon className="col-start-1 row-start-1 size-5 place-self-center text-muted sm:size-4" />
+      <SearchIcon className="col-start-1 row-start-1 size-5 place-self-center text-muted sm:size-4 z-10" />
 
       <Input
         {...props}
