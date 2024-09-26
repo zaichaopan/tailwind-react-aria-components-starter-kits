@@ -197,7 +197,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           {(renderProps) => {
             return (
               <>
-                {!isCustomLoading && (
+                {isLoading && !isCustomLoading && (
                   <SpinnerIcon
                     className={twMerge(
                       'absolute flex h-full items-center justify-center',

@@ -52,7 +52,7 @@ export function DisclosureControl({
     <summary
       {...props}
       className={twMerge(
-        'flex w-full cursor-pointer select-none justify-between rounded text-left text-base/6 font-medium outline-none group-open:mb-2 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 focus-visible:ring-offset-background [&::-webkit-details-marker]:hidden',
+        'flex w-full cursor-pointer select-none justify-between rounded-lg text-left text-base/6 font-medium outline-none group-open:mb-2 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 focus-visible:ring-offset-background [&::-webkit-details-marker]:hidden',
         className,
       )}
     />

@@ -21,6 +21,8 @@ import {
 import { twMerge } from 'tailwind-merge';
 import {
   composeTailwindRenderProps,
+  DisplayLevel,
+  displayLevels,
   focusRingStyle,
   inputFieldStyle,
 } from './utils';
@@ -41,7 +43,7 @@ export function LabeledGroup({
       <GroupContext.Provider value={{ 'aria-labelledby': labelId }}>
         <div
           className={twMerge(
-            ['[&>[data-ui=label]:not([class*=mb])]:mb-2'],
+            ['[&>[data-ui=label]:first-of-type:not([class*=mb])]:mb-2'],
             className,
           )}
         >
@@ -54,17 +56,20 @@ export function LabeledGroup({
 
 export function Label({
   requiredHint,
+  displayLevel = 3,
   ...props
 }: LabelProps & {
   requiredHint?: boolean;
+  displayLevel?: DisplayLevel;
 }) {
   return (
     <RACLabel
       {...props}
       data-ui="label"
       className={twMerge(
-        'inline-block min-w-fit text-pretty text-base/6 font-medium sm:text-sm/6',
+        'inline-block min-w-fit text-pretty',
         'group-disabled:opacity-50',
+        displayLevels[displayLevel],
         requiredHint &&
           "after:ms-0.5 after:text-destructive after:content-['*']",
         props.className,

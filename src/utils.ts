@@ -69,7 +69,15 @@ export const selectBoxIndicator = [
   'after:absolute',
   'after:border-muted',
   "after:content-['']",
-  "after:size-[9px] after:sm:size-[7px]",
-  "after:border-b-[1.5px] after:border-r-[1.5px]",
+  'after:size-[9px] after:sm:size-[7px]',
+  'after:border-b-[1.5px] after:border-r-[1.5px]',
   'after:bottom-[55%] after:end-3 after:-translate-x-1/2 after:translate-y-1/2 after:rotate-45 rtl:after:translate-x-1.5',
 ];
+
+export const displayLevels = {
+  1: 'font-medium text-2xl',
+  2: 'font-medium text-base/6',
+  3: 'font-medium text-base/6 sm:text-sm/6',
+};
+
+export type DisplayLevel = keyof typeof displayLevels;

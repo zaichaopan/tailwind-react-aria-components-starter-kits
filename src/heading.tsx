@@ -5,22 +5,15 @@ import {
 } from 'react-aria-components';
 import { twMerge } from 'tailwind-merge';
 import { FocusScope } from 'react-aria';
-
-const displayLevels = {
-  1: 'font-medium text-2xl outline-none',
-  2: 'font-medium text-base/6 outline-none',
-  3: 'font-medium text-sm/6 outline-none',
-};
-
-type Level = keyof typeof displayLevels;
+import { DisplayLevel, displayLevels } from './utils';
 
 type BaseHeadingProps = {
-  displayLevel?: Level;
+  displayLevel?: DisplayLevel;
   autoFocus?: boolean;
 };
 
 export type HeadingProps = {
-  level?: Level;
+  level?: DisplayLevel;
   elementType?: never;
 } & RACHeadingProps;
 
@@ -43,7 +36,10 @@ export const Heading = React.forwardRef<
             {...restProps}
             ref={ref}
             {...(autoFocus && { tabIndex: -1 })}
-            className={twMerge(displayLevels[displayLevel], className)}
+            className={twMerge(
+              [displayLevels[displayLevel], 'outline-none'],
+              className,
+            )}
           />
         </FocusScope>
       );
@@ -67,7 +63,10 @@ export const Heading = React.forwardRef<
           ref={ref}
           level={level}
           {...(autoFocus && { tabIndex: -1 })}
-          className={twMerge(displayLevels[displayLevel ?? level], className)}
+          className={twMerge(
+            [displayLevels[displayLevel ?? level], 'outline-none'],
+            className,
+          )}
         />
       </FocusScope>
     );
