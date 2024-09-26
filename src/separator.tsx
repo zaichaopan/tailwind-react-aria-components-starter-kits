@@ -4,11 +4,13 @@ import { SeparatorProps as RACSeparatorProps } from 'react-aria-components';
 
 type SeparatorProps = RACSeparatorProps & {
   children?: React.ReactNode;
+  dim?: boolean;
 };
 
 export function Separator({
   orientation = 'horizontal',
   className,
+  dim = false,
   children,
   ...props
 }: SeparatorProps & JSX.IntrinsicElements['div']) {
@@ -22,7 +24,9 @@ export function Separator({
         '[&>svg:not([class*=size])]:size-5',
         children
           ? [
-              'before:border-foreground/10 after:border-foreground/10',
+              dim
+                ? 'before:border-border/35 after:border-border/35'
+                : 'before:border-border/75 after:border-border/75',
               orientation === 'vertical'
                 ? [
                     'mx-4 flex flex-col items-center',
@@ -48,7 +52,7 @@ export function Separator({
                   ],
             ]
           : [
-              'border-foreground/10',
+              dim? 'border-border/35': 'border-border/75',
               orientation === 'vertical'
                 ? [
                     'h-auto self-stretch border-l',

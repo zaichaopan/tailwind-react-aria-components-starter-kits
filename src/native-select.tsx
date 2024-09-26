@@ -15,12 +15,13 @@ export function NativeSelectField({
     <LabelContext.Provider value={{ id: labelId, elementType: 'span' }}>
       <DescriptionProvider>
         <div
+          {...props}
+          data-ui="native-select-field"
           className={twMerge(
             'has-[select:disabled]:opacity-50',
             inputFieldStyle,
             className,
           )}
-          {...props}
         />
       </DescriptionProvider>
     </LabelContext.Provider>
@@ -52,12 +53,12 @@ export function NativeSelect({
         className={twMerge(
           'w-full min-w-36',
           'appearance-none bg-transparent',
-          ' pe-9 ps-2.5',
+          'pe-7 ps-2.5',
           'py-[calc(theme(spacing[2.5])-1px)]',
           ' sm:py-[calc(theme(spacing[1.5])-1px)]',
           'rounded-lg border shadow-sm outline-none',
           'text-base/6 sm:text-sm/6',
-          plain ? 'shadow-none' : 'hover:bg-hover',
+          plain ? 'shadow-none' : 'hover:bg-zinc-100 dark:hover:bg-zinc-800',
           isFocusVisible ? focusRingStyle : plain && 'border-transparent',
           className,
         )}

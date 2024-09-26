@@ -65,7 +65,14 @@ export function DatePickerInput(props: DateInputProps) {
         </Button>
       </Group>
 
-      <Popover className="max-w-none rounded-xl" placement="bottom">
+      <Popover
+        className={[
+          'max-w-none rounded-xl',
+          'dark:bg-zinc-800',
+          'dark:ring-zinc-700',
+        ].join(' ')}
+        placement="bottom"
+      >
         <Dialog className="overflow-auto p-3">
           <Calendar />
         </Dialog>
@@ -107,7 +114,14 @@ export function DatePickerButton({
         <DateInput className="hidden" aria-hidden />
       </Group>
 
-      <Popover className="max-w-none rounded-xl" placement="bottom">
+      <Popover
+        className={[
+          'max-w-none rounded-xl',
+          'dark:bg-zinc-800',
+          'dark:ring-zinc-700',
+        ].join(' ')}
+        placement="bottom"
+      >
         <Dialog className="overflow-auto p-3">
           <Calendar />
         </Dialog>

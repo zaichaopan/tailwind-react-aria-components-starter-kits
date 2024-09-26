@@ -52,6 +52,9 @@ export const groupBoxStyle = [
 
   '[&:has(:is([type=checkbox],[type=radio],[role=switch]))_[data-ui=box]:not([class*=gap-])]:gap-y-3',
 
+  //Group label style when field has description
+  '[&:has([data-ui=field]>[data-ui=description])>[data-ui=label]]:font-semibold',
+
   // Box item description inside
   '[&:has(:is([type=checkbox],[type=radio],[role=switch]))_[data-ui=box]:has([data-ui=description]):not([class*=gap-y])]:gap-y-4',
 
@@ -67,9 +70,9 @@ export const groupBoxStyle = [
 export const selectBoxIndicator = [
   'after:pointer-events-none',
   'after:absolute',
-  'after:border-muted',
+  'after:border-foreground/90',
   "after:content-['']",
-  'after:size-[9px] after:sm:size-[7px]',
+  'after:size-[7px] after:sm:size-[6px]',
   'after:border-b-[1.5px] after:border-r-[1.5px]',
   'after:bottom-[55%] after:end-3 after:-translate-x-1/2 after:translate-y-1/2 after:rotate-45 rtl:after:translate-x-1.5',
 ];

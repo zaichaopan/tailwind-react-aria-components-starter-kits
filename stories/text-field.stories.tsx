@@ -8,15 +8,13 @@ import {
   InputGroup,
   LabeledGroup,
   InputGroups,
+  InputAddon,
 } from '../src/field';
 import { docs } from '../.storybook/docs';
 import { Form } from '../src/form';
 import { Button } from '../src/button';
 import { AccessibleIcon } from '../src/accessible-icon';
-import { Text } from '../src/text';
-import { NativeSelect } from '../src/native-select';
-import { TooltipTrigger } from 'react-aria-components';
-import { Tooltip } from '../src/tooltip';
+import { NativeSelect, NativeSelectField } from '../src/native-select';
 import {
   Select,
   SelectButton,
@@ -117,256 +115,296 @@ export const WithValidation = () => {
         <Input />
         <FieldError></FieldError>
       </TextField>
-      <Button type="submit">
-        Submit
-      </Button>
+      <Button type="submit">Submit</Button>
     </Form>
   );
 };
 
-export const WithLeadingIcon = () => {
+export const InputGroupWithSingleInput = () => {
   return (
-    <TextField name="email" type="email" className="min-w-64">
-      <Label>Email address</Label>
-      <InputGroup role="presentation">
-        <AccessibleIcon>
-          <Mail />
-        </AccessibleIcon>
-        <Input />
-      </InputGroup>
-    </TextField>
+    <div className="min-w-64 space-y-6">
+      <TextField name="email" type="email">
+        <Label>Email address</Label>
+        <InputGroup role="presentation" inline>
+          <InputAddon className="text-xl text-muted sm:text-lg">
+            &#x2709;
+          </InputAddon>
+          <Input />
+        </InputGroup>
+      </TextField>
+
+      <TextField name="credit_card">
+        <Label>Card number</Label>
+        <InputGroup role="presentation" inline>
+          <Input />
+          <InputAddon className="text-xl sm:text-lg">&#x1F4B3;</InputAddon>
+        </InputGroup>
+        <Description>
+          Enter your credit card here. You can cancel anytime you want.
+        </Description>
+      </TextField>
+
+      <TextField>
+        <Label>Price</Label>
+        <InputGroup role="presentation">
+          <InputAddon>$</InputAddon>
+          <Input />
+        </InputGroup>
+      </TextField>
+
+      <TextField>
+        <Label>Price</Label>
+        <InputGroup role="presentation">
+          <Input />
+          <InputAddon>.00</InputAddon>
+        </InputGroup>
+      </TextField>
+
+      <TextField>
+        <Label>Price</Label>
+        <InputGroup role="presentation">
+          <InputAddon>$</InputAddon>
+          <Input />
+          <InputAddon>.00</InputAddon>
+        </InputGroup>
+      </TextField>
+
+      <TextField>
+        <Label>Price</Label>
+        <InputGroup role="presentation" inline>
+          <InputAddon>$</InputAddon>
+          <Input className="pe-12 ps-6" />
+          <InputAddon>USD</InputAddon>
+        </InputGroup>
+      </TextField>
+
+      <TextField>
+        <Label>Website</Label>
+        <InputGroup role="presentation">
+          <InputAddon>https://</InputAddon>
+          <Input />
+        </InputGroup>
+      </TextField>
+
+      <TextField>
+        <Label>Website</Label>
+        <InputGroup role="presentation">
+          <InputAddon>https://</InputAddon>
+          <Input />
+          <InputAddon>.com</InputAddon>
+        </InputGroup>
+      </TextField>
+
+      <TextField>
+        <Label>Website</Label>
+        <InputGroup role="presentation" inline>
+          <InputAddon>https://</InputAddon>
+          <Input className="pe-14 ps-16 sm:ps-14" />
+          <InputAddon>.com</InputAddon>
+        </InputGroup>
+      </TextField>
+
+      {/* TOod 1. readonly 2. disable 3. with tooltip */}
+    </div>
   );
 };
 
-export const WithTrailingIcon = () => {
+export const InputGroupWithMultiInputs = () => {
   return (
-    <TextField name="credit_card" className="min-w-64">
-      <Label>Card number</Label>
-      <InputGroup role="presentation">
-        <Input />
-        <AccessibleIcon>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"
-            />
-          </svg>
-        </AccessibleIcon>
-      </InputGroup>
-      <Description>
-        Enter your credit card here. You can cancel anytime you want.
-      </Description>
-    </TextField>
-  );
-};
+    <div className="space-y-6">
+      <LabeledGroup>
+        <Label>Phone Number</Label>
+        <InputGroup>
+          <TextField className="min-w-64">
+            <Label>phone number</Label>
+            <Input placeholder="+1 (123) 457-7890" />
+          </TextField>
+          <NativeSelectField>
+            <Label>Country</Label>
+            <NativeSelect name="country">
+              <option value="US">US</option>
+              <option value="CA">CA</option>
+              <option value="EU">EU</option>
+            </NativeSelect>
+          </NativeSelectField>
+        </InputGroup>
+      </LabeledGroup>
 
-export const WithIconDisabled = () => {
-  return (
-    <TextField name="email" type="email" className="min-w-64" isDisabled>
-      <Label>Email address</Label>
-      <InputGroup role="presentation">
-        <AccessibleIcon>
-          <Mail />
-        </AccessibleIcon>
-        <Input />
-      </InputGroup>
-    </TextField>
-  );
-};
+      <LabeledGroup>
+        <Label>Phone Number</Label>
+        <InputGroup>
+          <NativeSelectField>
+            <Label>Country</Label>
+            <NativeSelect name="country">
+              <option value="US">US</option>
+              <option value="CA">CA</option>
+              <option value="EU">EU</option>
+            </NativeSelect>
+          </NativeSelectField>
+          <TextField className="min-w-64">
+            <Label>phone number</Label>
+            <Input placeholder="+1 (123) 457-7890" />
+          </TextField>
+        </InputGroup>
+      </LabeledGroup>
 
-export const WithIconReadonly = () => {
-  return (
-    <TextField name="email" type="email" className="min-w-64" isReadOnly>
-      <Label>Email address</Label>
-      <InputGroup role="presentation">
-        <AccessibleIcon>
-          <Mail />
-        </AccessibleIcon>
-        <Input />
-      </InputGroup>
-    </TextField>
-  );
-};
+      <LabeledGroup>
+        <Label>Phone Number</Label>
+        <InputGroup>
+          <Select defaultSelectedKey="ca">
+            <Label>Country</Label>
+            <SelectButton></SelectButton>
 
-export const WithLeadingTextAddon = () => {
-  return (
-    <TextField className="min-w-64">
-      <Label>Company Website</Label>
-      <InputGroup>
-        <Text
-          data-ui="addon"
-          elementType="span"
-          className="flex h-[34px] items-center border-e px-2.5"
-        >
-          http://
-        </Text>
+            <SelectPopover placement="bottom start" className="w-36">
+              <SelectListBox>
+                <SelectListItem id="ca" textValue="Canada">
+                  <AccessibleIcon>
+                    <Canada />
+                  </AccessibleIcon>
+                  <SelectListItemLabel>CA</SelectListItemLabel>
+                </SelectListItem>
+                <SelectListItem id="us" textValue="United States">
+                  <AccessibleIcon>
+                    <US />
+                  </AccessibleIcon>
+                  <SelectListItemLabel>US</SelectListItemLabel>
+                </SelectListItem>
+              </SelectListBox>
+            </SelectPopover>
+          </Select>
 
-        <Input className="ps-[70px]" type="text" placeholder="example.com" />
-      </InputGroup>
-    </TextField>
-  );
-};
+          <TextField>
+            <Label>Phone number</Label>
+            <Input placeholder="+1 (123) 457-7890" />
+          </TextField>
+        </InputGroup>
+      </LabeledGroup>
 
-export const WithLeadingInlineTextAddon = () => {
-  return (
-    <TextField className="min-w-64">
-      <Label>Company Website</Label>
-      <InputGroup role="presentation">
-        <Text
-          elementType="span"
-          className="ps-2.5 text-foreground"
-          data-ui="addon"
-        >
-          https://
-        </Text>
+      <LabeledGroup>
+        <Label>Phone Number</Label>
+        <InputGroup>
+          <TextField>
+            <Label>Phone number</Label>
+            <Input placeholder="+1 (123) 457-7890" />
+          </TextField>
+          <Select defaultSelectedKey="ca">
+            <Label>Country</Label>
+            <SelectButton></SelectButton>
 
-        <Input
-          className="ps-16 sm:ps-[58px]"
-          type="text"
-          placeholder="example.com"
-        />
-      </InputGroup>
-    </TextField>
-  );
-};
+            <SelectPopover placement="bottom end" className="w-36">
+              <SelectListBox>
+                <SelectListItem id="ca" textValue="Canada">
+                  <AccessibleIcon>
+                    <Canada />
+                  </AccessibleIcon>
+                  <SelectListItemLabel>CA</SelectListItemLabel>
+                </SelectListItem>
+                <SelectListItem id="us" textValue="United States">
+                  <AccessibleIcon>
+                    <US />
+                  </AccessibleIcon>
+                  <SelectListItemLabel>US</SelectListItemLabel>
+                </SelectListItem>
+              </SelectListBox>
+            </SelectPopover>
+          </Select>
+        </InputGroup>
+      </LabeledGroup>
 
-export const WithLeadingAndTrailingTextAddon = () => {
-  return (
-    <TextField>
-      <Label>Price</Label>
+      <LabeledGroup>
+        <Label>Price</Label>
+        <InputGroup>
+          <InputAddon>$</InputAddon>
+          <TextField>
+            <Label>Price</Label>
+            <Input placeholder="0.00" />
+          </TextField>
+          <Select defaultSelectedKey="CA">
+            <Label>Currency</Label>
+            <SelectButton></SelectButton>
+            <SelectPopover placement="bottom end" className="w-36">
+              <SelectListBox>
+                <SelectListItem id="CA" textValue="CA">
+                  <SelectListItemLabel>CA</SelectListItemLabel>
+                </SelectListItem>
+                <SelectListItem id="USD" textValue="USD">
+                  <SelectListItemLabel>USD</SelectListItemLabel>
+                </SelectListItem>
+              </SelectListBox>
+            </SelectPopover>
+          </Select>
+        </InputGroup>
+      </LabeledGroup>
 
-      <InputGroup role="presentation">
-        <Text aria-hidden data-ui="addon" className="px-2.5">
-          $
-        </Text>
-        <Input placeholder="0.00" className="pe-10 ps-7" />
-        <div data-ui="addon" className="px-2.5">
-          <Description className="text-muted">USD</Description>
-        </div>
-      </InputGroup>
-    </TextField>
-  );
-};
+      <LabeledGroup>
+        <Label>Price</Label>
+        <InputGroup>
+          <InputAddon>$</InputAddon>
+          <TextField>
+            <Label>Price</Label>
+            <Input placeholder="0.00" />
+          </TextField>
+          <NativeSelectField>
+            <Label>Currency</Label>
+            <NativeSelect name="currency">
+              <option value="CA">CA</option>
+              <option value="USD">USD</option>
+            </NativeSelect>
+          </NativeSelectField>
+        </InputGroup>
+      </LabeledGroup>
 
-export const WithTrailingNativeSelect = () => {
-  return (
-    <TextField className="min-w-64">
-      <Label>Price</Label>
-      <InputGroup>
-        <Text aria-hidden data-ui="addon" className="px-2.5">
-          $
-        </Text>
-        <Input className="pe-20 ps-7" placeholder="0.00" />
+      <LabeledGroup>
+        <Label>Price</Label>
+        <InputGroup inline>
+          <InputAddon>$</InputAddon>
+          <TextField>
+            <Label>Price</Label>
+            <Input placeholder="0.00" />
+          </TextField>
+          <NativeSelectField>
+            <Label>Currency</Label>
+            <NativeSelect name="currency">
+              <option value="CA">CA</option>
+              <option value="USD">USD</option>
+            </NativeSelect>
+          </NativeSelectField>
+        </InputGroup>
+      </LabeledGroup>
 
-        <NativeSelect
-          plain
-          aria-label="Currency"
-          name="currency"
-          className="min-w-min pe-8 ps-1.5"
-        >
-          <option value="USD">USD</option>
-          <option value="CAD">CAD</option>
-          <option value="EUR">EUR</option>
-        </NativeSelect>
-      </InputGroup>
-    </TextField>
-  );
-};
+      <LabeledGroup>
+        <Label>Add members</Label>
+        <InputGroup>
+          <TextField className="min-w-64">
+            <Label>Email</Label>
+            <Input type="email" />
+          </TextField>
+          <Button>Send</Button>
+        </InputGroup>
+      </LabeledGroup>
 
-export const WithLeadingNativeSelect = () => {
-  return (
-    <TextField className="min-w-64">
-      <Label>Phone Number</Label>
-      <InputGroup>
-        <NativeSelect
-          aria-label="Country"
-          name="country"
-          className="min-w-min pe-8"
-          plain
-        >
-          <option value="US">US</option>
-          <option value="CA">CA</option>
-          <option value="EU">EU</option>
-        </NativeSelect>
-        <Input className="ps-[66px]" placeholder="+1 (123) 457-7890" />
-      </InputGroup>
-    </TextField>
-  );
-};
+      <LabeledGroup>
+        <Label>Add members</Label>
+        <InputGroup>
+          <TextField className="min-w-64">
+            <Label>Email</Label>
+            <Input type="email" />
+          </TextField>
+          <Button variant="outline">Send</Button>
+        </InputGroup>
+      </LabeledGroup>
 
-export const WithLeadingSelect = () => {
-  return (
-    <TextField className="min-w-64">
-      <Label>Phone Number</Label>
-      <InputGroup>
-        <Select
-          data-ui="addon"
-          aria-label="Country Code"
-          defaultSelectedKey="ca"
-          className="min-w-min"
-        >
-          <SelectButton className="pe-8" plain></SelectButton>
-
-          <SelectPopover className="w-36" placement="bottom start">
-            <SelectListBox>
-              <SelectListItem id="ca" textValue="Canada">
-                <AccessibleIcon>
-                  <Canada />
-                </AccessibleIcon>
-                <SelectListItemLabel>CA</SelectListItemLabel>
-              </SelectListItem>
-              <SelectListItem id="us" textValue="United States">
-                <AccessibleIcon>
-                  <US />
-                </AccessibleIcon>
-                <SelectListItemLabel>US</SelectListItemLabel>
-              </SelectListItem>
-            </SelectListBox>
-          </SelectPopover>
-        </Select>
-
-        <Input className="ps-24" placeholder="+1 (123) 457-7890" />
-      </InputGroup>
-    </TextField>
-  );
-};
-
-export const WithTrailingIconButton = () => {
-  return (
-    <TextField className="min-w-64">
-      <Label>Phone Number</Label>
-      <InputGroup>
-        <NativeSelect
-          aria-label="Country"
-          name="country"
-          className="min-w-min pe-8"
-          plain
-        >
-          <option value="US">US</option>
-          <option value="CA">CA</option>
-          <option value="EU">EU</option>
-        </NativeSelect>
-        <Input className="ps-[66px]" placeholder="+1 (123) 457-7890" />
-
-        <TooltipTrigger>
-          <Button variant='plain' size="sm" className="" isIconOnly>
-            <AccessibleIcon>
-              <QuestionMark className="size-5" />
-            </AccessibleIcon>
-          </Button>
-          <Tooltip>
-            Select your country code and enter the phone number.
-          </Tooltip>
-        </TooltipTrigger>
-      </InputGroup>
-    </TextField>
+      <LabeledGroup>
+        <Label>Add members</Label>
+        <InputGroup>
+          <TextField className="min-w-64">
+            <Label>Email</Label>
+            <Input type="email" />
+          </TextField>
+          <Button variant="outline">Send</Button>
+        </InputGroup>
+      </LabeledGroup>
+    </div>
   );
 };
 

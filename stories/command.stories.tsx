@@ -177,7 +177,7 @@ export function OpenInDialog() {
         onOpenChange={setIsModalOpen}
         classNames={{
           modal:
-            'self-start shadow-none ring-0 sm:self-start bg-transparent dark:bg-transparent',
+            'self-start shadow-none ring-0 sm:self-start bg-transparent dark:bg-transparent dark:ring-0',
         }}
       >
         <Dialog
@@ -193,6 +193,7 @@ export function OpenInDialog() {
             aria-label="Search"
             autoFocus
             allowsEmptyCollection
+            className="min-w-72"
           >
             <ComboBoxGroup>
               <AccessibleIcon>
@@ -200,7 +201,7 @@ export function OpenInDialog() {
               </AccessibleIcon>
 
               <ComboBoxInput
-                className="rounded-b-none border-border bg-background ring-0"
+                className="rounded-b-none border-border bg-white ring-0 dark:bg-zinc-800"
                 placeholder="Search for apps and commands&hellip;"
               />
 

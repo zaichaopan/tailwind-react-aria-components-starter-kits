@@ -14,7 +14,7 @@ export function DropZone(props: DropZoneProps) {
         props.className,
         (className, renderProps) => {
           return twMerge(
-            'sm:w-96',
+            'sm:min-w-96',
             'flex flex-shrink-0 flex-col items-center justify-center rounded-xl',
             'border border-dashed p-2',
             renderProps.isFocusVisible && focusOutlineStyle,

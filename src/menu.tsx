@@ -16,7 +16,7 @@ import { twMerge } from 'tailwind-merge';
 import { Popover, PopoverProps } from './popover';
 import { Button, ButtonWithoutAsChildProps } from './button';
 import { composeTailwindRenderProps } from './utils';
-import { Small } from './text'
+import { Small } from './text';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from './icons';
 
 export { MenuTrigger, SubmenuTrigger } from 'react-aria-components';
@@ -79,6 +79,8 @@ export function MenuPopover({ className, placement, ...props }: PopoverProps) {
       className={composeTailwindRenderProps(
         className,
         twMerge(
+          'dark:bg-zinc-800',
+          'dark:ring-zinc-700',
           'max-w-72',
           'rounded-xl',
           'min-w-[max(112px,var(--trigger-width))]',
@@ -141,7 +143,7 @@ export function MenuSeparator({ className }: { className?: string }) {
   return (
     <Separator
       className={twMerge(
-        'my-1 w-[calc(100%-24px)] self-center border-t border-foreground/5',
+        'my-1 w-[calc(100%-24px)] self-center border-t border-zinc-950/5 dark:border-white/10',
         className,
       )}
     />
@@ -165,7 +167,7 @@ export function MenuItem({ destructive, ...props }: MenuItemProps) {
             'rounded-lg',
             'text-base/6 sm:text-sm/6',
             isDisabled && 'opacity-50',
-            isFocused && 'bg-hover',
+            isFocused && 'bg-zinc-100 dark:bg-zinc-700',
             destructive && 'text-destructive',
             className,
           ]);
@@ -260,7 +262,7 @@ export function MenuSection<T extends object>({
     >
       <Header
         className={twMerge(
-          'sticky z-10 truncate bg-background pt-2 text-xs/4 text-muted',
+          'sticky z-10 bg-white dark:bg-zinc-800 truncate pt-2 text-xs/4 text-muted',
           'top-[0px] -mx-[1px] rounded-lg backdrop-blur-md',
         )}
       >

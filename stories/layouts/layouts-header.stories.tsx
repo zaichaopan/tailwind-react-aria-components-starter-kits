@@ -1,5 +1,3 @@
-import type { Meta } from '@storybook/react';
-import { TextField } from '../../src/field.tsx';
 import { docs } from '../../.storybook/docs.ts';
 import { Button } from '../../src/button.tsx';
 import { Strong } from '../../src/text.tsx';
@@ -37,7 +35,7 @@ import { Kbd } from '../../src/kbd.tsx';
 import { NotificationBadge } from '../../src/notification-badge.tsx';
 import { Disclosure, DisclosureControl } from '../../src/disclosure.tsx';
 
-const meta: Meta<typeof TextField> = {
+const meta = {
   title: 'Layouts/Header',
   parameters: {
     layout: 'fullscreen',

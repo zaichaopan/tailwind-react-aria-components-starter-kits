@@ -35,7 +35,8 @@ export function GridListItem({ children, ...props }: GridListItemProps) {
       className={(renderProps) => {
         return twMerge(
           'relative -mb-px flex cursor-default select-none gap-3 rounded-md px-2 py-1.5 text-sm outline-none',
-          'hover:bg-hover [&:not(:last-child)]:mb-0.5',
+          'hover:bg-zinc100 dark:hover:bg-zinc-700',
+          '[&:not(:last-child)]:mb-0.5',
           renderProps.isFocusVisible && [
             focusOutlineStyle,
             '-outline-offset-2',

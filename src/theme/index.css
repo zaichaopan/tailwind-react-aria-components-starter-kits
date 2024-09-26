@@ -8,8 +8,6 @@
     --background: 0 0% 100%;
     /* zinc-950 */
     --foreground: 240 10% 4%;
-    /* bg-zinc-100 */
-    --hover: 240 5% 96%;
     /* zinc-300 */
     --border: 240 5% 84%;
     /** zinc-500 **/
@@ -25,8 +23,6 @@
     --background: 240 10% 4%;
     /* zinc-50 */
     --foreground: 0 0% 98%;
-    /* zinc-800: 240 4% 16%*/
-    --hover: 240 3.7% 15.9%;
     /* zinc-700 */
     --border: 240 5% 26%;
     /** zinc-400 **/

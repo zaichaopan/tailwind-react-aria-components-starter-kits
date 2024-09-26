@@ -13,7 +13,7 @@ import {
   InputGroup,
 } from '../src/field';
 import { twMerge } from 'tailwind-merge';
-import { focusOutlineStyle, focusRingStyle } from '../src/utils';
+import { focusOutlineStyle } from '../src/utils';
 import { Strong, Text } from '../src/text';
 import { SolidStar, Star, CheckCircle } from './~icons';
 import { CopyButton } from '../src/clipboard';

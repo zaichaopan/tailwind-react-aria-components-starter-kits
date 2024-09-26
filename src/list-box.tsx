@@ -99,7 +99,7 @@ export function DropdownItem({
             'px-1.5 py-2.5 has-submenu:pe-0 sm:py-1.5',
             'text-base/6 sm:text-sm/6',
             isDisabled && 'opacity-50',
-            isFocused && 'bg-hover',
+            isFocused && 'bg-zinc-100 dark:bg-zinc-700',
             destructive && 'text-destructive',
             className,
           ]);
@@ -143,7 +143,7 @@ export function DropdownSection<T extends object>({
     >
       <Header
         className={twMerge(
-          'sticky z-10 truncate bg-background px-7 pt-2 text-xs/4 text-muted',
+          'sticky z-10 truncate bg-white dark:bg-zinc-800 px-7 pt-2 text-xs/4 text-muted',
           'top-[0px] -mx-[1px] rounded-md backdrop-blur-md',
         )}
       >

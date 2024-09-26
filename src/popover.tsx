@@ -15,7 +15,7 @@ export interface PopoverProps extends Omit<RACPopoverProps, 'children'> {
 export function Popover({ children, className, ...props }: PopoverProps) {
   const popoverContext = useSlottedContext(PopoverContext)!;
   const isSubmenu = popoverContext?.trigger === 'SubmenuTrigger';
- 
+
   let offset = 8;
   offset =
     props.offset !== undefined
@@ -30,7 +30,7 @@ export function Popover({ children, className, ...props }: PopoverProps) {
       offset={offset}
       className={composeRenderProps(className, (className, renderProps) => {
         return twMerge(
-          'rounded-lg bg-background shadow-md ring-1 ring-foreground/10 dark:ring-foreground/15',
+          'rounded-lg bg-white shadow-md ring-1 ring-zinc-950/10 dark:bg-zinc-900 dark:ring-zinc-800',
           renderProps.isEntering &&
             'duration-50 ease-out animate-in fade-in placement-left:slide-in-from-right-1 placement-right:slide-in-from-left-1 placement-top:slide-in-from-bottom-1 placement-bottom:slide-in-from-top-1',
           renderProps.isExiting &&

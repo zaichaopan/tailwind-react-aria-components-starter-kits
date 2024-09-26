@@ -69,7 +69,12 @@ export function RangeCalendar<T extends DateValue>({
                         : [
                             isUnavailable
                               ? ''
-                              : 'group-hover:rounded-lg group-hover:bg-hover group-pressed:bg-accent/90',
+                              : [
+                                  'group-hover:rounded-lg',
+                                  'group-hover:bg-zinc-100',
+                                  'dark:group-hover:bg-zinc-700',
+                                  'group-pressed:bg-accent/90',
+                                ],
                           ],
                     isFocusVisible && [focusOutlineStyle, 'rounded-lg'],
                     isDisabled && 'opacity-50',

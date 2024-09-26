@@ -52,7 +52,7 @@ export function Modal({ animate = true, classNames, ...props }: ModalProps) {
           return twMerge(
             'fixed left-0 top-0 isolate z-20',
             'h-[--visual-viewport-height] w-full',
-            'bg-zinc-950/15 dark:bg-zinc-950/50',
+            'bg-zinc-950/25 dark:bg-zinc-950/50',
             'flex items-end text-center sm:items-center',
             drawer
               ? [
@@ -87,8 +87,9 @@ export function Modal({ animate = true, classNames, ...props }: ModalProps) {
           classNames?.modal,
           (className, renderProps) => {
             return twMerge(
-              'max-h-full w-full overflow-hidden bg-background text-left align-middle shadow-lg',
-              'ring-1 ring-foreground/10 dark:ring-foreground/15',
+              'max-h-full w-full overflow-hidden text-left align-middle shadow-lg',
+              'bg-white dark:bg-zinc-900',
+              'dark:ring-1 dark:ring-white/10',
               'w-full',
               props.size
                 ? sizes[props.size]
@@ -110,7 +111,7 @@ export function Modal({ animate = true, classNames, ...props }: ModalProps) {
                       ],
                   ]
                 : [
-                    'rounded-t-2xl sm:rounded-lg',
+                    'rounded-t-2xl sm:rounded-xl',
                     animate &&
                       renderProps.isEntering &&
                       'duration-200 ease-out animate-in slide-in-from-bottom sm:zoom-in-105 sm:slide-in-from-bottom-0',

@@ -133,8 +133,9 @@ export function Row<T extends object>({
         return twMerge(
           isFocusVisible ? focusOutlineStyle : 'outline-none',
           'group/row relative cursor-default select-none text-sm -outline-offset-2  disabled:text-muted',
-          'hover:bg-hover',
-          'selected:bg-accent/5 hover:selected:bg-hover dark:selected:bg-accent/35 dark:hover:selected:bg-hover',
+          'hover:bg-zinc-100 dark:hover:bg-zinc-700',
+          'hover:selected:bg-zinc-100 dark:hover:selected:bg-zinc-700',
+          'selected:bg-accent/5 dark:selected:bg-accent/35',
         );
       }}
     >

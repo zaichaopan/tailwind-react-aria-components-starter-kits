@@ -20,6 +20,9 @@ import { Available, Away, Busy, DoNotDisturb } from '../src/status.tsx';
 import { Dialog } from '../src/dialog.tsx';
 import { DialogTrigger } from 'react-aria-components';
 import { AccessibleIcon } from '../src/accessible-icon.tsx';
+import { Input, Label, TextField } from '../src/field.tsx';
+import { NativeSelect, NativeSelectField } from '../src/native-select.tsx';
+import { Select, SelectButton, SelectListBox, SelectListItem, SelectPopover } from '../src/select.tsx';
 
 const meta: Meta<typeof Popover> = {
   title: 'Popover',
@@ -109,6 +112,38 @@ export const BasicExample = () => {
                 Notification
               </Switch>
               <Switch className="justify-between px-3">Badges</Switch>
+              <TextField>
+                <Label>Username</Label>
+                <Input />
+              </TextField>
+              
+             
+              <NativeSelectField>
+                  <Label>Work phone number type</Label>
+                  <NativeSelect name="work_phone_number_type">
+                    <option value="Mobile">Mobile</option>
+                    <option value="Phone">Phone</option>
+                    <option value="Page">Page</option>
+                    <option value="Fax">Fax</option>
+                  </NativeSelect>
+                </NativeSelectField>
+
+                <Select
+              className="sm:col-span-3"
+              name="company_size"
+              placeholder="Select&hellip;"
+            >
+              <Label> Company size (employees)</Label>
+              <SelectButton></SelectButton>
+              <SelectPopover>
+                <SelectListBox>
+                  <SelectListItem id="1-9">1-9</SelectListItem>
+                  <SelectListItem id="10-5-">10-50</SelectListItem>
+                  <SelectListItem id="50-250">50-250</SelectListItem>
+                  <SelectListItem id="250+">250+</SelectListItem>
+                </SelectListBox>
+              </SelectPopover>
+            </Select>
             </div>
           </Dialog>
         </Popover>

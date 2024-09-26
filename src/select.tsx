@@ -27,6 +27,7 @@ export function Select<T extends object>(props: RACSelectProps<T>) {
   return (
     <RACSelect
       {...props}
+      data-ui="select"
       className={composeTailwindRenderProps(props.className, [
         'w-full min-w-56',
         ...inputFieldStyle,
@@ -48,7 +49,7 @@ export function SelectButton(props: {
         (className, { isFocusVisible }) =>
           twMerge(
             'relative flex w-full cursor-default items-center gap-x-1 rounded-lg border shadow-sm outline-none transition',
-            'pe-9 ps-2.5',
+            'pe-7 ps-2.5',
             'py-[calc(theme(spacing[2.5])-1px)]',
             ' sm:py-[calc(theme(spacing[1.5])-1px)]',
             'group-invalid:border-destructive',
@@ -56,10 +57,10 @@ export function SelectButton(props: {
             'text-base/6 sm:text-sm/6',
             '[&>*:has(+[data-ui=select-value])>svg]:size-4',
             '[&>*:has(+[data-ui=select-value])>svg]:text-muted',
-            props.plain ? 'shadow-none' : 'hover:bg-hover',
-            isFocusVisible
-              ? focusRingStyle
-              : props.className && 'border-transparent',
+            props.plain
+              ? 'shadow-none'
+              : 'hover:bg-zinc-100 dark:hover:bg-zinc-800',
+            isFocusVisible ? focusRingStyle : '',
             'ring-offset-0',
             selectBoxIndicator,
             className,
@@ -96,7 +97,11 @@ export function SelectPopover({
   return (
     <Popover
       {...props}
-      className={composeTailwindRenderProps(className, ['w-[--trigger-width]'])}
+      className={composeTailwindRenderProps(className, [
+        'w-[--trigger-width]',
+        'dark:bg-zinc-800',
+        'dark:ring-zinc-700'
+      ])}
       placement={placement}
     />
   );
@@ -168,7 +173,7 @@ export function SelectSection<T extends object>(props: SectionProps<T>) {
     >
       <Header
         className={twMerge(
-          'sticky z-10 truncate bg-background ps-8 pt-2 text-xs/4 text-muted',
+          'sticky z-10 truncate bg-white ps-8 pt-2 text-xs/4 text-muted dark:bg-zinc-800',
           'top-[0px] -mx-[1px] rounded-lg',
         )}
       >
@@ -199,7 +204,7 @@ export function SelectListItem({
             'px-1.5 py-2.5 has-submenu:pe-0 sm:py-1.5',
             'text-base/6 sm:text-sm/6',
             isDisabled && 'opacity-50',
-            isFocused && 'bg-hover',
+            isFocused && 'bg-zinc-100 dark:bg-zinc-700',
             destructive && 'text-destructive',
             className,
           ]);

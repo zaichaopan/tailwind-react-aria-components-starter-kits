@@ -18,7 +18,6 @@ export default {
         success: 'hsl(var(--success))',
         destructive: 'hsl(var(--destructive))',
         warning: 'hsl(var(--warning))',
-        hover: 'hsl(var(--hover))',
         muted: 'hsl(var(--muted))',
         border: 'hsl(var(--border))',
       },

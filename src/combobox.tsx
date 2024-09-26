@@ -25,6 +25,7 @@ export function ComboBox(props: RACComboBoxProps<object>) {
   return (
     <RACComboBox
       {...props}
+      data-ui="comboBox"
       className={composeTailwindRenderProps(props.className, [
         'w-full min-w-56',
         ...inputFieldStyle,

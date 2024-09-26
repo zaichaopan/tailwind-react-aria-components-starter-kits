@@ -78,7 +78,14 @@ export function DateRangePickerInput() {
           <CalendarIcon />
         </Button>
       </Group>
-      <Popover className="max-w-none rounded-xl" placement="bottom">
+      <Popover
+        className={[
+          'max-w-none rounded-xl',
+          'dark:bg-zinc-800',
+          'dark:ring-zinc-700',
+        ].join(' ')}
+        placement="bottom"
+      >
         <Dialog className="overflow-auto p-3">
           <RangeCalendar />
         </Dialog>
@@ -134,14 +141,21 @@ export function DateRangePickerButton({
               </span>
             )}
 
-            <CalendarIcon className='place-self-center'/>
+            <CalendarIcon className="place-self-center" />
           </div>
         </Button>
 
         <DateInput slot="start" aria-hidden className="hidden" />
         <DateInput slot="end" aria-hidden className="hidden" />
       </Group>
-      <Popover className="max-w-none rounded-xl" placement="bottom">
+      <Popover
+        className={[
+          'max-w-none rounded-xl',
+          'dark:bg-zinc-800',
+          'dark:ring-zinc-700 ',
+        ].join(' ')}
+        placement="bottom"
+      >
         <Dialog className="overflow-auto p-3">
           <RangeCalendar />
         </Dialog>

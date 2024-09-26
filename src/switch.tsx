@@ -53,7 +53,7 @@ export function SwitchField({
         data-ui="field"
         className={twMerge(
           'group flex flex-col gap-y-1',
-          '[&_[data-ui=description]:not([class*=pe-])]:has-[label[data-position=left]]:pe-[calc(theme(width.8)+12px)]',
+          '[&_[data-ui=description]:not([class*=pe-])]:has-[label[data-position=left]]:pe-[calc(theme(width.8)+16px)]',
           '[&_[data-ui=description]:not([class*=ps-])]:has-[label[data-position=right]]:ps-[calc(theme(width.8)+12px)]',
           '[&_label]:has-[[data-ui=description]]:font-medium',
           '[&_[data-ui=description]]:has-[label[data-disabled]]:opacity-50',
@@ -93,7 +93,7 @@ export function Switch({
           <div
             className={twMerge(
               'flex h-5 w-8 shrink-0 cursor-default items-center rounded-full border shadow-inner transition duration-200 ease-in-out',
-              'bg-zinc-200 px-0.5 dark:bg-background',
+              'bg-zinc-200 px-0.5 dark:bg-transparent',
               renderProps.isSelected &&
                 'border-accent bg-accent shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] dark:border-0 dark:bg-accent',
               renderProps.isDisabled && 'bg-gray-200 dark:bg-zinc-700',

@@ -67,7 +67,7 @@ export function Label({
       {...props}
       data-ui="label"
       className={twMerge(
-        'inline-block min-w-fit text-pretty',
+        'inline-block min-w-max text-pretty',
         'group-disabled:opacity-50',
         displayLevels[displayLevel],
         requiredHint &&
@@ -141,6 +141,7 @@ export function TextField(props: RACTextFieldProps) {
   return (
     <RACTextField
       {...props}
+      data-ui="text-field"
       className={composeTailwindRenderProps(props.className, inputFieldStyle)}
     />
   );
@@ -204,7 +205,12 @@ export function TextArea(props: RACTextAreaProps) {
   );
 }
 
-export function InputGroup(props: GroupProps) {
+export function InputGroup({
+  inline = false,
+  ...props
+}: GroupProps & {
+  inline?: boolean;
+}) {
   return (
     <RACGroup
       {...props}
@@ -212,45 +218,111 @@ export function InputGroup(props: GroupProps) {
       className={composeTailwindRenderProps(props.className, [
         'isolate',
         'grid',
+        'grid-cols-[auto_1fr_auto]',
         'items-center',
-        'grid-cols-[minmax(40px,max-content)_1fr_minmax(calc(theme(size.5)+20px),max-content)]',
-        'sm:grid-cols-[minmax(calc(theme(size.4)+20px),max-content)_1fr_minmax(calc(theme(size.4)+20px),max-content)]',
 
-        // Icon, Addon & Control
-        '[&>:is([data-ui=icon],[data-ui=addon],[data-ui=control]):first-child]:col-start-1',
-        '[&>:is([data-ui=icon],[data-ui=addon],[data-ui=control]):first-child]:row-start-1',
-        '[&>:is([data-ui=icon],[data-ui=addon],[data-ui=control]):last-child]:-col-end-1',
-        '[&>:is([data-ui=icon],[data-ui=addon],[data-ui=control]):last-child]:row-start-1',
+        /**
+         * When inside data-ui=text-field
+         */
+        '[[data-ui=text-field]_&>[data-ui=addon]:first-child]:col-start-1',
+        '[[data-ui=text-field]_&>[data-ui=addon]:first-child]:row-start-1',
+        '[[data-ui=text-field]_&>[data-ui=addon]:last-child]:-col-end-1',
+        '[[data-ui=text-field]_&>[data-ui=addon]:last-child]:row-start-1',
 
-        // Trailing Button
-        '[&:has(input+button)>button]:justify-self-center',
-        '[&:has(input+button)>button]:-col-end-1',
-        '[&:has(input+button)>button]:row-start-1',
-        '[&:has(input+button)>button]:-outline-offset-1',
+        inline
+          ? [
+              '[[data-ui=text-field]_&>[data-ui=addon]]:border-0',
+              '[[data-ui=text-field]_&>input]:col-span-full',
+              '[[data-ui=text-field]_&>input]:row-start-1',
+              '[[data-ui=text-field]_&>input:not(:first-child):not([class*=ps-])]:ps-10',
+              'sm:[[data-ui=text-field]_&>input:not(:first-child):not([class*=ps-])]:ps-8',
 
-        // Icon & Addon
-        '[&>:is([data-ui=icon],[data-ui=addon],button)]:place-self-center',
+              '[[data-ui=text-field]_&>input:not(:last-child):not([class*=pe-])]:pe-10',
+              'sm:[[data-ui=text-field]_&>input:not(:last-child):not([class*=pe-])]:pe-8',
+            ].join(' ')
+          : [
+              '[[data-ui=text-field]_&>input:not(:first-child)]:rounded-s-none',
+              '[[data-ui=text-field]_&>input:not(:last-child)]:rounded-e-none',
+              '[[data-ui=text-field]_&>input:not(:last-child)]:-col-end-2',
+            ].join(' '),
 
-        // Icon
-        '[&>[data-ui=icon]]:size-5',
-        'sm:[&>[data-ui=icon]]:size-4',
-        '[&>[data-ui=icon]]:text-muted/65',
+        /**
+         * When outside data-ui=text-field (multi input)
+         */
+        // Native select
+        '[&>[data-ui=native-select-field]>[data-ui=label]]:sr-only',
+        '[&>[data-ui=native-select-field]_select]:min-w-max',
+        '[&>[data-ui=native-select-field]:first-child_select]:rounded-e-none',
+        '[&>[data-ui=native-select-field]:first-child_select]:border-e-0',
+        '[&>[data-ui=native-select-field]:last-child_select]:rounded-s-none',
+        '[&>[data-ui=native-select-field]:last-child_select]:border-s-0',
+        '[&>[data-ui=native-select-field]:last-child_select]:text-center',
+
+        // Select
+        '[&>[data-ui=select]>[data-ui=label]]:sr-only',
+        '[&>[data-ui=select]]:min-w-max',
+        '[&>[data-ui=select]:first-child_button]:rounded-e-none',
+        '[&>[data-ui=select]:first-child_button]:border-e-0',
+
+        // Text Field
+        '[&>[data-ui=text-field]>[data-ui=label]]:sr-only',
+        '[&>[data-ui=text-field]+[data-ui=select]>button]:rounded-s-none',
+        '[&>[data-ui=text-field]+[data-ui=select]>button]:border-s-0',
+
+        // Button
+        '[&>button:first-child]:rounded-e-none',
+        '[&>button:first-child]:border-e-0',
+        '[&>button.bg-transparent:first-child]:border-border',
+        'dark:[&>button:first-child]:border',
+        'dark:[&>button:first-child]:border-e-0',
+
+        '[&>[data-ui=text-field]+button]:rounded-s-none',
+        '[&>[data-ui=text-field]+button]:border-s-0',
+        '[&>[data-ui=text-field]+button]:border-border',
+        'dark:[&>[data-ui=text-field]+button]:border',
+        'dark:[&>[data-ui=text-field]+button]:border-s-0',
 
         // Input
-        '[&>input]:col-span-full',
-        '[&>input]:row-start-1',
-
-        // icon before input
-        '[&:has([data-ui=icon]+input)>input]:ps-10',
-        'sm:[&:has([data-ui=icon]+input)>input]:ps-8',
-
-        // icon after input
-        '[&:has(input+[data-ui=icon])>input]:pe-10',
-        'sm:[&:has(input+[data-ui=icon])>input]:pe-8',
-
-        '[&:has(input+button)>input]:pe-10',
-        'sm:[&:has(input+button)>input]:pe-9',
+        '[&>[data-ui=text-field]:not(:first-child)>input]:rounded-s-none',
+        '[&>[data-ui=text-field]:not(:last-child)>input]:rounded-e-none',
+        '[&>[data-ui=text-field]:not(:last-child)]:-col-end-2',
       ])}
+    />
+  );
+}
+
+export function InputAddon({
+  className,
+  ...props
+}: TextProps & {
+  blend?: boolean;
+}) {
+  return (
+    <div
+      aria-hidden
+      {...props}
+      data-ui="addon"
+      className={twMerge(
+        [
+          'grid',
+          'text-base/6 sm:text-sm/6',
+          'text-muted',
+          'h-full',
+          'border-y',
+          'place-content-center',
+          'px-2.5', 
+          'first:border-s',
+          'first:rounded-s-lg',
+          'last:rounded-e-lg',
+          'last:border-e',
+          'group-focus-within:border-red-400',
+
+          '[&>[data-ui=icon]]:size-5',
+          'sm:[&>[data-ui=icon]]:size-4',
+          '[&>[data-ui=icon]]:text-muted/65',
+        ],
+        className,
+      )}
     />
   );
 }

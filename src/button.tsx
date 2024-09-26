@@ -38,7 +38,7 @@ const buttonVariants = {
   ],
   solid: {
     base: [
-      'border dark:border-0 text-white',
+      'border dark:border-none dark:[--border-with:0px] text-white',
       'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]',
     ],
     accent: ['border-accent bg-accent hover:bg-accent/90'],
@@ -47,8 +47,9 @@ const buttonVariants = {
   },
   outline: {
     base: [
-      'border border-foreground/10 border-b-foreground/15 dark:border-foreground/15 hover:border-foreground/15',
-      'bg-transparent hover:bg-hover/95 pressed:bg-hover',
+      'border border-zinc-950/10 border-b-zinc-950/15 hover:border-zinc-950/15',
+      'dark:border-white/15 dark:border-b-white/20 dark:hover:border-white/20',
+      'bg-transparent hover:bg-zinc-50 dark:hover:bg-zinc-800',
       'shadow-sm',
     ],
     accent: [],
@@ -56,7 +57,9 @@ const buttonVariants = {
     destructive: ['text-destructive'],
   },
   plain: {
-    base: ['bg-transparent hover:bg-hover/95 pressed:bg-hover'],
+    base: [
+      'bg-transparent bg-transparent hover:bg-zinc-50 dark:hover:bg-zinc-800',
+    ],
     accent: [],
     success: ['text-success'],
     destructive: ['text-destructive'],
@@ -82,16 +85,16 @@ const buttonSizes = {
     button: [
       'gap-x-2 text-base/6 sm:text-sm/6 font-semibold',
       'px-3',
-      'py-[calc(theme(spacing[2.5])-1px)]',
-      'sm:py-[calc(theme(spacing[1.5])-1px)]',
+      'py-[calc(theme(spacing[2.5])-var(--border-with,1px))]',
+      'sm:py-[calc(theme(spacing[1.5])-var(--border-with,1px))]',
 
       // svg
       '[&_svg:not([class*=size-])]:size-5',
       'sm:[&_svg:not([class*=size-])]:size-4',
     ],
     iconOnly: [
-      'p-[calc(theme(spacing[2.5])-1px)]',
-      'sm:p-[calc(theme(spacing[1.5])-1px)]',
+      'p-[calc(theme(spacing[2.5])-var(--border-with,1px))]',
+      'sm:p-[calc(theme(spacing[1.5])-var(--border-with,1px))]',
 
       // svg
       // 20+2x2=24px
@@ -107,12 +110,12 @@ const buttonSizes = {
     button: [
       'gap-x-2 text-base/6 sm:text-sm/6 font-semibold',
       'px-4',
-      'py-[calc(theme(spacing[2.5])-1px)]',
+      'py-[calc(theme(spacing[2.5])-var(--border-with,1px))]',
       // svg
       '[&_svg:not([class*=size-])]:size-5',
     ],
     iconOnly: [
-      'p-[calc(theme(spacing[2.5])-1px)]',
+      'p-[calc(theme(spacing[2.5])-var(--border-with,1px))]',
       // svg
       '[&_svg:not([class*=size-])]:size-5',
       '[&_svg]:m-0.5',

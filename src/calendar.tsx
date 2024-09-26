@@ -49,7 +49,10 @@ export function Calendar<T extends DateValue>({
                       ]
                     : isUnavailable
                       ? ''
-                      : 'hover:bg-hover pressed:bg-accent/90 pressed:text-white',
+                      : [
+                          'hover:bg-zinc-100 dark:hover:bg-zinc-700',
+                          'pressed:bg-accent/90 pressed:text-white',
+                        ],
                   isDisabled && 'opacity-50',
                   isUnavailable &&
                     'text-destructive line-through decoration-destructive',

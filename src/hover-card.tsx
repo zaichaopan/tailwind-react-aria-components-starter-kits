@@ -130,7 +130,7 @@ export function HoverCardContent({
       <FloatingFocusManager context={floatingContext} modal={modal}>
         <div
           className={twMerge(
-            'max-w-72 rounded-lg bg-background p-1 shadow-lg outline-none ring-1 ring-zinc-950/10 dark:ring-white/10',
+            'max-w-72 rounded-lg bg-background dark:bg-zinc-800 p-1 shadow-lg outline-none ring-1 ring-zinc-950/10 dark:ring-white/15',
             className,
           )}
           ref={refs.setFloating}
