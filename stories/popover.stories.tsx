@@ -57,7 +57,7 @@ export const BasicExample = () => {
         </Button>
         <Popover className="min-w-56 rounded-xl">
           <Dialog>
-            <div className="flex flex-col gap-2 p-3">
+            <div className="flex flex-col gap-2 p-3 overflow-y-auto">
               <div className="flex gap-4">
                 <Avatar
                   src="https://images.unsplash.com/photo-1578680671705-0965e325b2ba?q=80&w=2306&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"

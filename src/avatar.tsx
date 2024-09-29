@@ -32,7 +32,7 @@ export function Avatar({
         role="img"
         className={twMerge([
           'group relative flex size-10 shrink-0 items-center justify-center rounded-lg @container',
-          'outline outline-1 -outline-offset-1 outline-black/5 dark:outline-white/5 ring-background',
+          'outline outline-1 -outline-offset-1 outline-black/5 dark:outline-white/20 ring-background',
           '[&.rounded-full>svg]:rounded-full [&>svg]:size-full [&>svg]:rounded-lg',
           '[&.rounded-full>img]:rounded-full [&>img]:size-full [&>img]:rounded-lg',
           className,

@@ -70,7 +70,7 @@ export const groupBoxStyle = [
 export const selectBoxIndicator = [
   'after:pointer-events-none',
   'after:absolute',
-  'after:border-foreground/90',
+  'after:border-muted',
   "after:content-['']",
   'after:size-[7px] after:sm:size-[6px]',
   'after:border-b-[1.5px] after:border-r-[1.5px]',

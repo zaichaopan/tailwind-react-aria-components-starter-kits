@@ -129,12 +129,13 @@ export const Sidebar = () => {
 
         <Button
           variant="outline"
-          className="mx-4 mt-2 justify-start bg-white font-normal text-muted dark:bg-transparent"
+          className="mx-3 mt-2 justify-start bg-white font-medium font-normal text-muted dark:bg-zinc-900"
         >
           <AccessibleIcon>
-            <SearchIcon />
+            <SearchIcon className='size-4'/>
           </AccessibleIcon>
-          Quick search&hellip;
+          Search
+          {/* Quick search&hellip; */}
           <Kbd className="ml-auto px-1">⌘K</Kbd>
         </Button>
 
@@ -260,7 +261,7 @@ function MainNavigation() {
         <li>
           <Link
             href="/"
-            className="w-full gap-3 p-2 font-medium text-muted hover:text-foreground hover:no-underline"
+            className="w-full gap-3 p-2 text-muted font-medium hover:no-underline"
           >
             <AccessibleIcon>
               <svg
@@ -270,17 +271,14 @@ function MainNavigation() {
                 viewBox="0 0 24 24"
                 className="size-5"
               >
-                <g
+                <path
                   fill="none"
                   stroke="currentColor"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={1.5}
-                  color="currentColor"
-                >
-                  <path d="M12 17h.009M20 8.5v5c0 3.771 0 5.657-1.172 6.828S15.771 21.5 12 21.5s-5.657 0-6.828-1.172S4 17.271 4 13.5v-5"></path>
-                  <path d="m22 10.5l-4.343-4.165C14.99 3.778 13.657 2.5 12 2.5S9.01 3.778 6.343 6.335L2 10.5"></path>
-                </g>
+                  d="m2.25 12l8.955-8.955a1.124 1.124 0 0 1 1.59 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                ></path>
               </svg>
             </AccessibleIcon>
             Home
@@ -289,22 +287,22 @@ function MainNavigation() {
 
         <li className="grid ">
           <Disclosure open>
-            <DisclosureControl className="flex-1 items-center gap-3 p-2 text-sm/6 text-muted group-open:mb-0 group-open:text-foreground ">
+            <DisclosureControl className="flex-1 items-center gap-3 p-2 text-sm/6 font-medium group-open:mb-0">
               <AccessibleIcon>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1em"
                   height="1em"
                   viewBox="0 0 24 24"
-                  className="size-5"
+                  className='size-5'
                 >
                   <path
                     fill="none"
                     stroke="currentColor"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 20c0-1.742-1.67-3.223-4-3.773M15 20c0-2.21-2.686-4-6-4s-6 1.79-6 4m12-7a4 4 0 0 0 0-8m-6 8a4 4 0 1 1 0-8a4 4 0 0 1 0 8"
+                    strokeWidth={1.5}
+                    d="M15 19.128a9.4 9.4 0 0 0 2.625.372a9.3 9.3 0 0 0 4.121-.952q.004-.086.004-.173a4.125 4.125 0 0 0-7.536-2.32M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.3 12.3 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0a3.375 3.375 0 0 1 6.75 0m8.25 2.25a2.625 2.625 0 1 1-5.25 0a2.625 2.625 0 0 1 5.25 0"
                   ></path>
                 </svg>
               </AccessibleIcon>
@@ -314,11 +312,11 @@ function MainNavigation() {
               </AccessibleIcon>
             </DisclosureControl>
 
-            <ul className="ml-4 grid border-l border-l-border/50">
+            <ul className="ml-7 grid gap-y-0.5">
               <li>
                 <Link
                   href="/"
-                  className="w-full py-2 pl-7 font-medium text-foreground hover:text-foreground hover:no-underline"
+                  className="w-full py-1.5 pl-3 hover:no-underline font-medium"
                 >
                   Email, Phone, Username
                 </Link>
@@ -326,7 +324,7 @@ function MainNavigation() {
               <li>
                 <Link
                   href="/"
-                  className="w-full py-2 pl-7 font-medium text-muted hover:text-foreground hover:no-underline"
+                  className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
                 >
                   Social Connections
                 </Link>
@@ -334,7 +332,7 @@ function MainNavigation() {
               <li>
                 <Link
                   href="/"
-                  className="w-full py-2 pl-7 font-medium text-muted hover:text-foreground hover:no-underline"
+                  className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
                 >
                   Web3
                 </Link>
@@ -342,7 +340,7 @@ function MainNavigation() {
               <li>
                 <Link
                   href="/"
-                  className="w-full py-2 pl-7 font-medium text-muted hover:text-foreground hover:no-underline"
+                  className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
                 >
                   Enterprise Connections
                 </Link>
@@ -350,7 +348,7 @@ function MainNavigation() {
               <li>
                 <Link
                   href="/"
-                  className="w-full py-2 pl-7 font-medium text-muted hover:text-foreground hover:no-underline"
+                  className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
                 >
                   Multi-factor
                 </Link>
@@ -358,7 +356,7 @@ function MainNavigation() {
               <li>
                 <Link
                   href="/"
-                  className="w-full py-2 pl-7 font-medium text-muted hover:text-foreground hover:no-underline"
+                  className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
                 >
                   Restrictions
                 </Link>
@@ -366,7 +364,7 @@ function MainNavigation() {
               <li>
                 <Link
                   href="/"
-                  className="w-full py-2 pl-7 font-medium text-muted hover:text-foreground hover:no-underline"
+                  className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
                 >
                   Attack Protection
                 </Link>
@@ -403,7 +401,7 @@ function MainNavigation() {
         <li>
           <Link
             href="/"
-            className="w-full gap-3 p-2 text-muted hover:text-foreground hover:no-underline"
+            className="w-full gap-3 p-2 text-muted font-medium hover:text-foreground hover:no-underline"
           >
             <AccessibleIcon>
               <svg

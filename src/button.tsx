@@ -34,36 +34,25 @@ export type ButtonWithoutAsChildProps = RACButtonProps & BasicButtonProps;
 const buttonVariants = {
   base: [
     'group relative inline-flex justify-center items-center whitespace-nowrap rounded-lg outline-none',
-    'disabled:opacity-50',
+    'disabled:opacity-75',
   ],
-  solid: {
-    base: [
-      'border dark:border-none dark:[--border-with:0px] text-white',
-      'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]',
-    ],
-    accent: ['border-accent bg-accent hover:bg-accent/90'],
-    success: ['border-success bg-success hover:bg-success/90'],
-    destructive: ['border-destructive bg-destructive hover:bg-destructive/90'],
-  },
-  outline: {
-    base: [
-      'border border-zinc-950/10 border-b-zinc-950/15 hover:border-zinc-950/15',
-      'dark:border-white/15 dark:border-b-white/20 dark:hover:border-white/20',
-      'bg-transparent hover:bg-zinc-50 dark:hover:bg-zinc-800',
-      'shadow-sm',
-    ],
-    accent: [],
-    success: ['text-success'],
-    destructive: ['text-destructive'],
-  },
-  plain: {
-    base: [
-      'bg-transparent bg-transparent hover:bg-zinc-50 dark:hover:bg-zinc-800',
-    ],
-    accent: [],
-    success: ['text-success'],
-    destructive: ['text-destructive'],
-  },
+  solid: [
+    'border border-[var(--btn-bg)] dark:border-none dark:[--border-with:0px]',
+    'bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-hover)] pressed:bg-[var(--btn-bg-hover)]',
+    'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]',
+    'text-white',
+  ],
+  outline: [
+    'border border-zinc-950/10 dark:border-white/15 border-b-zinc-950/15 dark:border-b-white/20',
+    'hover:bg-zinc-50 pressed:bg-zinc-50 dark:hover:bg-zinc-800 dark:pressed:bg-zinc-800',
+    'shadow-sm',
+    'text-[var(--btn-color)]',
+  ],
+  plain: [
+    '[--border-with:0px]',
+    'hover:bg-zinc-50 dark:hover:bg-zinc-800',
+    'text-[var(--btn-color)]',
+  ],
 };
 
 const buttonSizes = {
@@ -123,25 +112,11 @@ const buttonSizes = {
   },
 };
 
-const svgColor = {
-  button: {
-    solid: ['[&:not(:hover)_svg:not([class*=text-])]:text-white/65'],
-    outline: ['[&:not(:hover)_svg:not([class*=text-])]:text-foreground/50'],
-    plain: ['[&:not(:hover)_svg:not([class*=text-])]:text-foreground/75'],
-  },
-  iconOnly: {
-    solid: ['[&:not(:hover)_svg:not([class*=text-])]:text-white/90'],
-    outline: ['[&:not(:hover)_svg:not([class*=text-])]:text-foreground/90'],
-    plain: ['[&:not(:hover)_svg:not([class*=text-])]:text-foreground/90'],
-  },
-};
-
 function buttonStyle({
   size,
-  color = 'accent',
+  color,
   isIconOnly,
   variant = 'solid',
-  isLoading = false,
 }: BasicButtonProps) {
   if (variant === 'unstyle') {
     return 'relative outline-none rounded-lg';
@@ -150,12 +125,34 @@ function buttonStyle({
   const buttonSize = size ?? 'md';
   const buttonType = isIconOnly ? 'iconOnly' : 'button';
 
+  const buttonBackground = {
+    accent: [
+      '[--btn-bg:theme(colors.accent)]',
+      '[--btn-bg-hover:theme(colors.accent/90%)]',
+    ],
+    destructive: [
+      '[--btn-bg:theme(colors.destructive)]',
+      '[--btn-bg-hover:theme(colors.destructive/90%)]',
+    ],
+    success: [
+      '[--btn-bg:theme(colors.success)]',
+      '[--btn-bg-hover:theme(colors.success/90%)]',
+    ],
+  };
+  const buttonColor = {
+    foreground: '[--btn-color:theme(colors.foreground)]',
+    accent: '[--btn-color:theme(colors.accent)]',
+    destructive: '[--btn-color:theme(colors.destructive)]',
+    success: '[--btn-color:theme(colors.success)]',
+  };
+
   return [
     buttonVariants.base,
-    buttonVariants[variant].base,
-    buttonVariants[variant][color],
+    buttonVariants[variant],
+    variant == 'solid'
+      ? [buttonBackground[color ?? 'accent']]
+      : [buttonColor[color ?? 'foreground']],
     buttonSizes[buttonSize][buttonType],
-    isLoading ? ['disabled:opacity-75'] : svgColor[buttonType][variant],
   ];
 }
 
@@ -185,6 +182,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         <RACButton
           {...buttonProps}
           ref={ref}
+          data-variant={variant ?? 'solid'}
           className={composeRenderProps(
             props.className,
             (className, renderProps) => {
@@ -270,7 +268,6 @@ export function ButtonGroup({
               '[&>button:first-of-type]:rounded-e-none',
               '[&>button:last-of-type]:rounded-s-none',
               '[&>button:not(:last-of-type)]:border-e-0',
-
               blend &&
                 'shadow-sm [&>button:not(:first-of-type)]:border-s-0 [&>button]:shadow-none',
             ]
@@ -286,11 +283,10 @@ export function ButtonGroup({
 
         '[&>button:not(:first-of-type):not(:last-of-type)]:rounded-none',
 
-        // None outline button has not border in dark mode
-        'dark:[&>button:not(.bg-transparent)]:border',
-
-        '[&>button:not(.bg-transparent):not(:first-of-type)]:border-s-black/15',
-
+        // Add border to solid button which has not border in dark mode
+        'dark:[&>button[data-variant=solid]]:border-solid',
+        'dark:[&>button[data-variant=solid]]:[--border-with:1px]',
+        '[&>button[data-variant=solid]:not(:first-of-type)]:border-s-black/15',
         className,
       )}
     />

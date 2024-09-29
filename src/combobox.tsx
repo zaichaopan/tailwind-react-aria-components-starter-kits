@@ -87,7 +87,7 @@ export const ComboBoxInput = Input;
 export function ComboBoxButton() {
   return (
     <Button isIconOnly size="sm" data-ui="trigger" variant="plain">
-      <ChevronDownIcon strokeWidth={2} />
+      <ChevronDownIcon strokeWidth={2}  className='text-muted'/>
     </Button>
   );
 }
