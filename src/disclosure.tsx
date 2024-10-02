@@ -1,59 +1,28 @@
-import React from 'react';
+import { Button, ButtonProps, composeRenderProps } from 'react-aria-components';
 import { twMerge } from 'tailwind-merge';
+import { focusOutlineStyle } from './utils';
 
-const AccordionContext = React.createContext<{
-  name?: string;
-} | null>(null);
+export {
+  UNSTABLE_Disclosure as Disclosure,
+  UNSTABLE_DisclosureGroup as DisclosureGroup,
+  UNSTABLE_DisclosurePanel as DisclosurePanel,
+} from 'react-aria-components';
 
-const useAccordionContext = () => {
-  const context = React.useContext(AccordionContext);
 
-  if (!context) {
-    return {};
-  }
-  return context;
-};
-
-export function Accordion({
-  name,
-  className,
-  ...props
-}: JSX.IntrinsicElements['section'] & { name?: string }) {
+export function DisclosureControl(props: ButtonProps) {
   return (
-    <AccordionContext.Provider value={{ name }}>
-      <section
-        {...props}
-        className={twMerge('flex w-full flex-col', className)}
-      />
-    </AccordionContext.Provider>
-  );
-}
-
-export function Disclosure({
-  className,
-  ...props
-}: JSX.IntrinsicElements['details']) {
-  const { name } = useAccordionContext();
-
-  return (
-    <details
+    <Button
+      slot="trigger"
       {...props}
-      className={twMerge('group', className)}
-      {...(name && { name })}
-    />
-  );
-}
-
-export function DisclosureControl({
-  className,
-  ...props
-}: JSX.IntrinsicElements['summary']) {
-  return (
-    <summary
-      {...props}
-      className={twMerge(
-        'flex w-full cursor-pointer select-none justify-between rounded-lg text-left text-base/6 font-medium outline-none group-open:mb-2 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 focus-visible:ring-offset-background [&::-webkit-details-marker]:hidden',
-        className,
+      className={composeRenderProps(
+        props.className,
+        (className, renderProps) => {
+          return twMerge(
+            'group flex items-center rounded-md outline-none gap-x-1',
+            renderProps.isFocusVisible && focusOutlineStyle,
+            className,
+          );
+        },
       )}
     />
   );

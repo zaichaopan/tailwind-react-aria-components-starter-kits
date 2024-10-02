@@ -34,7 +34,11 @@ import {
 } from '../../src/dialog.tsx';
 import { Link } from '../../src/link.tsx';
 import { Kbd } from '../../src/kbd.tsx';
-import { Disclosure, DisclosureControl } from '../../src/disclosure.tsx';
+import {
+  Disclosure,
+  DisclosureControl,
+  DisclosurePanel,
+} from '../../src/disclosure.tsx';
 
 const meta: Meta<typeof TextField> = {
   title: 'Layouts/Sidebar',
@@ -132,10 +136,9 @@ export const Sidebar = () => {
           className="mx-3 mt-2 justify-start bg-white font-medium font-normal text-muted dark:bg-zinc-900"
         >
           <AccessibleIcon>
-            <SearchIcon className='size-4'/>
+            <SearchIcon className="size-4" />
           </AccessibleIcon>
           Search
-          {/* Quick search&hellip; */}
           <Kbd className="ml-auto px-1">⌘K</Kbd>
         </Button>
 
@@ -261,7 +264,7 @@ function MainNavigation() {
         <li>
           <Link
             href="/"
-            className="w-full gap-3 p-2 text-muted font-medium hover:no-underline"
+            className="w-full gap-3 p-2 font-medium text-muted hover:no-underline"
           >
             <AccessibleIcon>
               <svg
@@ -286,15 +289,15 @@ function MainNavigation() {
         </li>
 
         <li className="grid ">
-          <Disclosure open>
-            <DisclosureControl className="flex-1 items-center gap-3 p-2 text-sm/6 font-medium group-open:mb-0">
+          <Disclosure defaultExpanded>
+            <DisclosureControl className="w-full gap-3 p-2 text-sm/6 font-medium">
               <AccessibleIcon>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1em"
                   height="1em"
                   viewBox="0 0 24 24"
-                  className='size-5'
+                  className="size-5"
                 >
                   <path
                     fill="none"
@@ -308,68 +311,69 @@ function MainNavigation() {
               </AccessibleIcon>
               Authentications
               <AccessibleIcon>
-                <ChevronDownIcon className="ml-auto size-4 transition-all  group-open:rotate-180" />
+                <ChevronDownIcon className="ml-auto size-4 transition-all  group-aria-[expanded=true]:rotate-180" />
               </AccessibleIcon>
             </DisclosureControl>
-
-            <ul className="ml-7 grid gap-y-0.5">
-              <li>
-                <Link
-                  href="/"
-                  className="w-full py-1.5 pl-3 hover:no-underline font-medium"
-                >
-                  Email, Phone, Username
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/"
-                  className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
-                >
-                  Social Connections
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/"
-                  className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
-                >
-                  Web3
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/"
-                  className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
-                >
-                  Enterprise Connections
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/"
-                  className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
-                >
-                  Multi-factor
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/"
-                  className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
-                >
-                  Restrictions
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/"
-                  className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
-                >
-                  Attack Protection
-                </Link>
-              </li>
-            </ul>
+            <DisclosurePanel>
+              <ul className="ml-7 grid gap-y-0.5">
+                <li>
+                  <Link
+                    href="/"
+                    className="w-full py-1.5 pl-3 font-medium hover:no-underline"
+                  >
+                    Email, Phone, Username
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
+                  >
+                    Social Connections
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
+                  >
+                    Web3
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
+                  >
+                    Enterprise Connections
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
+                  >
+                    Multi-factor
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
+                  >
+                    Restrictions
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="w-full py-2 pl-3 font-medium text-muted hover:text-foreground hover:no-underline"
+                  >
+                    Attack Protection
+                  </Link>
+                </li>
+              </ul>
+            </DisclosurePanel>
           </Disclosure>
         </li>
         <li>
@@ -401,7 +405,7 @@ function MainNavigation() {
         <li>
           <Link
             href="/"
-            className="w-full gap-3 p-2 text-muted font-medium hover:text-foreground hover:no-underline"
+            className="w-full gap-3 p-2 font-medium text-muted hover:text-foreground hover:no-underline"
           >
             <AccessibleIcon>
               <svg

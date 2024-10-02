@@ -42,7 +42,9 @@ export const TwoColumns = () => {
       <Form className="mx-auto grid gap-x-8 space-y-12 sm:grid-cols-3">
         <LabeledGroup className="col-span-full grid grid-cols-subgrid gap-y-6">
           <div className="space-y-1">
-            <Label displayLevel={2} className='leading-7'>Profile</Label>
+            <Label displayLevel={2} className="leading-7">
+              Profile
+            </Label>
             <Text>This is how others will see you on the site.</Text>
           </div>
 
@@ -58,20 +60,23 @@ export const TwoColumns = () => {
 
             <div className="col-span-full">
               <Heading displayLevel={3} elementType="div" className="my-2">
-                Photo
+                Profile photo
               </Heading>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-x-6">
                 <Avatar
-                  className="size-12 self-center"
+                  className="size-14 self-center rounded-full"
                   src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
                   alt="Jessica Campbell"
                 ></Avatar>
 
-                <FileTrigger>
-                  <Button variant="outline" aria-label="Change avatar">
-                    Change
-                  </Button>
-                </FileTrigger>
+                <div className='space-y-1'>
+                  <FileTrigger>
+                    <Button variant="outline">
+                      Upload image
+                    </Button>
+                  </FileTrigger>
+                  <Text>*.png or *.jpeg files up to 10MB</Text>
+                </div>
               </div>
             </div>
 
@@ -147,7 +152,9 @@ export const TwoColumns = () => {
 
         <LabeledGroup className="col-span-full grid grid-cols-subgrid gap-y-6">
           <div className="space-y-1">
-            <Label displayLevel={2} className='leading-7'>Account</Label>
+            <Label displayLevel={2} className="leading-7">
+              Account
+            </Label>
             <Text>
               Update your account settings. Set your preferred language and
               timezone.

@@ -1,5 +1,10 @@
 import type { Meta } from '@storybook/react';
-import { Accordion, Disclosure, DisclosureControl } from '../src/disclosure';
+import {
+  DisclosureGroup,
+  Disclosure,
+  DisclosurePanel,
+  DisclosureControl,
+} from '../src/disclosure';
 import { docs } from '../.storybook/docs';
 import { Text } from '../src/text';
 import { ChevronDown } from 'lucide-react';
@@ -13,7 +18,7 @@ const meta: Meta<typeof Disclosure> = {
     docs: {
       description: {
         component:
-          'A <a href="https://govtnz.github.io/web-a11y-guidance/wct/disclosures-and-accordions/#what-are-disclosures-and-accordions" target="_blank">`disclosure`</a> is a single component or widget for showing and hiding one section of content.',
+          'A <a href="https://react-spectrum.adobe.com/react-aria/Disclosure.html" target="_blank">`disclosure`</a>  is a collapsible section of content. It is composed of a a header with a heading and trigger button, and a panel that contains the content.',
       },
       ...docs,
       controls: {
@@ -32,134 +37,123 @@ export const BasicExample = () => {
       <Disclosure>
         <DisclosureControl>What is web accessibility?</DisclosureControl>
 
-        <Text>
-          Web accessibility is all about ensuring all people, including disabled
-          people, can perceive, operate, and understand web content.
-        </Text>
+        <DisclosurePanel>
+          <Text>
+            Web accessibility is all about ensuring all people, including
+            disabled people, can perceive, operate, and understand web content.
+          </Text>
+        </DisclosurePanel>
       </Disclosure>
     </div>
   );
 };
 
-export const DefaultOpen = () => {
+export const DefaultExpanded = () => {
   return (
     <div className="p-6">
-      <Disclosure open>
+      <Disclosure defaultExpanded>
         <DisclosureControl>What is web accessibility?</DisclosureControl>
 
-        <Text>
-          Web accessibility is all about ensuring all people, including disabled
-          people, can perceive, operate, and understand web content.
-        </Text>
+        <DisclosurePanel>
+          <Text>
+            Web accessibility is all about ensuring all people, including
+            disabled people, can perceive, operate, and understand web content.
+          </Text>
+        </DisclosurePanel>
       </Disclosure>
     </div>
   );
-};
-
-DefaultOpen.parameters = {
-  docs: {
-    description: {
-      story: 'Use the `open` prop to expand the content by default.',
-    },
-  },
 };
 
 export const WithToggleIcon = () => {
   return (
     <div className="p-6">
-      <Disclosure open>
-        <DisclosureControl>
+      <Disclosure defaultExpanded>
+        <DisclosureControl className="gap-x-2">
           What is web accessibility?
           <ChevronDown
-            className="h-5 w-5 text-muted transition-all group-open:rotate-180"
+            className="h-5 w-5 text-muted transition-all group-aria-[expanded=true]:rotate-180"
             strokeWidth={1.5}
           />
         </DisclosureControl>
 
-        <Text>
-          Web accessibility is all about ensuring all people, including disabled
-          people, can perceive, operate, and understand web content.
-        </Text>
+        <DisclosurePanel>
+          <Text>
+            Web accessibility is all about ensuring all people, including
+            disabled people, can perceive, operate, and understand web content.
+          </Text>
+        </DisclosurePanel>
       </Disclosure>
     </div>
   );
 };
 
-WithToggleIcon.parameters = {
-  docs: {
-    description: {
-      story: 'Use `className="group-open:*"` modifier to style the toggle icon.',
-    },
-  },
-};
-
-export const UsingAsAccordion = () => {
+export const WithDisclosureGroups = () => {
   return (
     <div className="p-6">
-      <Accordion
-        className="flex flex-col gap-6"
-        name="frequently_ask_questions"
-      >
+      <DisclosureGroup className="flex flex-col gap-6" id="frequently asked">
         <Heading className="self-center pb-6">
           Frequently asked questions
         </Heading>
-        <Disclosure open>
+        <Disclosure defaultExpanded>
           <DisclosureControl>
             Is there a free trial available?
           </DisclosureControl>
-          <Text>
-            Yes, you can try us for free for 30 days. If you want, we'll provide
-            you with a free, personalized 30-minute onboarding call to get you
-            up and running as soon as possible.
-          </Text>
+          <DisclosurePanel>
+            <Text>
+              Yes, you can try us for free for 30 days. If you want, we'll
+              provide you with a free, personalized 30-minute onboarding call to
+              get you up and running as soon as possible.
+            </Text>
+          </DisclosurePanel>
         </Disclosure>
 
-        <Disclosure>
+        <Disclosure id="plan">
           <DisclosureControl>Can I change my plan later?</DisclosureControl>
 
-          <Text>
-            Of course you can! Our pricing scales with your company Chat to our
-            friendly team to find a solution that works for yu as you grow.
-          </Text>
+          <DisclosurePanel>
+            <Text>
+              Of course you can! Our pricing scales with your company Chat to
+              our friendly team to find a solution that works for yu as you
+              grow.
+            </Text>
+          </DisclosurePanel>
         </Disclosure>
 
-        <Disclosure>
+        <Disclosure id="cancellation">
           <DisclosureControl>
             What is your cancellation policy?
           </DisclosureControl>
-
-          <Text>
-            Plans are per workspace, not per account. You can upgrade one
-            workspace, and still hav any number of free workspace.
-          </Text>
+          <DisclosurePanel>
+            <Text>
+              Plans are per workspace, not per account. You can upgrade one
+              workspace, and still hav any number of free workspace.
+            </Text>
+          </DisclosurePanel>
         </Disclosure>
 
-        <Disclosure>
+        <Disclosure id="invoice">
           <DisclosureControl>
             Can other info be added to an invoice?
           </DisclosureControl>
-          <Text>
-            At the comment, the only way to add additional information to
-            invoices is to add the information to the workspace name manually.
-          </Text>
+          <DisclosurePanel>
+            <Text>
+              At the comment, the only way to add additional information to
+              invoices is to add the information to the workspace name manually.
+            </Text>
+          </DisclosurePanel>
         </Disclosure>
 
-        <Disclosure>
+        <Disclosure id="billing">
           <DisclosureControl>How does billing work?</DisclosureControl>
-          <Text>
-            Plans are per workspace, not per account. You can upgrade one
-            workspace, and still have number of free workspace.
-          </Text>
+          <DisclosurePanel>
+            <Text>
+              Plans are per workspace, not per account. You can upgrade one
+              workspace, and still have number of free workspace.
+            </Text>
+          </DisclosurePanel>
         </Disclosure>
-      </Accordion>
+      </DisclosureGroup>
     </div>
   );
-};
-
-UsingAsAccordion.parameters = {
-  docs: {
-    description: {
-      story: 'An `accordion` can be thought of as a collection of 2 or more disclosures one after the other. Use the `name` prop to only expand one disclosure at one time.',
-    },
-  },
 };

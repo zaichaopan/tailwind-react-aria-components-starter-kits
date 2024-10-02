@@ -33,7 +33,6 @@ export type ButtonWithoutAsChildProps = RACButtonProps & BasicButtonProps;
 const buttonVariants = {
   base: [
     'group relative inline-flex justify-center items-center whitespace-nowrap rounded-lg outline-none',
-    'disabled:opacity-75',
   ],
   solid: [
     'border border-[var(--btn-bg)] dark:border-none dark:[--border-with:0px]',
@@ -183,11 +182,16 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           data-variant={variant ?? 'solid'}
           className={composeRenderProps(
             props.className,
-            (className, { isPending, isFocusVisible }) => {
+            (className, { isPending, isFocusVisible, isDisabled }) => {
               return twMerge(
                 buttonStyle({ size, color, isIconOnly, variant }),
                 isFocusVisible && focusOutlineStyle,
-                isPending && !isCustomPending && 'text-transparent',
+                isDisabled && 'opacity-50',
+                isPending
+                  ? isCustomPending
+                    ? 'opacity-75'
+                    : 'opacity-75, text-transparent'
+                  : '',
                 className,
               );
             },

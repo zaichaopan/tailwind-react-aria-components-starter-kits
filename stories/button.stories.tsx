@@ -266,7 +266,6 @@ export const Pending = () => {
   return (
     <div className="flex gap-2">
       <Button
-        isDisabled={isPending}
         isPending={isPending}
         pendingLabel="Searching"
       >
@@ -275,7 +274,6 @@ export const Pending = () => {
 
       <Button
         variant="outline"
-        isDisabled={isPending}
         isPending={isPending}
         pendingLabel="Searching"
       >
@@ -285,7 +283,6 @@ export const Pending = () => {
       <Button
         isPending={isPending}
         isCustomPending
-        isDisabled={isPending}
         pendingLabel="Deploying"
       >
         {isPending ? (
@@ -308,7 +305,6 @@ export const Pending = () => {
       <Button
         isPending={isPending}
         isCustomPending
-        isDisabled={isPending}
         pendingLabel="Refreshing"
       >
         {isPending && <SpinnerIcon className="text-zinc-300" />}
