@@ -55,7 +55,63 @@ const meta: Meta<typeof Button> = {
 export default meta;
 
 export const BasicExample = () => {
-  return <Button>Button</Button>;
+  return (
+    <div className="flex space-x-3">
+      <div className="flex flex-col items-center gap-y-4">
+        <Button size="lg">Button</Button>
+        <Button>Button</Button>
+        <Button size="sm">Button</Button>
+      </div>
+      <div className="flex flex-col items-center gap-y-4">
+        <Button size="lg" color="destructive">
+          Button
+        </Button>
+        <Button color="destructive">Button</Button>
+        <Button size="sm" color="destructive">
+          Button
+        </Button>
+      </div>
+      <div className="flex flex-col items-center gap-y-4">
+        <Button size="lg" color="success">
+          Button
+        </Button>
+        <Button color="success">Button</Button>
+        <Button size="sm" color="success">
+          Button
+        </Button>
+      </div>
+      <div className="flex flex-col items-center gap-y-4">
+        <Button size="lg" variant="outline">
+          Button
+        </Button>
+        <Button variant="outline">Button</Button>
+        <Button size="sm" variant="outline">
+          Button
+        </Button>
+      </div>
+      <div className="flex flex-col items-center gap-y-4">
+        <Button size="lg" variant="plain">
+          Button
+        </Button>
+        <Button variant="plain">Button</Button>
+        <Button size="sm" variant="plain">
+          Button
+        </Button>
+      </div>
+
+      <div className="flex flex-col items-center gap-y-4">
+        <Button size="lg" variant="plain" color="accent">
+          Button
+        </Button>
+        <Button variant="plain" color="accent">
+          Button
+        </Button>
+        <Button size="sm" variant="plain" color="accent">
+          Button
+        </Button>
+      </div>
+    </div>
+  );
 };
 
 export const Colors = () => {
@@ -204,35 +260,35 @@ DisabledButtons.parameters = {
   },
 };
 
-export const Loading = () => {
-  const [isLoading] = React.useState(true);
+export const Pending = () => {
+  const [isPending] = React.useState(true);
 
   return (
     <div className="flex gap-2">
       <Button
-        isDisabled={isLoading}
-        isLoading={isLoading}
-        loadingLabel="Searching"
+        isDisabled={isPending}
+        isPending={isPending}
+        pendingLabel="Searching"
       >
         Search
       </Button>
 
       <Button
         variant="outline"
-        isDisabled={isLoading}
-        isLoading={isLoading}
-        loadingLabel="Searching"
+        isDisabled={isPending}
+        isPending={isPending}
+        pendingLabel="Searching"
       >
         Search
       </Button>
 
       <Button
-        isLoading={isLoading}
-        isCustomLoading
-        isDisabled={isLoading}
-        loadingLabel="Deploying"
+        isPending={isPending}
+        isCustomPending
+        isDisabled={isPending}
+        pendingLabel="Deploying"
       >
-        {isLoading ? (
+        {isPending ? (
           <>
             <AccessibleIcon>
               <CloudUploadingIcon />
@@ -250,23 +306,23 @@ export const Loading = () => {
       </Button>
 
       <Button
-        isLoading={isLoading}
-        isCustomLoading
-        isDisabled={isLoading}
-        loadingLabel="Refreshing"
+        isPending={isPending}
+        isCustomPending
+        isDisabled={isPending}
+        pendingLabel="Refreshing"
       >
-        {isLoading && <SpinnerIcon className="text-zinc-300" />}
+        {isPending && <SpinnerIcon className="text-zinc-300" />}
         Refresh
       </Button>
     </div>
   );
 };
 
-Loading.parameters = {
+Pending.parameters = {
   docs: {
     description: {
       story:
-        'Use the `isLoading` prop to render a loading spinner. Use `loadingLabel` to provide accessible loading status. Use the `isCustomLoading` prop if you need to use a custom loading UI.',
+        'Use the `isPending` prop to render a loading spinner. Use `pendingLabel` to provide accessible loading status. Use the `isCustomPending` prop if you need to use a custom pending UI.',
     },
   },
 };

@@ -20,10 +20,9 @@ type Variant = 'solid' | 'outline' | 'plain' | 'unstyle';
 export type BasicButtonProps = {
   color?: Color;
   size?: Size;
-  isLoading?: boolean;
-  isCustomLoading?: boolean;
+  isCustomPending?: boolean;
   isIconOnly?: boolean;
-  loadingLabel?: string;
+  pendingLabel?: string;
   variant?: Variant;
 };
 
@@ -167,9 +166,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const {
       asChild,
       children,
-      isLoading,
-      isCustomLoading,
-      loadingLabel,
+      isCustomPending,
+      pendingLabel,
       size,
       color,
       variant,
@@ -185,11 +183,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           data-variant={variant ?? 'solid'}
           className={composeRenderProps(
             props.className,
-            (className, renderProps) => {
+            (className, { isPending, isFocusVisible }) => {
               return twMerge(
-                buttonStyle({ size, color, isIconOnly, variant, isLoading }),
-                renderProps.isFocusVisible && focusOutlineStyle,
-                isLoading && !isCustomLoading && 'text-transparent',
+                buttonStyle({ size, color, isIconOnly, variant }),
+                isFocusVisible && focusOutlineStyle,
+                isPending && !isCustomPending && 'text-transparent',
                 className,
               );
             },
@@ -198,19 +196,30 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           {(renderProps) => {
             return (
               <>
-                {isLoading && !isCustomLoading && (
+                {renderProps.isPending && (
                   <SpinnerIcon
+                    aria-label={pendingLabel}
                     className={twMerge(
                       'absolute flex h-full items-center justify-center',
-                      isLoading ? 'flex' : 'hidden',
+                      renderProps.isPending
+                        ? isCustomPending
+                          ? 'sr-only'
+                          : 'flex'
+                        : 'hidden',
                       (!variant || variant === 'solid') && 'text-zinc-300',
                     )}
                   />
                 )}
 
-                {typeof children === 'function'
-                  ? children(renderProps)
-                  : children}
+                <span
+                  className="contents"
+                  {...(renderProps.isPending && { 'aria-hidden': true })}
+                >
+                  {typeof children === 'function'
+                    ? children(renderProps)
+                    : children}
+                </span>
+
                 <span
                   className="absolute left-1/2 top-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden"
                   aria-hidden="true"
@@ -219,10 +228,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             );
           }}
         </RACButton>
-
-        <span aria-live="polite" className="sr-only">
-          {isLoading ? loadingLabel : ''}
-        </span>
       </>
     );
   },

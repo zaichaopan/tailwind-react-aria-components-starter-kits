@@ -53,6 +53,7 @@ export function ComboBoxGroup(props: GroupProps) {
         '[&>[data-ui=icon]:has(+input)]:col-start-1',
         '[&>[data-ui=icon]:has(+input)]:place-self-center',
         '[&>[data-ui=icon]:has(+input)]:text-muted',
+        '[&>[data-ui=icon]:has(+input)]:z-10',
 
         // Input
         '[&>input]:row-start-1',

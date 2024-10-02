@@ -226,6 +226,7 @@ export function InputGroup({
          */
         '[[data-ui=text-field]_&>[data-ui=addon]:first-child]:col-start-1',
         '[[data-ui=text-field]_&>[data-ui=addon]:first-child]:row-start-1',
+        '[[data-ui=text-field]_&>[data-ui=addon]:first-child]:z-10',
         '[[data-ui=text-field]_&>[data-ui=addon]:last-child]:-col-end-1',
         '[[data-ui=text-field]_&>[data-ui=addon]:last-child]:row-start-1',
 
@@ -272,7 +273,6 @@ export function InputGroup({
         // Button
         '[&>button:first-child]:rounded-e-none',
         '[&>button:first-child]:border-e-0',
-        '[&>button.bg-transparent:first-child]:border-border',
         'dark:[&>button:first-child]:border',
         'dark:[&>button:first-child]:border-e-0',
 
@@ -310,7 +310,7 @@ export function InputAddon({
           'h-full',
           'border-y',
           'place-content-center',
-          'px-2.5', 
+          'px-2.5',
           'first:border-s',
           'first:rounded-s-lg',
           'last:rounded-e-lg',
