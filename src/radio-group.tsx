@@ -9,8 +9,8 @@ import {
 import { DescriptionContext, DescriptionProvider } from './field';
 import {
   composeTailwindRenderProps,
-  focusOutlineStyle,
   groupBoxStyle,
+  groupFocusVisibleOutlineStyle,
 } from './utils';
 import { twMerge } from 'tailwind-merge';
 
@@ -114,18 +114,20 @@ export function Radio({
             <div
               slot="radio"
               className={twMerge(
-                'grid size-[1.0625rem] shrink-0 place-content-center rounded-full border shadow-sm',
-                'border-zinc-400/75 dark:border-zinc-600',
-                renderProps.isInvalid &&
-                  'border-destructive dark:border-destructive',
-                renderProps.isSelected && [
-                  'border-accent bg-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]  dark:border-0',
-                  '[&>div]:size-1.5 [&>div]:bg-white',
-                ],
-                renderProps.isFocusVisible && focusOutlineStyle,
+                'grid size-[1.0625rem] shrink-0 place-content-center rounded-full shadow-sm',
+                'border',
+                'border-zinc-400/75',
+                'dark:border-zinc-600',
+                'group-invalid:border-destructive',
+                'group-invalid:dark:border-destructive',
+                'group-selected:dark:border-0',
+                'group-selected:border-accent',
+                'group-selected:bg-accent',
+                'group-selected:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]',
+                groupFocusVisibleOutlineStyle,
               )}
             >
-              <div className="rounded-full"></div>
+              <div className="rounded-full group-selected:size-1.5 group-selected:bg-white"></div>
             </div>
 
             {typeof props.children === 'function'

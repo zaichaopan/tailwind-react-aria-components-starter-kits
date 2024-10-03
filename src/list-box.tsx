@@ -10,7 +10,10 @@ import {
   SectionProps,
   composeRenderProps,
 } from 'react-aria-components';
-import { composeTailwindRenderProps, focusOutlineStyle } from './utils';
+import {
+  composeTailwindRenderProps,
+  focusVisibleOutlineStyle,
+} from './utils';
 import { twMerge } from 'tailwind-merge';
 import { CheckIcon } from './icons';
 
@@ -62,17 +65,11 @@ export function ListBoxItem(props: ListBoxItemProps) {
     <RACListBoxItem
       {...props}
       textValue={textValue}
-      className={composeRenderProps(
-        props.className,
-        (className, { isDisabled, isFocusVisible }) => {
-          return twMerge(
-            'group relative flex outline-0',
-            isDisabled && 'opacity-50',
-            isFocusVisible && focusOutlineStyle,
-            className,
-          );
-        },
-      )}
+      className={composeTailwindRenderProps(props.className, [
+        'group relative flex outline-0',
+        'disabled:opacity-50',
+         focusVisibleOutlineStyle,
+      ])}
     >
       {props.children}
     </RACListBoxItem>
@@ -143,7 +140,7 @@ export function DropdownSection<T extends object>({
     >
       <Header
         className={twMerge(
-          'sticky z-10 truncate bg-white dark:bg-zinc-800 px-7 pt-2 text-xs/4 text-muted',
+          'sticky z-10 truncate bg-white px-7 pt-2 text-xs/4 text-muted dark:bg-zinc-800',
           'top-[0px] -mx-[1px] rounded-md backdrop-blur-md',
         )}
       >

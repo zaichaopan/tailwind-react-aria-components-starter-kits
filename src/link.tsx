@@ -2,9 +2,11 @@ import React from 'react';
 import {
   Link as RACLink,
   LinkProps as RACLinkProps,
-  composeRenderProps,
 } from 'react-aria-components';
-import { focusOutlineStyle } from './utils';
+import {
+  composeTailwindRenderProps,
+  focusVisibleOutlineStyle,
+} from './utils';
 import { twMerge } from 'tailwind-merge';
 import { AsChildProps, Slot } from './slot';
 
@@ -15,7 +17,7 @@ const linkStyle = [
   'text-base/6 sm:text-sm/6',
   'disabled:no-underline disabled:opacity-50 disabled:cursor-default',
   '[&.border]:hover:no-underline',
-];
+].join(' ');
 
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   function Link(props, ref) {
@@ -29,16 +31,10 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       <RACLink
         {...rest}
         ref={ref}
-        className={composeRenderProps(
-          props.className,
-          (className, renderProps) => {
-            return twMerge([
-              linkStyle,
-              renderProps.isFocusVisible && focusOutlineStyle,
-              className,
-            ]);
-          },
-        )}
+        className={composeTailwindRenderProps(props.className, [
+          linkStyle,
+          focusVisibleOutlineStyle,
+        ])}
       />
     );
   },

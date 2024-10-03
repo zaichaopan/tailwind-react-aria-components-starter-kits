@@ -58,7 +58,7 @@ export const TimePickerButtons = () => {
       defaultSelectedKey={startTime}
     >
       <SelectButton />
-      <SelectPopover>
+      <SelectPopover className="w-30">
         <SelectListBox items={options}>
           {(item) => {
             return <SelectListItem>{item.value}</SelectListItem>;
@@ -200,7 +200,7 @@ export const DateAndTimerPicker = () => {
               }}
             >
               <SelectButton />
-              <SelectPopover>
+              <SelectPopover className="w-30">
                 <SelectListBox items={options}>
                   {(item) => {
                     return <SelectListItem>{item.value}</SelectListItem>;
@@ -241,7 +241,7 @@ export const DateAndTimerPicker = () => {
               }}
             >
               <SelectButton />
-              <SelectPopover>
+              <SelectPopover className="w-30">
                 <SelectListBox items={options}>
                   {(item) => {
                     return <SelectListItem>{item.value}</SelectListItem>;

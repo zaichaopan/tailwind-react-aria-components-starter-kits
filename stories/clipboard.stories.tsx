@@ -2,7 +2,13 @@ import type { Meta } from '@storybook/react';
 import { Button } from '../src/button';
 import { CopyButton, Clipboard } from '../src/clipboard';
 import { docs } from '../.storybook/docs';
-import { Input, InputGroup, TextField } from '../src/field';
+import {
+  Input,
+  InputGroup,
+  Label,
+  LabeledGroup,
+  TextField,
+} from '../src/field';
 
 const meta: Meta = {
   title: 'Clipboard',
@@ -37,12 +43,16 @@ export const BasicExample = () => {
 export const WithReadonlyInput = () => {
   const value = `npm i tailwindcss-react-aria-components`;
   return (
-    <TextField aria-label="Install command" isReadOnly>
+    <LabeledGroup>
+      <Label className="sr-only">Copy install command</Label>
       <InputGroup>
-        <Input value={value} className="truncate" />
-        <CopyButton size="sm" copyText={value}></CopyButton>
+        <TextField isReadOnly>
+          <Label className="sr-only">Install command</Label>
+          <Input value={value} className="truncate" />
+        </TextField>
+        <CopyButton copyText={value} variant='outline' />
       </InputGroup>
-    </TextField>
+    </LabeledGroup>
   );
 };
 

@@ -8,10 +8,8 @@ import {
   TabPanelProps,
   TabProps,
   TabsProps as RACTabProps,
-  composeRenderProps,
 } from 'react-aria-components';
-import { twMerge } from 'tailwind-merge';
-import { composeTailwindRenderProps, focusRingStyle } from './utils';
+import { composeTailwindRenderProps, focusVisibleRingStyle } from './utils';
 
 const TabsContext = React.createContext<{
   variant: 'underline' | 'pills' | 'segment';
@@ -179,28 +177,22 @@ export function Tab(props: TabProps) {
   return (
     <RACTab
       {...props}
-      className={composeRenderProps(
-        props.className,
-        (className, renderProps) => {
-          return twMerge(
-            'relative flex items-center gap-x-3 rounded font-medium outline-none outline-0',
-            // disable
-            'disabled:opacity-50',
+      className={composeTailwindRenderProps(props.className, [
+        'relative flex items-center gap-x-3 rounded font-medium outline-none outline-0',
+        // disable
+        'disabled:opacity-50',
 
-            '[&>[data-ui=icon]:not([class*=size-])]:size-[1.125rem]',
+        '[&>[data-ui=icon]:not([class*=size-])]:size-[1.125rem]',
 
-            // hover
-            '[&:not([data-selected])]:text-muted',
-            '[&:not([data-selected])]:hover:text-foreground',
+        // hover
+        '[&:not([data-selected])]:text-muted',
+        '[&:not([data-selected])]:hover:text-foreground',
 
-            tab[variant].base,
-            tab[variant][orientation],
-
-            renderProps.isFocusVisible && [focusRingStyle, 'ring-2'],
-            className,
-          );
-        },
-      )}
+        tab[variant].base.join(' '),
+        tab[variant][orientation].join(' '),
+        focusVisibleRingStyle,
+        'focus-visible:ring-2',
+      ])}
     />
   );
 }

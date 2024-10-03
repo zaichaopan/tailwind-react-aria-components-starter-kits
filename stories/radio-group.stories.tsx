@@ -11,9 +11,10 @@ import {
   TextField,
   Input,
   InputGroup,
+  LabeledGroup,
 } from '../src/field';
 import { twMerge } from 'tailwind-merge';
-import { focusOutlineStyle } from '../src/utils';
+import { focusVisibleOutlineStyle } from '../src/utils';
 import { Strong, Text } from '../src/text';
 import { SolidStar, Star, CheckCircle } from './~icons';
 import { CopyButton } from '../src/clipboard';
@@ -399,12 +400,14 @@ export const WithCustomRender = () => {
       <Radios className="gap-y-0 divide-y rounded-xl border shadow-sm">
         <Radio
           value="public"
-          render={({ isSelected, isFocusVisible }) => {
+          render={({ isSelected }) => {
             return (
               <div
                 className={twMerge(
                   'flex flex-1 items-center justify-between space-x-6 p-4',
-                  isFocusVisible && ['rounded-t-xl', focusOutlineStyle],
+                  focusVisibleOutlineStyle,
+                  'focus-visible:rounded-t-xl',
+                  // isFocusVisible && ['rounded-t-xl', focusOutlineStyle],
                 )}
               >
                 <div className="flex-1">
@@ -428,12 +431,12 @@ export const WithCustomRender = () => {
         ></Radio>
         <Radio
           value="private_with_link"
-          render={({ isSelected, isFocusVisible }) => {
+          render={({ isSelected }) => {
             return (
               <div
                 className={twMerge(
                   'flex flex-1 items-center justify-between space-x-6 p-4',
-                  isFocusVisible && [focusOutlineStyle],
+                  focusVisibleOutlineStyle,
                 )}
               >
                 <div className="flex-1">
@@ -443,18 +446,22 @@ export const WithCustomRender = () => {
                     Anyone with a link can see this.
                   </Text>
 
-                  <TextField aria-label="link" isReadOnly>
+                  <LabeledGroup>
+                    <Label className="sr-only">Copy install command</Label>
                     <InputGroup>
-                      <Input
-                        value="https://example.dev/r/YgqgxwxwVIy?share=ybOBQ"
-                        className="truncate"
-                      />
+                      <TextField isReadOnly>
+                        <Label className="sr-only">Install command</Label>
+                        <Input
+                          value="https://example.dev/r/YgqgxwxwVIy?share=ybOBQ"
+                          className="truncate"
+                        />
+                      </TextField>
                       <CopyButton
-                        size="sm"
+                        variant="outline"
                         copyText="https://example.dev/r/YgqgxwxwVIy?share=ybOBQ"
                       ></CopyButton>
                     </InputGroup>
-                  </TextField>
+                  </LabeledGroup>
                 </div>
                 {isSelected ? (
                   <CheckCircle className="size-5 text-accent" />
@@ -469,12 +476,13 @@ export const WithCustomRender = () => {
         ></Radio>
         <Radio
           value="private"
-          render={({ isSelected, isFocusVisible }) => {
+          render={({ isSelected }) => {
             return (
               <div
                 className={twMerge(
                   'flex flex-1 items-center justify-between space-x-6 p-4',
-                  isFocusVisible && ['rounded-b-xl', focusOutlineStyle],
+                  focusVisibleOutlineStyle,
+                  'focus-visible:rounded-t-xl',
                 )}
               >
                 <div className="">
@@ -621,11 +629,11 @@ export const StarRatingsTitleHidden = () => {
             <Radio
               value={option.value}
               aria-label={String(index + 1)}
-              className={({ isSelected, isFocusVisible }) => {
+              className={({ isSelected }) => {
                 return twMerge(
                   'items-start rounded-md',
                   isSelected || shouldLHighlight ? 'text-accent' : 'text-muted',
-                  isFocusVisible && focusOutlineStyle,
+                  focusVisibleOutlineStyle,
                 );
               }}
               render={({ isSelected }) => {

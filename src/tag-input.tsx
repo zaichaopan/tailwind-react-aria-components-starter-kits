@@ -2,7 +2,7 @@ import React from 'react';
 import { LabelContext, TextFieldProps, type Key } from 'react-aria-components';
 import { Tag, TagGroup, TagList } from './tag-group';
 import { ListData } from 'react-stately';
-import { Input, TextField} from './field';
+import { Input, TextField } from './field';
 import { twMerge } from 'tailwind-merge';
 
 interface TagItem {
@@ -158,7 +158,7 @@ export function TagsInput({
                 setInputValue(e.target.value);
               }}
               onKeyDown={handleKeyDown}
-              className="border-0 px-0.5 py-0 shadow-none ring-0"
+              className="border-0 px-0.5 py-0 shadow-none focus:ring-0"
             />
           </div>
         </div>

@@ -55,7 +55,7 @@ export function DatePickerInput(props: DateInputProps) {
           isIconOnly
           data-ui="trigger"
           className={[
-            '-outline-offset-1',
+            'focus-visible:-outline-offset-1',
             'row-start-1',
             '-col-end-1',
             'place-self-center',

@@ -16,8 +16,8 @@ import { Popover, PopoverProps } from './popover';
 import {
   selectBoxIndicator,
   composeTailwindRenderProps,
-  focusRingStyle,
   inputFieldStyle,
+  focusVisibleRingStyle,
 } from './utils';
 import { twMerge } from 'tailwind-merge';
 import { Small } from './text';
@@ -38,34 +38,25 @@ export function Select<T extends object>(props: RACSelectProps<T>) {
 
 export function SelectButton(props: {
   className?: string;
-  plain?: boolean;
   children?: React.ReactNode;
 }) {
   return (
     <Button
       data-ui="control"
-      className={composeRenderProps(
-        props.className,
-        (className, { isFocusVisible }) =>
-          twMerge(
-            'relative flex w-full cursor-default items-center gap-x-1 rounded-lg border shadow-sm outline-none transition',
-            'pe-7 ps-2.5',
-            'py-[calc(theme(spacing[2.5])-1px)]',
-            ' sm:py-[calc(theme(spacing[1.5])-1px)]',
-            'group-invalid:border-destructive',
-            'group:disabled:cursor-not-allowed group-disabled:opacity-50',
-            'text-base/6 sm:text-sm/6',
-            '[&>*:has(+[data-ui=select-value])>svg]:size-4',
-            '[&>*:has(+[data-ui=select-value])>svg]:text-muted',
-            props.plain
-              ? 'shadow-none'
-              : 'hover:bg-zinc-100 dark:hover:bg-zinc-800',
-            isFocusVisible ? focusRingStyle : '',
-            'ring-offset-0',
-            selectBoxIndicator,
-            className,
-          ),
-      )}
+      className={composeTailwindRenderProps(props.className, [
+        'relative flex w-full cursor-default items-center gap-x-1 rounded-lg border shadow-sm outline-none transition',
+        'pe-7 ps-2.5',
+        'py-[calc(theme(spacing[2.5])-1px)]',
+        ' sm:py-[calc(theme(spacing[1.5])-1px)]',
+        'group-invalid:border-destructive',
+        'group:disabled:cursor-not-allowed group-disabled:opacity-50',
+        'text-base/6 sm:text-sm/6',
+        '[&>*:has(+[data-ui=select-value])>svg]:size-4',
+        '[&>*:has(+[data-ui=select-value])>svg]:text-muted',
+        focusVisibleRingStyle,
+        'focus-visible:ring-offset-0',
+        selectBoxIndicator,
+      ])}
     >
       {!!props.children && (
         <span className="flex items-center gap-x-2">{props.children}</span>
@@ -100,7 +91,7 @@ export function SelectPopover({
       className={composeTailwindRenderProps(className, [
         'w-[--trigger-width]',
         'dark:bg-zinc-800',
-        'dark:ring-zinc-700'
+        'dark:ring-zinc-700',
       ])}
       placement={placement}
     />
@@ -196,28 +187,21 @@ export function SelectListItem({
     <RACListBoxItem
       {...props}
       textValue={textValue}
-      className={composeRenderProps(
-        props.className,
-        (className, { isDisabled, isFocused }) => {
-          return twMerge([
-            'group flex cursor-default select-none items-center gap-x-2 rounded-lg outline-none',
-            'px-1.5 py-2.5 has-submenu:pe-0 sm:py-1.5',
-            'text-base/6 sm:text-sm/6',
-            isDisabled && 'opacity-50',
-            isFocused && 'bg-zinc-100 dark:bg-zinc-700',
-            destructive && 'text-destructive',
-            className,
-          ]);
-        },
-      )}
+      className={composeTailwindRenderProps(props.className, [
+        'group flex cursor-default select-none items-center gap-x-2 rounded-lg outline-none',
+        'px-1.5 py-2.5 has-submenu:pe-0 sm:py-1.5',
+        'text-base/6 sm:text-sm/6',
+        'disabled:opacity-50',
+        'focus:bg-zinc-100 focus:dark:bg-zinc-700',
+        destructive && 'text-destructive',
+      ])}
     >
-      {composeRenderProps(props.children, (children, { isSelected }) => {
+      {composeRenderProps(props.children, (children) => {
         return (
           <>
             <CheckIcon
               className={twMerge(
-                'mt-1 size-4 shrink-0 self-start [[data-ui=select-value]_&]:hidden',
-                isSelected ? 'visible' : 'invisible',
+                'invisible mt-1 size-4 shrink-0 self-start group-selected:visible [[data-ui=select-value]_&]:hidden',
               )}
             />
 
@@ -235,10 +219,10 @@ export function SelectListItemLabel({
 }: JSX.IntrinsicElements['span']) {
   return (
     <span
+      {...props}
       slot="label"
       data-ui="label"
       className={twMerge('mb-0 truncate', className)}
-      {...props}
     />
   );
 }
@@ -249,10 +233,10 @@ export function SelectListItemDescription({
 }: JSX.IntrinsicElements['span']) {
   return (
     <Small
+      {...props}
       slot="description"
       data-ui="description"
       className={className}
-      {...props}
     />
   );
 }

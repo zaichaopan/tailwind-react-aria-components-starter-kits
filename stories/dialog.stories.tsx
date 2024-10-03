@@ -18,6 +18,7 @@ import {
   Input,
   InputGroup,
   Label,
+  LabeledGroup,
   TextArea,
   TextField,
 } from '../src/field';
@@ -837,7 +838,7 @@ Drawers.parameters = {
 };
 
 export const DialogCloseButtons = () => {
-  const value = `npm i tailwindcss-react-aria-components`;
+ 
   return (
     <DialogTrigger>
       <Button>Add Block</Button>
@@ -845,17 +846,27 @@ export const DialogCloseButtons = () => {
         <Dialog>
           <DialogHeader>Add Block to Project</DialogHeader>
           <DialogCloseButton />
-          <DialogBody className="space-y-4">
+          <DialogBody className="space-y-4 pb-2">
             <Text>
               Run this command to add this Block to an existing project or to
               create a new one.
             </Text>
-            <TextField aria-label="Install command" isReadOnly>
+            <LabeledGroup>
+              <Label className="sr-only">Copy install command</Label>
               <InputGroup>
-                <Input value={value} className="truncate" />
-                <CopyButton size="sm" copyText={value}></CopyButton>
+                <TextField isReadOnly>
+                  <Label className="sr-only">Install command</Label>
+                  <Input
+                    value="npm i tailwindcss-react-aria-components"
+                    className="truncate"
+                  />
+                </TextField>
+                <CopyButton
+                  variant="outline"
+                  copyText="npm i tailwindcss-react-aria-components"
+                ></CopyButton>
               </InputGroup>
-            </TextField>
+            </LabeledGroup>
           </DialogBody>
           <DialogFooter>
             <DialogCloseButton variant="solid">Close</DialogCloseButton>

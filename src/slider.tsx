@@ -4,9 +4,8 @@ import {
   SliderThumb,
   SliderTrack as RACSliderTrack,
   SliderRenderProps,
-  composeRenderProps,
 } from 'react-aria-components';
-import { composeTailwindRenderProps, focusOutlineStyle } from './utils';
+import { composeTailwindRenderProps, focusVisibleOutlineStyle } from './utils';
 import { twMerge } from 'tailwind-merge';
 
 export { SliderOutput } from 'react-aria-components';
@@ -28,18 +27,22 @@ export function Slider<T extends number | number[]>(props: SliderProps<T>) {
   );
 }
 
+const trackStyle = [
+  'absolute top-[50%] translate-y-[-50%] rounded-full',
+  'group-orientation-horizontal:h-1',
+  'group-orientation-horizontal:w-full',
+  'group-orientation-vertical:left-[50%]',
+  'group-orientation-vertical:h-full',
+  'group-orientation-vertical:w-[6px]',
+  'group-orientation-vertical:translate-x-[-50%]',
+  'group-orientation-vertical:translate-y-[-50%]',
+  'group-disabled:opacity-50',
+];
+
 export function SliderTack({ thumbLabels }: { thumbLabels?: string[] }) {
   return (
     <RACSliderTrack className="group relative flex w-full items-center orientation-horizontal:h-7 orientation-vertical:h-44 orientation-vertical:w-7">
-      {({ state, orientation, isDisabled }) => {
-        const trackStyle = [
-          'absolute top-[50%] translate-y-[-50%] rounded-full',
-          orientation === 'horizontal' && 'h-1 w-full',
-          orientation === 'vertical' &&
-            'left-[50%] h-full w-[6px] translate-x-[-50%] translate-y-[-50%]',
-          isDisabled && 'opacity-50',
-        ];
-
+      {({ state, orientation }) => {
         return (
           <>
             <div
@@ -54,16 +57,13 @@ export function SliderTack({ thumbLabels }: { thumbLabels?: string[] }) {
                 key={i}
                 index={i}
                 aria-label={thumbLabels?.[i]}
-                className={composeRenderProps('', (className, renderProps) => {
-                  return twMerge(
-                    'h-5 w-5 rounded-full border bg-white shadow-xl dark:border-0',
-                    'group-orientation-horizontal:top-[50%] group-orientation-vertical:left-[50%]',
-                    className,
-                    renderProps.isDragging && 'border-8 border-accent',
-                    renderProps.isDisabled && 'cursor-not-allowed',
-                    renderProps.isFocusVisible && focusOutlineStyle,
-                  );
-                })}
+                className={composeTailwindRenderProps('', [
+                  'size-5 rounded-full border bg-white shadow-xl dark:border-0',
+                  'group-orientation-horizontal:top-[50%] group-orientation-vertical:left-[50%]',
+                  'dragging:border-8  dragging:border-accent',
+                  'disabled:cursor-not-allowed',
+                  focusVisibleOutlineStyle,
+                ])}
               />
             ))}
           </>

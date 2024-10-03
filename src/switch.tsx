@@ -7,8 +7,8 @@ import {
 } from 'react-aria-components';
 import {
   composeTailwindRenderProps,
-  focusOutlineStyle,
   groupBoxStyle,
+  groupControlFocusVisibleOutlineStyle,
 } from './utils';
 import { twMerge } from 'tailwind-merge';
 import { DescriptionProvider, DescriptionContext, LabeledGroup } from './field';
@@ -81,7 +81,7 @@ export function Switch({
       aria-describedby={descriptionContext?.['aria-describedby']}
       data-position={labelPosition}
       className={composeTailwindRenderProps(props.className, [
-        'group flex items-center gap-x-3',
+        'group/control flex items-center gap-x-3',
         'data-[position=left]:flex-row-reverse',
         'data-[position=left]:justify-between',
         'text-base/6 sm:text-sm/6',
@@ -92,19 +92,32 @@ export function Switch({
         <>
           <div
             className={twMerge(
-              'flex h-5 w-8 shrink-0 cursor-default items-center rounded-full border shadow-inner transition duration-200 ease-in-out',
-              'bg-zinc-200 px-0.5 dark:bg-transparent',
-              renderProps.isSelected &&
-                'border-accent bg-accent shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] dark:border-0 dark:bg-accent',
-              renderProps.isDisabled && 'bg-gray-200 dark:bg-zinc-700',
-              renderProps.isFocusVisible && focusOutlineStyle,
+              'h-5 w-8 cursor-default rounded-full px-0.5 shadow-inner',
+              'transition duration-200 ease-in-out',
+              'flex shrink-0 items-center',
+              'bg-zinc-200',
+              'dark:bg-transparent',
+              'border',
+
+              'group-selected/control:border-accent',
+              'group-selected/control:dark:border-0',
+              'group-selected/control:bg-accent',
+              'group-selected/control:dark:bg-accent',
+              'group-selected/control:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]',
+
+              'group-disabled/control:bg-gray-200',
+              'group-disabled/control:dark:bg-zinc-700',
+              groupControlFocusVisibleOutlineStyle,
             )}
           >
             <span
               className={twMerge(
-                'h-[0.95rem] w-[0.95rem] translate-x-0 transform rounded-full border bg-white shadow-sm transition duration-200 ease-in-out',
-                renderProps.isSelected &&
-                  'translate-x-[78%] border-accent rtl:-translate-x-[78%]',
+                'h-[0.95rem] w-[0.95rem] rounded-full bg-white shadow-sm',
+                'translate-x-0 transform transition duration-200 ease-in-out',
+                'border',
+                'group-selected/control:border-accent',
+                'group-selected/control:translate-x-[78%]',
+                'group-selected/control:rtl:-translate-x-[78%]',
               )}
             />
           </div>

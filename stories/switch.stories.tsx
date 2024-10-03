@@ -156,3 +156,39 @@ export const WithGroupDescription = () => {
     </SwitchGroup>
   );
 };
+
+export const WithGroupItemDisabled = () => {
+  return (
+    <SwitchGroup className="max-w-2xl">
+      <Label>Audience and tagging</Label>
+      <Description>
+        Manage what information you allow other people on X to see
+      </Description>
+      <Switches>
+        <SwitchField>
+          <Switch labelPosition="left" isDisabled>Protect your posts</Switch>
+          <Description elementType="div">
+            <Text>
+              When selected, your posts and other account information are only
+              visible to people who follow you.{' '}
+              <TextLink className="inline">Learn more</TextLink>
+            </Text>
+          </Description>
+        </SwitchField>
+
+        <SwitchField>
+          <Switch labelPosition="left">Protect your videos</Switch>
+          <Description>
+            If selected, videos in your posts will not be downloadable by
+            default. This setting applies to posts going forward and is not
+            retroactive.
+          </Description>
+        </SwitchField>
+
+        <SwitchField>
+          <Switch labelPosition="left">Photo tagging</Switch>
+        </SwitchField>
+      </Switches>
+    </SwitchGroup>
+  );
+};

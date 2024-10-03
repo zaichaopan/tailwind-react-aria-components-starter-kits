@@ -12,7 +12,7 @@ import {
   useLocale,
 } from 'react-aria-components';
 import { Button } from './button';
-import { focusOutlineStyle } from './utils';
+import { focusVisibleOutlineStyle } from './utils';
 import { twMerge } from 'tailwind-merge';
 import { ChevronLeftIcon, ChevronRightIcon } from './icons';
 
@@ -34,31 +34,18 @@ export function Calendar<T extends DateValue>({
           {(date) => (
             <CalendarCell
               date={date}
-              className={({
-                isSelected,
-                isDisabled,
-                isUnavailable,
-                isFocusVisible,
-              }) => {
-                return twMerge(
-                  'flex size-9 cursor-default items-center justify-center rounded-lg text-sm outline-none',
-                  isSelected
-                    ? [
-                        'border border-accent bg-accent text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] dark:border-0',
-                        'invalid:border-destructive invalid:bg-destructive invalid:text-white',
-                      ]
-                    : isUnavailable
-                      ? ''
-                      : [
-                          'hover:bg-zinc-100 dark:hover:bg-zinc-700',
-                          'pressed:bg-accent/90 pressed:text-white',
-                        ],
-                  isDisabled && 'opacity-50',
-                  isUnavailable &&
-                    'text-destructive line-through decoration-destructive',
-                  isFocusVisible && [focusOutlineStyle],
-                );
-              }}
+              className={twMerge(
+                'flex size-9 cursor-default items-center justify-center rounded-lg text-sm outline-none',
+                'hover:bg-zinc-100 dark:hover:bg-zinc-700',
+                'pressed:bg-accent/90 pressed:text-white',
+                'disabled:opacity-50',
+                'selected:border selected:border-accent selected:dark:border-0',
+                'selected:bg-accent selected:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]',
+                'selected:text-white',
+                'selected:invalid:border-destructive selected:invalid:bg-destructive selected:invalid:text-white',
+                'unavailable:text-destructive unavailable:line-through unavailable:decoration-destructive',
+                focusVisibleOutlineStyle,
+              )}
             />
           )}
         </CalendarGridBody>
@@ -77,7 +64,13 @@ export function CalendarHeader() {
 
   return (
     <header className="flex w-full items-center gap-1">
-      <Button slot="previous" variant="plain" isIconOnly aria-label="Previous">
+      <Button
+        slot="previous"
+        variant="plain"
+        isIconOnly
+        aria-label="Previous"
+        className="focus-visible:-outline-offset-2"
+      >
         {direction === 'rtl' ? (
           <ChevronRightIcon className="text-muted sm:size-5" />
         ) : (
@@ -91,7 +84,13 @@ export function CalendarHeader() {
         aria-hidden
       />
 
-      <Button slot="next" variant="plain" isIconOnly aria-label="Next">
+      <Button
+        slot="next"
+        variant="plain"
+        isIconOnly
+        aria-label="Next"
+        className="focus-visible:-outline-offset-2"
+      >
         {direction === 'rtl' ? (
           <ChevronLeftIcon className="text-muted sm:size-5" />
         ) : (

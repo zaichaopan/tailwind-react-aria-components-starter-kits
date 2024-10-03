@@ -7,7 +7,6 @@ import {
   Input as RACInput,
   Label as RACLabel,
   TextProps,
-  composeRenderProps,
   LabelContext,
   GroupContext,
   Group as RACGroup,
@@ -24,6 +23,7 @@ import {
   DisplayLevel,
   displayLevels,
   focusRingStyle,
+  focusWithinRingStyle,
   inputFieldStyle,
 } from './utils';
 import { Text } from './text';
@@ -165,20 +165,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <RACInput
         {...props}
         ref={ref}
-        className={composeRenderProps(
-          props.className,
-          (className, { isDisabled, isInvalid, isFocused }) => {
-            return twMerge(
-              'w-full rounded-lg border bg-inherit shadow-sm outline-none',
-              'px-2.5 py-[calc(theme(spacing[2.5])-1px)] sm:py-[calc(theme(spacing[1.5])-1px)]',
-              'text-base/6 placeholder:text-muted sm:text-sm/6',
-              isInvalid && 'border-destructive',
-              isDisabled && 'opacity-50',
-              isFocused && focusRingStyle,
-              className,
-            );
-          },
-        )}
+        className={composeTailwindRenderProps(props.className, [
+          'w-full rounded-lg border bg-inherit shadow-sm outline-none',
+          'px-2.5 py-[calc(theme(spacing[2.5])-1px)] sm:py-[calc(theme(spacing[1.5])-1px)]',
+          'text-base/6 placeholder:text-muted sm:text-sm/6',
+          'invalid:border-destructive',
+          'disabled:opacity-50',
+          focusRingStyle,
+        ])}
       />
     );
   },
@@ -188,19 +182,13 @@ export function TextArea(props: RACTextAreaProps) {
   return (
     <RACTextArea
       {...props}
-      className={composeRenderProps(
-        props.className,
-        (className, { isDisabled, isInvalid, isFocused }) => {
-          return twMerge(
-            'w-full rounded-lg border bg-inherit px-2.5 py-1 outline-none',
-            'text-base/6 placeholder:text-muted sm:text-sm/6 ',
-            isDisabled && 'opacity-50',
-            isInvalid && 'border-destructive',
-            isFocused && focusRingStyle,
-            className,
-          );
-        },
-      )}
+      className={composeTailwindRenderProps(props.className, [
+        'w-full rounded-lg border bg-inherit px-2.5 py-1 outline-none',
+        'text-base/6 placeholder:text-muted sm:text-sm/6 ',
+        'disabled:opacity-50',
+        'invalid:border-destructive',
+        focusRingStyle,
+      ])}
     />
   );
 }
@@ -332,31 +320,26 @@ export function InputGroups(props: GroupProps) {
     <RACGroup
       {...props}
       data-ui="control"
-      className={composeRenderProps(
-        props.className,
-        (className, renderProps) => {
-          return twMerge(
-            'shadow-sm',
-            'grid',
-            'grid-flow-col',
-            'group',
-            'items-center',
-            'w-max',
-            'rounded-lg border',
-            'data-[invalid]:border-destructive',
-
-            '[&>input]:border-0',
-            '[&>input]:ring-0',
-            '[&>input]:shadow-none',
-            '[&>input]:min-w-12',
-            'sm:[&>input]:min-w-11',
-            '[&>input:not(:first-of-type):not(:last-of-type)]:text-center',
-            '[&>:not(input)]:text-muted',
-            renderProps.isFocusWithin && focusRingStyle,
-            className,
-          );
-        },
-      )}
+      className={composeTailwindRenderProps(props.className, [
+        'shadow-sm',
+        'grid',
+        'grid-flow-col',
+        'group',
+        'items-center',
+        'w-max',
+        'rounded-lg border',
+        'data-[invalid]:border-destructive',
+        '[&>input]:border-0',
+        '[&>input:focus]:border-0',
+        '[&>input]:ring-0',
+        '[&>input:focus]:ring-0',
+        '[&>input]:shadow-none',
+        '[&>input]:min-w-12',
+        'sm:[&>input]:min-w-11',
+        '[&>input:not(:first-of-type):not(:last-of-type)]:text-center',
+        '[&>:not(input)]:text-muted',
+        focusWithinRingStyle,
+      ])}
     />
   );
 }

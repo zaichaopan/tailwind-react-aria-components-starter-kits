@@ -8,7 +8,7 @@ import {
   Text,
 } from 'react-aria-components';
 import { CalendarGridHeader, CalendarHeader } from './calendar';
-import { focusOutlineStyle } from './utils';
+import { groupFocusVisibleOutlineStyle } from './utils';
 import { twMerge } from 'tailwind-merge';
 
 export interface RangeCalendarProps<T extends DateValue>
@@ -38,48 +38,59 @@ export function RangeCalendar<T extends DateValue>({
                 '[td:first-child_&]:rounded-s-lg [td:last-child_&]:rounded-e-lg',
               ].join(' ')}
             >
-              {({
-                formattedDate,
-                isSelected,
-                isSelectionStart,
-                isSelectionEnd,
-                isFocusVisible,
-                isUnavailable,
-                isDisabled,
-              }) => (
+              {({ formattedDate }) => (
                 <span
                   className={twMerge(
                     'flex size-[calc(theme(size.9)-1px)] items-center justify-center',
-                    //  selectionStateStyle
-                    isSelected && (isSelectionStart || isSelectionEnd)
-                      ? [
-                          'border border-accent bg-accent text-white dark:border-0',
-                          'rounded-lg',
-                          'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]',
-                          'group-invalid:border-destructive',
-                          'group-invalid:bg-destructive',
-                          'group-invalid:text-white',
-                        ]
-                      : isSelected
-                        ? [
-                            'rounded-lg',
-                            'group-hover:bg-accent/15 dark:group-hover:bg-accent/50',
-                            'group-pressed:bg-accent group-pressed:text-white',
-                          ]
-                        : [
-                            isUnavailable
-                              ? ''
-                              : [
-                                  'group-hover:rounded-lg',
-                                  'group-hover:bg-zinc-100',
-                                  'dark:group-hover:bg-zinc-700',
-                                  'group-pressed:bg-accent/90',
-                                ],
-                          ],
-                    isFocusVisible && [focusOutlineStyle, 'rounded-lg'],
-                    isDisabled && 'opacity-50',
-                    isUnavailable &&
-                      'text-destructive line-through decoration-destructive',
+                    'group-hover:rounded-lg',
+                    'group-hover:bg-zinc-100',
+                    'dark:group-hover:bg-zinc-700',
+                    'group-pressed:bg-accent/90',
+
+                    // selected
+                    'group-selected:group-hover:bg-accent/15',
+                    'group-selected:dark:group-hover:bg-accent/50',
+                    'group-selected:group-pressed:bg-accent',
+                    'group-selected:group-pressed:text-white',
+
+                    // disabled
+                    'group-disabled:opacity-50',
+
+                    // unavailable
+                    'group-unavailable:text-destructive',
+                    'group-unavailable:decoration-destructive',
+                    'group-unavailable:line-through',
+
+                    // selection start
+                    'group-selected:group-selection-start:border',
+                    'group-selected:group-selection-start:dark:border-0',
+                    'group-selected:group-selection-start:border-accent',
+                    'group-selected:group-selection-start:rounded-lg',
+                    'group-selected:group-selection-start:bg-accent',
+                    'group-selected:group-selection-start:text-white',
+                    'group-selected:group-selection-start:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]',
+                    'group-selected:group-selection-start:group-hover:bg-accent/90',
+                    'group-selected:group-selection-start:dark:group-hover:bg-accent/90',
+                    'group-selected:group-selection-start:group-invalid:border-destructive',
+                    'group-selected:group-selection-start:group-invalid:bg-destructive',
+                    'group-selected:group-selection-start:group-invalid:text-white',
+
+                    // selection end
+                    'group-selected:group-selection-end:border',
+                    'group-selected:group-selection-end:dark:border-0',
+                    'group-selected:group-selection-end:border-accent',
+                    'group-selected:group-selection-end:rounded-lg',
+                    'group-selected:group-selection-end:bg-accent',
+                    'group-selected:group-selection-end:text-white',
+                    'group-selected:group-selection-end:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]',
+                    'group-selected:group-selection-end:group-hover:bg-accent/90',
+                    'group-selected:group-selection-end:dark:group-hover:bg-accent/90',
+                    'group-selected:group-selection-end:group-invalid:border-destructive',
+                    'group-selected:group-selection-end:group-invalid:bg-destructive',
+                    'group-selected:group-selection-end:group-invalid:text-white',
+
+                    groupFocusVisibleOutlineStyle,
+                    'group-focus-visible:rounded-lg',
                   )}
                 >
                   {formattedDate}

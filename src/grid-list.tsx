@@ -6,8 +6,7 @@ import {
   GridListProps,
 } from 'react-aria-components';
 import { Checkbox } from './checkbox';
-import { composeTailwindRenderProps, focusOutlineStyle } from './utils';
-import { twMerge } from 'tailwind-merge';
+import { composeTailwindRenderProps, focusVisibleOutlineStyle } from './utils';
 
 export function GridList<T extends object>({
   children,
@@ -28,23 +27,20 @@ export function GridList<T extends object>({
 
 export function GridListItem({ children, ...props }: GridListItemProps) {
   const textValue = typeof children === 'string' ? children : undefined;
+  
   return (
     <AriaGridListItem
       {...props}
       textValue={textValue}
-      className={(renderProps) => {
-        return twMerge(
-          'relative -mb-px flex cursor-default select-none gap-3 rounded-md px-2 py-1.5 text-sm outline-none',
-          'hover:bg-zinc100 dark:hover:bg-zinc-700',
-          '[&:not(:last-child)]:mb-0.5',
-          renderProps.isFocusVisible && [
-            focusOutlineStyle,
-            '-outline-offset-2',
-          ],
-          renderProps.isSelected && 'z-20',
-          renderProps.isDisabled && 'opacity-50',
-        );
-      }}
+      className={composeTailwindRenderProps(props.className, [
+        'relative -mb-px flex cursor-default select-none gap-3 rounded-md px-2 py-1.5 text-sm outline-none',
+        'hover:bg-zinc100 dark:hover:bg-zinc-700',
+        '[&:not(:last-child)]:mb-0.5',
+        'selected:z-20',
+        'disabled:opacity-50',
+        focusVisibleOutlineStyle,
+        'focus-visible:-outline-offset-2',
+      ])}
     >
       {({ selectionMode, selectionBehavior, allowsDragging }) => (
         <>

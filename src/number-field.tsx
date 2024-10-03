@@ -39,6 +39,7 @@ export function NumberInput(props: InputProps) {
       <Input
         {...props}
         className={composeTailwindRenderProps(props.className, [
+          'z-0',
           'col-span-full',
           'row-start-1',
           'px-[calc(theme(size.11)+10px)] sm:px-[calc(theme(size.9)+10px)]',

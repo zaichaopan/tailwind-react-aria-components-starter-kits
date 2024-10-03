@@ -250,7 +250,7 @@ export function MultiSelect<
         >
           <div className="inline-flex flex-1 flex-wrap items-center gap-1 px-1.5">
             <Input
-              className="flex-1 border-0 px-0.5 py-0 shadow-none ring-0"
+              className="flex-1 border-0 px-0.5 py-0 shadow-none outline-0 focus:ring-0"
               onBlur={() => {
                 setFieldState({
                   inputValue: '',
@@ -266,7 +266,7 @@ export function MultiSelect<
             />
 
             <div className="sr-only" aria-hidden>
-              <Button variant='plain' ref={triggerButtonRef}>
+              <Button variant="plain" ref={triggerButtonRef}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -298,7 +298,7 @@ export function MultiSelect<
             </ListBox>
           </Popover>
         </ComboBox>
-        <Button variant='plain' asChild>
+        <Button variant="plain" asChild>
           <div
             className="top-50 absolute end-0 me-1 size-6 rounded p-0.5"
             aria-hidden
@@ -343,7 +343,7 @@ export function MultiSelectItem(props: ListBoxItemProps) {
         props.className,
         (className, { isFocused }) => {
           return twMerge([
-            'rounded-lg p-1.5 text-base/6 outline-0 sm:text-sm/6',
+            'rounded-lg p-1.5 text-base/6 outline-0 focus-visible:outline-0 sm:text-sm/6',
             isFocused && 'bg-zinc-100 dark:bg-zinc-700',
             className,
           ]);

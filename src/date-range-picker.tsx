@@ -14,7 +14,7 @@ import { Popover } from './popover';
 import { RangeCalendar } from './range-calendar';
 import {
   composeTailwindRenderProps,
-  focusRingStyle,
+  focusWithinRingStyle,
   inputFieldStyle,
 } from './utils';
 import { twMerge } from 'tailwind-merge';
@@ -43,21 +43,19 @@ export function DateRangePickerInput() {
     <>
       <Group
         data-ui="control"
-        className={(renderProps) => {
-          return twMerge(
-            '[&:has([aria-valuetext=Empty]:) w-full',
-            'grid grid-cols-[1fr_16px_1fr_40px] items-center sm:grid-cols-[1fr_16px_1fr_36px]',
-            'group relative rounded-lg border bg-inherit shadow-sm',
-            'group-invalid:border-destructive',
-            '[&:has(_input[data-disabled=true])]:border-border/50',
-            formattedValue ? 'min-w-60' : 'min-w-[278px]',
-            renderProps.isFocusWithin && focusRingStyle,
-          );
-        }}
+        className={twMerge(
+          '[&:has([aria-valuetext=Empty]:) w-full',
+          'grid grid-cols-[1fr_16px_1fr_40px] items-center sm:grid-cols-[1fr_16px_1fr_36px]',
+          'group relative rounded-lg border bg-inherit shadow-sm',
+          'group-invalid:border-destructive',
+          '[&:has(_input[data-disabled=true])]:border-border/50',
+          formattedValue ? 'min-w-60' : 'min-w-[278px]',
+          focusWithinRingStyle,
+        )}
       >
         <DateInput
           slot="start"
-          className="flex min-w-fit border-none shadow-none ring-0"
+          className="flex min-w-fit border-none shadow-none focus-within:ring-0"
         />
         <span
           aria-hidden="true"
@@ -67,13 +65,13 @@ export function DateRangePickerInput() {
         </span>
         <DateInput
           slot="end"
-          className="flex min-w-fit flex-1 border-none opacity-100 shadow-none ring-0"
+          className="flex min-w-fit flex-1 border-none opacity-100 shadow-none focus-within:ring-0"
         />
         <Button
           variant="plain"
           isIconOnly
           size="sm"
-          className="place-self-center -outline-offset-1"
+          className="place-self-center focus-visible:-outline-offset-1"
         >
           <CalendarIcon />
         </Button>

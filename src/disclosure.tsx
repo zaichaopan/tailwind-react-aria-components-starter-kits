@@ -1,6 +1,5 @@
-import { Button, ButtonProps, composeRenderProps } from 'react-aria-components';
-import { twMerge } from 'tailwind-merge';
-import { focusOutlineStyle } from './utils';
+import { Button, ButtonProps} from 'react-aria-components';
+import { composeTailwindRenderProps, focusVisibleOutlineStyle } from './utils';
 
 export {
   UNSTABLE_Disclosure as Disclosure,
@@ -8,22 +7,15 @@ export {
   UNSTABLE_DisclosurePanel as DisclosurePanel,
 } from 'react-aria-components';
 
-
 export function DisclosureControl(props: ButtonProps) {
   return (
     <Button
-      slot="trigger"
       {...props}
-      className={composeRenderProps(
-        props.className,
-        (className, renderProps) => {
-          return twMerge(
-            'group flex items-center rounded-md outline-none gap-x-1',
-            renderProps.isFocusVisible && focusOutlineStyle,
-            className,
-          );
-        },
-      )}
+      slot="trigger"
+      className={composeTailwindRenderProps(props.className, [
+        'group flex items-center gap-x-1 rounded-md outline-none',
+        focusVisibleOutlineStyle,
+      ])}
     />
   );
 }

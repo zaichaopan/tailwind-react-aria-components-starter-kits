@@ -36,7 +36,7 @@ export function PasswordInput(props: InputProps) {
         onChange={setIsPasswordVisible}
         className={[
           'group',
-          '-outline-offset-1',
+          'focus-visible:-outline-offset-1',
           'row-start-1',
           '-col-end-1',
           'place-self-center',

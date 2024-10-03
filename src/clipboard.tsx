@@ -31,6 +31,7 @@ export function CopyButton({
 } & ButtonWithoutAsChildProps) {
   const [showTooltip, setShowTooltip] = React.useState(false);
 
+  console.log('children', children)
   return (
     <Clipboard>
       {({ copied, copy }) => {
@@ -39,7 +40,7 @@ export function CopyButton({
             <Button
               variant={variant}
               {...(!children && {
-                iconOnly: true,
+                isIconOnly: true,
               })}
               aria-label={label}
               {...props}

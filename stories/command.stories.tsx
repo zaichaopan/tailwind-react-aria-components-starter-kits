@@ -201,7 +201,7 @@ export function OpenInDialog() {
               </AccessibleIcon>
 
               <ComboBoxInput
-                className="rounded-b-none border-border bg-white ring-0 dark:bg-zinc-800"
+                className="rounded-b-none bg-white focus:ring-0 focus:border-border dark:bg-zinc-800"
                 placeholder="Search for apps and commands&hellip;"
               />
 

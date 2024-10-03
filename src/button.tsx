@@ -6,7 +6,7 @@ import {
   ToggleButtonProps as RACToggleButtonProps,
   composeRenderProps,
 } from 'react-aria-components';
-import { focusOutlineStyle } from './utils';
+import { focusVisibleOutlineStyle } from './utils';
 import { twMerge } from 'tailwind-merge';
 import { AsChildProps, Slot } from './slot';
 import { SpinnerIcon } from './icons';
@@ -169,7 +169,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       pendingLabel,
       size,
       color,
-      variant,
+      variant = 'solid',
       isIconOnly,
       ...buttonProps
     } = props;
@@ -179,23 +179,18 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         <RACButton
           {...buttonProps}
           ref={ref}
-          data-variant={variant ?? 'solid'}
-          className={composeRenderProps(
-            props.className,
-            (className, { isPending, isFocusVisible, isDisabled }) => {
-              return twMerge(
-                buttonStyle({ size, color, isIconOnly, variant }),
-                isFocusVisible && focusOutlineStyle,
-                isDisabled && 'opacity-50',
-                isPending
-                  ? isCustomPending
-                    ? 'opacity-75'
-                    : 'opacity-75, text-transparent'
-                  : '',
-                className,
-              );
-            },
-          )}
+          data-variant={variant}
+          className={composeRenderProps(props.className, (className) => {
+            return twMerge(
+              buttonStyle({ size, color, isIconOnly, variant }),
+              focusVisibleOutlineStyle,
+              'disabled:opacity-50',
+              isCustomPending
+                ? 'data-[pending]:opacity-75'
+                : 'data-[pending]:opacity-75 data-[pending]:text-transparent',
+              className,
+            );
+          })}
         >
           {(renderProps) => {
             return (
@@ -205,12 +200,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                     aria-label={pendingLabel}
                     className={twMerge(
                       'absolute flex h-full items-center justify-center',
-                      renderProps.isPending
-                        ? isCustomPending
-                          ? 'sr-only'
-                          : 'flex'
-                        : 'hidden',
-                      (!variant || variant === 'solid') && 'text-zinc-300',
+                      'group-data-[variant=solid]:text-zinc-300',
+                      isCustomPending
+                        ? 'group-data-[pending]:sr-only'
+                        : 'group-data-[pending]:flex',
                     )}
                   />
                 )}
@@ -243,15 +236,9 @@ export function ToggleButton(props: ToggleButtonProps) {
   return (
     <RACToggleButton
       {...props}
-      className={composeRenderProps(
-        props.className,
-        (className, { isFocusVisible }) =>
-          twMerge(
-            buttonStyle(props),
-            isFocusVisible && focusOutlineStyle,
-            className,
-          ),
-      )}
+      className={composeRenderProps(props.className, (className) => {
+        return twMerge(buttonStyle(props), focusVisibleOutlineStyle, className);
+      })}
     />
   );
 }
