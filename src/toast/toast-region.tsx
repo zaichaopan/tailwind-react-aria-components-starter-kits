@@ -227,7 +227,7 @@ function Toast({ state, ...props }: ToastProps) {
           {...closeButtonProps}
           className={twMerge('rounded', 'hover:bg-transparent')}
         >
-          <XIcon aria-label="Close" />
+          <XIcon aria-label="Close"  className='text-muted/75 group-hover:text-foreground'/>
         </Button>
       </div>
     </div>

@@ -28,7 +28,7 @@ export function ComboBox(props: RACComboBoxProps<object>) {
       data-ui="comboBox"
       className={composeTailwindRenderProps(props.className, [
         'w-full min-w-56',
-        ...inputFieldStyle,
+        inputFieldStyle,
       ])}
     />
   );
@@ -88,7 +88,10 @@ export const ComboBoxInput = Input;
 export function ComboBoxButton() {
   return (
     <Button isIconOnly size="sm" data-ui="trigger" variant="plain">
-      <ChevronDownIcon strokeWidth={2}  className='text-muted'/>
+      <ChevronDownIcon
+        strokeWidth={2}
+        className="text-muted group-hover:text-foreground"
+      />
     </Button>
   );
 }
@@ -102,7 +105,11 @@ export function ComboBoxClearButton({
 
   return (
     <Button
-      className={twMerge(state?.inputValue ? 'visible' : 'invisible')}
+      className={twMerge(
+        state?.inputValue
+          ? 'visible focus-visible:-outline-offset-2'
+          : 'invisible',
+      )}
       slot={null}
       data-ui="clear"
       size="sm"
@@ -113,7 +120,7 @@ export function ComboBoxClearButton({
         onPress?.(e);
       }}
     >
-      <XIcon aria-label="Clear" />
+      <XIcon aria-label="Clear" className="text-muted" />
     </Button>
   );
 }

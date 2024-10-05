@@ -290,7 +290,7 @@ export function SpinnerIcon({
   return (
     <AccessibleIcon aria-label={arialLabel}>
       <svg
-        className={twMerge('animate-spin text-zinc-400/75', className)}
+        className={twMerge('animate-spin', className)}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

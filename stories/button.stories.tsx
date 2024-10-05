@@ -265,26 +265,15 @@ export const Pending = () => {
 
   return (
     <div className="flex gap-2">
-      <Button
-        isPending={isPending}
-        pendingLabel="Searching"
-      >
+      <Button isPending={isPending} pendingLabel="Searching">
         Search
       </Button>
 
-      <Button
-        variant="outline"
-        isPending={isPending}
-        pendingLabel="Searching"
-      >
+      <Button variant="outline" isPending={isPending} pendingLabel="Searching">
         Search
       </Button>
 
-      <Button
-        isPending={isPending}
-        isCustomPending
-        pendingLabel="Deploying"
-      >
+      <Button isPending={isPending} isCustomPending pendingLabel="Deploying">
         {isPending ? (
           <>
             <AccessibleIcon>
@@ -302,11 +291,7 @@ export const Pending = () => {
         )}
       </Button>
 
-      <Button
-        isPending={isPending}
-        isCustomPending
-        pendingLabel="Refreshing"
-      >
+      <Button isPending={isPending} isCustomPending pendingLabel="Refreshing">
         {isPending && <SpinnerIcon className="text-zinc-300" />}
         Refresh
       </Button>

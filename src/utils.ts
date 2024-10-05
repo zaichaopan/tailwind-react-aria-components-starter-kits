@@ -8,14 +8,13 @@ export function composeTailwindRenderProps<T>(
   return composeRenderProps(className, (className) => twMerge(tw, className));
 }
 
-
 export const focusVisibleOutlineStyle = [
   'focus-visible:outline',
   'focus-visible:outline-2',
   'focus-visible:outline-blue-500',
   'focus-visible:outline-offset-2',
   'focus-visible:group-data-[readonly]:outline-blue-300',
-].join(" ")
+].join(' ');
 
 export const groupFocusVisibleOutlineStyle = [
   'group-focus-visible:outline',
@@ -23,7 +22,7 @@ export const groupFocusVisibleOutlineStyle = [
   'group-focus-visible:outline-blue-500',
   'group-focus-visible:outline-offset-2',
   'group-focus-visible:group-data-[readonly]:outline-blue-300',
-].join(" ")
+].join(' ');
 
 export const groupControlFocusVisibleOutlineStyle = [
   'group-focus-visible/control:outline',
@@ -31,7 +30,7 @@ export const groupControlFocusVisibleOutlineStyle = [
   'group-focus-visible/control:outline-blue-500',
   'group-focus-visible/control:outline-offset-2',
   'group-focus-visible/control:group-data-[readonly]:outline-blue-300',
-].join(" ")
+].join(' ');
 
 export const dropTargetOutlineStyle = [
   'drop-target:outline',
@@ -39,8 +38,7 @@ export const dropTargetOutlineStyle = [
   'drop-target:outline-blue-500',
   'drop-target:outline-offset-2',
   'drop-target:group-data-[readonly]:outline-blue-300',
-].join(" ")
-
+].join(' ');
 
 export const focusRingStyle = [
   'focus:ring-1',
@@ -55,7 +53,7 @@ export const focusRingStyle = [
   'focus:[&[readonly]]:border-blue-300',
   'focus:[&:has(:is([readonly],[aria-readonly]))]:ring-blue-300',
   'focus:[&:has(:is([readonly],[aria-readonly]))]:border-blue-300',
-].join(" ");
+].join(' ');
 
 export const focusVisibleRingStyle = [
   'focus-visible:ring-1',
@@ -72,7 +70,6 @@ export const focusVisibleRingStyle = [
   'focus-visible:[&:has(:is([readonly],[aria-readonly]))]:border-blue-300',
 ].join(' ');
 
-
 export const focusWithinRingStyle = [
   'focus-within:ring-1',
   'focus-within:ring-inset',
@@ -87,7 +84,7 @@ export const focusWithinRingStyle = [
   'focus-within:[&[readonly]]:border-blue-300',
   'focus-within:[&:has(:is([readonly],[aria-readonly]))]:ring-blue-300',
   'focus-within:[&:has(:is([readonly],[aria-readonly]))]:border-blue-300',
-].join(' ')
+].join(' ');
 
 // RAC uses `slot=*`. We use `data-ui=* to avoid potential conflict
 export const inputFieldStyle = [
@@ -102,10 +99,9 @@ export const inputFieldStyle = [
   '[&_[data-ui=description]:not([class*=mb-]):has(+:is(input,textarea,[data-ui=control]))]:mb-3',
 
   // Error
-  // RAC FieldError does not accept data-ui
-  '[&>:is(input,textarea,[data-ui=control])+[slot=errorMessage]:not([class*=mt-])]:mt-2',
-  '[&:has([data-ui=description]+[slot=errorMessage])_[slot=errorMessage]]:mt-1',
-].join(" ");
+  '[&>:is(input,textarea,[data-ui=control])+[data-ui=errorMessage]:not([class*=mt-])]:mt-2',
+  '[&:has([data-ui=description]+[data-ui=errorMessage])_[data-ui=errorMessage]]:mt-1',
+].join(' ');
 
 export const groupBoxStyle = [
   'group flex flex-col',
@@ -119,9 +115,6 @@ export const groupBoxStyle = [
 
   '[&:has(:is([type=checkbox],[type=radio],[role=switch]))_[data-ui=box]:not([class*=gap-])]:gap-y-3',
 
-  //Group label style when field has description
-  '[&:has([data-ui=field]>[data-ui=description])>[data-ui=label]]:font-semibold',
-
   // Box item description inside
   '[&:has(:is([type=checkbox],[type=radio],[role=switch]))_[data-ui=box]:has([data-ui=description]):not([class*=gap-y])]:gap-y-4',
 
@@ -130,23 +123,24 @@ export const groupBoxStyle = [
   '[&[data-orientation=horizontal]:has(:is([type=checkbox],[type=radio],[role=switch]))_[data-ui=box]:not([class*=gap-y-])]:gap-y-2',
 
   // Error
-  '[&:has([data-ui=box]+[slot=errorMessage])_[slot=errorMessage]]:mt-2',
-].join(" ");
+  '[&:has([data-ui=box]+[data-ui=errorMessage])_[data-ui=errorMessage]]:mt-2',
+].join(' ');
 
 // Chevron down as select box indicator
 export const selectBoxIndicator = [
   'after:pointer-events-none',
   'after:absolute',
-  'after:border-muted',
+  'after:border-muted/75',
+  'hover:after:border-foreground',
   "after:content-['']",
   'after:size-[7px] after:sm:size-[6px]',
   'after:border-b-[1.5px] after:border-r-[1.5px]',
   'after:bottom-[55%] after:end-3 after:-translate-x-1/2 after:translate-y-1/2 after:rotate-45 rtl:after:translate-x-1.5',
-].join(" ");
+].join(' ');
 
 export const displayLevels = {
-  1: 'font-medium text-2xl',
-  2: 'font-medium text-base/6',
+  1: 'font-semibold text-2xl',
+  2: 'font-semibold text-base/6',
   3: 'font-medium text-base/6 sm:text-sm/6',
 };
 

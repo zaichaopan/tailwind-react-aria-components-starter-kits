@@ -43,9 +43,9 @@ export function PasswordInput(props: InputProps) {
         ].join(' ')}
       >
         {isPasswordVisible ? (
-          <EyeOffIcon className="text-muted group-hover:text-foreground" />
+          <EyeOffIcon className="text-muted/75 group-hover:text-foreground" />
         ) : (
-          <EyeIcon className="text-muted group-hover:text-foreground" />
+          <EyeIcon className="text-muted/75 group-hover:text-foreground" />
         )}
       </ToggleButton>
     </Group>

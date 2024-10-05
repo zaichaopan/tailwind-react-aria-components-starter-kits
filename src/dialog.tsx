@@ -158,7 +158,7 @@ export function DialogCloseButton(props: ButtonWithoutAsChildProps) {
           onPress?.(e);
         }}
       >
-        <XIcon aria-label={ariaLabel ?? 'Close'} />
+        <XIcon aria-label={ariaLabel ?? 'Close'} className='text-muted/75 group-hover:text-foreground'/>
       </Button>
     );
   }

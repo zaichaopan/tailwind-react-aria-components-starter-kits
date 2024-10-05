@@ -32,7 +32,8 @@ export type ButtonWithoutAsChildProps = RACButtonProps & BasicButtonProps;
 
 const buttonVariants = {
   base: [
-    'group relative inline-flex justify-center items-center whitespace-nowrap rounded-lg outline-none',
+    'group relative inline-flex gap-x-2 justify-center items-center',
+    'font-semibold text-base/6 sm:text-sm/6 whitespace-nowrap outline-none rounded-lg',
   ],
   solid: [
     'border border-[var(--btn-bg)] dark:border-none dark:[--border-with:0px]',
@@ -56,13 +57,11 @@ const buttonVariants = {
 const buttonSizes = {
   sm: {
     button: [
-      'h-8 sm:h-7 px-2 gap-x-1 text-sm/6 sm:text-xs/6 rounded-md font-medium',
-      // svg
+      'h-8 sm:h-7 px-2 text-sm/6 sm:text-xs/6 rounded-md',
       '[&_svg:not([class*=size-])]:size-3',
     ],
     iconOnly: [
       'size-8 sm:size-7 rounded-md',
-      //svg
       '[&_svg:not([class*=size-])]:size-5',
       'sm:[&_svg:not([class*=size-])]:size-4',
     ],
@@ -70,12 +69,9 @@ const buttonSizes = {
   md: {
     // H: 44px, sm:36px
     button: [
-      'gap-x-2 text-base/6 sm:text-sm/6 font-semibold',
-      'px-3',
-      'py-[calc(theme(spacing[2.5])-var(--border-with,1px))]',
+      'px-3 py-[calc(theme(spacing[2.5])-var(--border-with,1px))]',
       'sm:py-[calc(theme(spacing[1.5])-var(--border-with,1px))]',
 
-      // svg
       '[&_svg:not([class*=size-])]:size-5',
       'sm:[&_svg:not([class*=size-])]:size-4',
     ],
@@ -83,7 +79,6 @@ const buttonSizes = {
       'p-[calc(theme(spacing[2.5])-var(--border-with,1px))]',
       'sm:p-[calc(theme(spacing[1.5])-var(--border-with,1px))]',
 
-      // svg
       // 20+2x2=24px
       '[&_svg:not([class*=size-])]:size-5',
       '[&_svg]:m-0.5',
@@ -95,15 +90,11 @@ const buttonSizes = {
   },
   lg: {
     button: [
-      'gap-x-2 text-base/6 sm:text-sm/6 font-semibold',
-      'px-4',
-      'py-[calc(theme(spacing[2.5])-var(--border-with,1px))]',
-      // svg
+      'px-4 py-[calc(theme(spacing[2.5])-var(--border-with,1px))]',
       '[&_svg:not([class*=size-])]:size-5',
     ],
     iconOnly: [
       'p-[calc(theme(spacing[2.5])-var(--border-with,1px))]',
-      // svg
       '[&_svg:not([class*=size-])]:size-5',
       '[&_svg]:m-0.5',
     ],
@@ -185,9 +176,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               buttonStyle({ size, color, isIconOnly, variant }),
               focusVisibleOutlineStyle,
               'disabled:opacity-50',
-              isCustomPending
-                ? 'data-[pending]:opacity-75'
-                : 'data-[pending]:opacity-75 data-[pending]:text-transparent',
+              'data-[pending]:opacity-75',
+              !isCustomPending && 'data-[pending]:text-transparent',
               className,
             );
           })}
@@ -200,6 +190,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                     aria-label={pendingLabel}
                     className={twMerge(
                       'absolute flex h-full items-center justify-center',
+                      'group-data-[variant=outline]:text-foreground',
+                      'text-foreground',
                       'group-data-[variant=solid]:text-zinc-300',
                       isCustomPending
                         ? 'group-data-[pending]:sr-only'
@@ -230,9 +222,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   },
 );
 
-export type ToggleButtonProps = RACToggleButtonProps & BasicButtonProps;
-
-export function ToggleButton(props: ToggleButtonProps) {
+export function ToggleButton(props: RACToggleButtonProps & BasicButtonProps) {
   return (
     <RACToggleButton
       {...props}

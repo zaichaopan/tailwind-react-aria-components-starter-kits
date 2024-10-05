@@ -262,7 +262,7 @@ export function MenuSection<T extends object>({
     >
       <Header
         className={twMerge(
-          'sticky z-10 bg-white dark:bg-zinc-800 truncate pt-2 text-xs/4 text-muted',
+          'sticky z-10 truncate bg-white pt-2 text-xs/4 text-muted dark:bg-zinc-800',
           'top-[0px] -mx-[1px] rounded-lg backdrop-blur-md',
         )}
       >

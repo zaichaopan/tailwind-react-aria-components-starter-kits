@@ -30,7 +30,7 @@ export function Select<T extends object>(props: RACSelectProps<T>) {
       data-ui="select"
       className={composeTailwindRenderProps(props.className, [
         'w-full min-w-56',
-        ...inputFieldStyle,
+        inputFieldStyle,
       ])}
     />
   );

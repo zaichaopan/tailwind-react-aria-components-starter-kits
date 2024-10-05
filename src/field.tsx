@@ -151,6 +151,7 @@ export function FieldError(props: FieldErrorProps) {
   return (
     <RACFieldError
       {...props}
+      data-ui="errorMessage"
       className={composeTailwindRenderProps(
         props.className,
         'block text-base/6 text-destructive sm:text-sm/6',
