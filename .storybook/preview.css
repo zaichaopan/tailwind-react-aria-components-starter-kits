@@ -9,6 +9,8 @@
   font-weight: bold !important;
   border-radius: 0 !important;
   border-bottom: 1px solid #d4d4d8 !important;
+  padding-left:0!important;
+  padding-right:0!important;
 }
 
 .sbdocs-a > code:hover {

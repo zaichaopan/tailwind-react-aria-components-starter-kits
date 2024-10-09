@@ -76,15 +76,18 @@ export function DialogHeader({ className, ...props }: DialogHeaderProps) {
   );
 }
 
-export function DialogBody(props: JSX.IntrinsicElements['div']) {
-  const { className, children, ...rest } = props;
+export function DialogBody({
+  className,
+  children,
+  ...props
+}: JSX.IntrinsicElements['div']) {
   return (
     <div
+      {...props}
       className={twMerge(
         'flex max-h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding)-var(--dialog-header-height,0px)-var(--dialog-footer-height,0px))] flex-1 flex-col gap-2 overflow-auto px-6',
         className,
       )}
-      {...rest}
     >
       {typeof children === 'string' ? <Text>{children}</Text> : children}
     </div>
@@ -131,52 +134,50 @@ export function DialogFooter({
   );
 }
 
-export function DialogCloseButton(props: ButtonWithoutAsChildProps) {
+export function DialogCloseButton({
+  onPress,
+  variant = 'plain',
+  ...props
+}: ButtonWithoutAsChildProps) {
   const state = React.useContext(OverlayTriggerStateContext)!;
 
-  if (props.children === undefined) {
-    const {
-      onPress,
-      className,
-      'aria-label': ariaLabel,
-      isIconOnly = true,
-      variant = 'plain',
-      ...restProps
-    } = props;
-
+  if (props.children) {
     return (
       <Button
-        {...restProps}
-        isIconOnly={isIconOnly}
+        {...props}
         variant={variant}
-        className={composeTailwindRenderProps(
-          className,
-          'absolute end-4 top-4 p-1.5',
-        )}
         onPress={(e) => {
           state.close();
           onPress?.(e);
         }}
-      >
-        <XIcon aria-label={ariaLabel ?? 'Close'} className='text-muted/75 group-hover:text-foreground'/>
-      </Button>
+      />
     );
   }
 
-  const { onPress, ...restProps } = props;
-
-  if (!restProps.variant) {
-    restProps.variant = 'plain';
-  }
+  const {
+    className,
+    size = 'lg',
+    'aria-label': ariaLabel,
+    isIconOnly = true,
+    ...restProps
+  } = props;
 
   return (
     <Button
       {...restProps}
+      isIconOnly={isIconOnly}
+      variant={variant}
+      size={size}
+      className={composeTailwindRenderProps(className, [
+        'absolute end-4 top-4 p-1.5 text-muted/75 hover:text-foreground',
+      ])}
       onPress={(e) => {
         state.close();
         onPress?.(e);
       }}
-    />
+    >
+      <XIcon aria-label={ariaLabel ?? 'Close'} />
+    </Button>
   );
 }
 

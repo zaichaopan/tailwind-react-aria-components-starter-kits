@@ -28,7 +28,10 @@ export function Radios({ className, ...props }: JSX.IntrinsicElements['div']) {
     <div
       data-ui="box"
       className={twMerge(
-        'flex flex-col group-aria-[orientation=horizontal]:flex-row group-aria-[orientation=horizontal]:flex-wrap',
+        'flex',
+        'flex-col',
+        'group-aria-[orientation=horizontal]:flex-row',
+        'group-aria-[orientation=horizontal]:flex-wrap',
         // When any radio item has description, apply all `font-medium` to all radio item labels
         '[&_label]:has-[[data-ui=description]]:font-medium',
         className,

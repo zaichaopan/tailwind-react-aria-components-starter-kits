@@ -29,7 +29,7 @@ export const BasicExample = () => {
   return (
     <Avatar
       alt="M A"
-      src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=3&w=256&h=256&q=100"
+      src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
     />
   );
 };
@@ -39,12 +39,12 @@ export const RoundedAvatars = () => {
     <div className="flex gap-6">
       <Avatar
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       />
       <Avatar
         className="rounded-full"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       />
     </div>
   );
@@ -64,36 +64,36 @@ export const AvatarSizes = () => {
       <Avatar
         className="size-8"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       />
       <Avatar
         className="size-9"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       />
       <Avatar
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       />
       <Avatar
         className="size-11"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       />
       <Avatar
         className="size-12"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       />
       <Avatar
         className="size-14"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       />
       <Avatar
         className="size-16"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       />
     </div>
   );
@@ -147,21 +147,21 @@ export const AvatarBadges = () => {
     <div className="flex flex-col gap-6">
       <div className="flex gap-4">
         <Avatar
-          src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
           alt="M A"
         >
           <AvatarBadge badge={<Available />} aria-label="Available" />
         </Avatar>
 
         <Avatar
-          src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
           alt="M A"
         >
           <AvatarBadge badge={<Busy />} aria-label="Busy" />
         </Avatar>
 
         <Avatar
-          src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
           alt="M A"
         >
           <AvatarBadge badge={<Away />} aria-label="Away" />
@@ -169,13 +169,13 @@ export const AvatarBadges = () => {
 
         <Avatar
           alt="M A"
-          src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
         >
           <AvatarBadge aria-label="Do not disturb" badge={<DoNotDisturb />} />
         </Avatar>
 
         <Avatar
-          src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
           alt="Jane Doe"
         >
           <AvatarBadge
@@ -195,41 +195,41 @@ export const AvatarBadgeSizesHiddenTitle = () => {
       <Avatar
         className="size-9"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       >
         <AvatarBadge badge={<Available />} aria-label="Available" />
       </Avatar>
       <Avatar
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       >
         <AvatarBadge badge={<Available />} aria-label="Available" />
       </Avatar>
       <Avatar
         className="size-11"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       >
         <AvatarBadge badge={<Available />} aria-label="Available" />
       </Avatar>
       <Avatar
         className="size-12"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       >
         <AvatarBadge badge={<Available />} aria-label="Available" />
       </Avatar>
       <Avatar
         className="size-16"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       >
         <AvatarBadge badge={<Available />} aria-label="Available" />
       </Avatar>
       <Avatar
         className="size-20"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       >
         <AvatarBadge badge={<Available />} aria-label="Available" />
       </Avatar>
@@ -243,42 +243,42 @@ export const AvatarBadgeSizeRoundedHiddenTitle = () => {
       <Avatar
         className="size-9 rounded-full"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       >
         <AvatarBadge badge={<Available />} aria-label="Available" />
       </Avatar>
       <Avatar
         alt="M A"
         className="rounded-full"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       >
         <AvatarBadge badge={<Available />} aria-label="Available" />
       </Avatar>
       <Avatar
         className="size-11 rounded-full"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       >
         <AvatarBadge badge={<Available />} aria-label="Available" />
       </Avatar>
       <Avatar
         className="size-12 rounded-full"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       >
         <AvatarBadge badge={<Available />} aria-label="Available" />
       </Avatar>
       <Avatar
         className="size-16 rounded-full"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       >
         <AvatarBadge badge={<Available />} aria-label="Available" />
       </Avatar>
       <Avatar
         className="size-20 rounded-full"
         alt="M A"
-        src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
       >
         <AvatarBadge badge={<Available />} aria-label="Available" />
       </Avatar>
@@ -302,7 +302,7 @@ export const AvatarGroups = () => {
         <Avatar
           className="size-8"
           alt="D P"
-          src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
         />
         <Avatar
           className="size-8"
@@ -330,7 +330,7 @@ export const AvatarGroups = () => {
         <Avatar
           className="size-8 rounded-full"
           alt="D P"
-          src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
         />
         <Avatar
           className="size-8 rounded-full "
@@ -359,7 +359,7 @@ export const AvatarGroups = () => {
           <Avatar
             className="size-8 rounded-full"
             alt="D P"
-            src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
           />
           <Avatar
             className="size-8 rounded-full "
@@ -392,7 +392,7 @@ export const AvatarGroups = () => {
           <Avatar
             className="size-8 rounded-full"
             alt="D P"
-            src="https://plus.unsplash.com/premium_photo-1691784778805-e1067ac42e01?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
           />
           <Avatar
             className="size-8 rounded-full "

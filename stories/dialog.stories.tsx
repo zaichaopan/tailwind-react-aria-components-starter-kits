@@ -73,7 +73,7 @@ export const BasicExample = () => {
       <Modal size="md">
         <Dialog>
           <DialogHeader>Edit profile</DialogHeader>
-          <DialogCloseButton />
+          <DialogCloseButton/>
           <DialogBody>
             <Text>
               Make changes to your profile here. Click save when you're done.
@@ -144,9 +144,46 @@ DialogSizes.parameters = {
   docs: {
     description: {
       story:
-        'Use `size="xs | sm | md | lg | xl | 2xl | 3xl | 4xl | 5xl"` on the`Modal` component to change the side of dialog. \n\nDefault `dialog` size is `lg`. Default `alert` dialog size is `md`.',
+        'Use `size="xs | sm | md | lg | xl | 2xl | 3xl | 4xl | 5xl | fullWidth"` on the`Modal` component to change the side of dialog. \n\nDefault `dialog` size is `lg`. Default `alert` dialog size is `md`.',
     },
   },
+};
+
+export const FullWidth = () => {
+  return (
+    <DialogTrigger>
+      <Button>Edit profile</Button>
+      <Modal size="fullWidth">
+        <Dialog>
+          <DialogHeader>Edit profile</DialogHeader>
+          <DialogCloseButton />
+          <DialogBody>
+            <Text>
+              Make changes to your profile here. Click save when you're done.
+            </Text>
+            <Form className="py-4" id="edit-profile-form">
+              <TextField isRequired className="grid grid-cols-4 gap-x-4">
+                <Label className="ms-auto">Name</Label>
+                <Input className="col-span-3"></Input>
+                <FieldError className="col-span-3 col-start-2" />
+              </TextField>
+              <TextField isRequired className="grid grid-cols-4 gap-4">
+                <Label className="ms-auto">Username</Label>
+                <Input className="col-span-3"></Input>
+                <FieldError className="col-span-3 col-start-2" />
+              </TextField>
+            </Form>
+          </DialogBody>
+          <DialogFooter>
+            <DialogCloseButton>Cancel</DialogCloseButton>
+            <Button form="edit-profile-form" type="submit">
+              Save changes
+            </Button>
+          </DialogFooter>
+        </Dialog>
+      </Modal>
+    </DialogTrigger>
+  );
 };
 
 export const CustomHeaders = () => {
@@ -838,7 +875,6 @@ Drawers.parameters = {
 };
 
 export const DialogCloseButtons = () => {
- 
   return (
     <DialogTrigger>
       <Button>Add Block</Button>

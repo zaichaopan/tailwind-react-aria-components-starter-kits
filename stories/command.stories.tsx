@@ -172,12 +172,11 @@ export function OpenInDialog() {
 
       <Modal
         isDismissable
-        animate={false}
         isOpen={isModalOpen}
         onOpenChange={setIsModalOpen}
         classNames={{
           modal:
-            'self-start shadow-none ring-0 sm:self-start bg-transparent dark:bg-transparent dark:ring-0',
+            'entering:duration-0 exiting:duration-0 self-start shadow-none ring-0 sm:self-start bg-transparent dark:bg-transparent dark:ring-0',
         }}
       >
         <Dialog
@@ -201,7 +200,7 @@ export function OpenInDialog() {
               </AccessibleIcon>
 
               <ComboBoxInput
-                className="rounded-b-none bg-white focus:ring-0 focus:border-border dark:bg-zinc-800"
+                className="rounded-b-none bg-white focus:border-border focus:ring-0 dark:bg-zinc-800"
                 placeholder="Search for apps and commands&hellip;"
               />
 
@@ -213,7 +212,7 @@ export function OpenInDialog() {
             </ComboBoxGroup>
 
             <ComboBoxPopover
-              className="rounded-t-none border border-t-0 ring-0"
+              className="rounded-t-none border border-t-0 ring-0 entering:duration-0"
               offset={0}
               isOpen
             >
