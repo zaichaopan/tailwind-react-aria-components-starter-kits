@@ -5,11 +5,14 @@ import {
   Description,
   FieldError,
   Input,
-  InputGroup,
   LabeledGroup,
+} from '../src/field';
+import {
+  InputGroup,
   InputGroups,
   InputAddon,
-} from '../src/field';
+  InputSeparator,
+} from '../src/input-group';
 import { docs } from '../.storybook/docs';
 import { Form } from '../src/form';
 import { Button } from '../src/button';
@@ -24,6 +27,8 @@ import {
   SelectPopover,
 } from '../src/select';
 import { Canada, US } from './~icons';
+
+import { Mail } from 'lucide-react';
 
 const meta: Meta<typeof TextField> = {
   title: 'Text Field (Input)',
@@ -203,8 +208,6 @@ export const InputGroupWithSingleInput = () => {
           <InputAddon>.com</InputAddon>
         </InputGroup>
       </TextField>
-
-      {/* TOod 1. readonly 2. disable 3. with tooltip */}
     </div>
   );
 };
@@ -215,10 +218,30 @@ export const InputGroupWithMultiInputs = () => {
       <LabeledGroup>
         <Label>Phone Number</Label>
         <InputGroup>
-          <TextField className="min-w-64">
+          <TextField>
             <Label>phone number</Label>
             <Input placeholder="+1 (123) 457-7890" />
           </TextField>
+          <InputSeparator />
+          <NativeSelectField>
+            <Label>Country</Label>
+            <NativeSelect name="country">
+              <option value="US">US</option>
+              <option value="CA">CA</option>
+              <option value="EU">EU</option>
+            </NativeSelect>
+          </NativeSelectField>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Phone Number inline</Label>
+        <InputGroup inline>
+          <TextField>
+            <Label>phone number</Label>
+            <Input placeholder="+1 (123) 457-7890" />
+          </TextField>
+          <InputSeparator />
           <NativeSelectField>
             <Label>Country</Label>
             <NativeSelect name="country">
@@ -241,7 +264,27 @@ export const InputGroupWithMultiInputs = () => {
               <option value="EU">EU</option>
             </NativeSelect>
           </NativeSelectField>
-          <TextField className="min-w-64">
+          <InputSeparator />
+          <TextField>
+            <Label>phone number</Label>
+            <Input placeholder="+1 (123) 457-7890" />
+          </TextField>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Phone Number inline</Label>
+        <InputGroup inline>
+          <NativeSelectField>
+            <Label>Country</Label>
+            <NativeSelect name="country">
+              <option value="US">US</option>
+              <option value="CA">CA</option>
+              <option value="EU">EU</option>
+            </NativeSelect>
+          </NativeSelectField>
+          <InputSeparator />
+          <TextField>
             <Label>phone number</Label>
             <Input placeholder="+1 (123) 457-7890" />
           </TextField>
@@ -272,7 +315,39 @@ export const InputGroupWithMultiInputs = () => {
               </SelectListBox>
             </SelectPopover>
           </Select>
+          <InputSeparator />
+          <TextField>
+            <Label>Phone number</Label>
+            <Input placeholder="+1 (123) 457-7890" />
+          </TextField>
+        </InputGroup>
+      </LabeledGroup>
 
+      <LabeledGroup>
+        <Label>Phone Number inline</Label>
+        <InputGroup inline>
+          <Select defaultSelectedKey="ca">
+            <Label>Country</Label>
+            <SelectButton></SelectButton>
+
+            <SelectPopover placement="bottom start" className="w-36">
+              <SelectListBox>
+                <SelectListItem id="ca" textValue="Canada">
+                  <AccessibleIcon>
+                    <Canada />
+                  </AccessibleIcon>
+                  <SelectListItemLabel>CA</SelectListItemLabel>
+                </SelectListItem>
+                <SelectListItem id="us" textValue="United States">
+                  <AccessibleIcon>
+                    <US />
+                  </AccessibleIcon>
+                  <SelectListItemLabel>US</SelectListItemLabel>
+                </SelectListItem>
+              </SelectListBox>
+            </SelectPopover>
+          </Select>
+          <InputSeparator />
           <TextField>
             <Label>Phone number</Label>
             <Input placeholder="+1 (123) 457-7890" />
@@ -287,6 +362,39 @@ export const InputGroupWithMultiInputs = () => {
             <Label>Phone number</Label>
             <Input placeholder="+1 (123) 457-7890" />
           </TextField>
+          <InputSeparator />
+          <Select defaultSelectedKey="ca">
+            <Label>Country</Label>
+            <SelectButton></SelectButton>
+
+            <SelectPopover placement="bottom end" className="w-36">
+              <SelectListBox>
+                <SelectListItem id="ca" textValue="Canada">
+                  <AccessibleIcon>
+                    <Canada />
+                  </AccessibleIcon>
+                  <SelectListItemLabel>CA</SelectListItemLabel>
+                </SelectListItem>
+                <SelectListItem id="us" textValue="United States">
+                  <AccessibleIcon>
+                    <US />
+                  </AccessibleIcon>
+                  <SelectListItemLabel>US</SelectListItemLabel>
+                </SelectListItem>
+              </SelectListBox>
+            </SelectPopover>
+          </Select>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Phone Number inline</Label>
+        <InputGroup inline>
+          <TextField>
+            <Label>Phone number</Label>
+            <Input placeholder="+1 (123) 457-7890" />
+          </TextField>
+          <InputSeparator />
           <Select defaultSelectedKey="ca">
             <Label>Country</Label>
             <SelectButton></SelectButton>
@@ -315,10 +423,32 @@ export const InputGroupWithMultiInputs = () => {
         <Label>Price</Label>
         <InputGroup>
           <InputAddon>$</InputAddon>
+          <InputSeparator />
           <TextField>
             <Label>Price</Label>
             <Input placeholder="0.00" />
           </TextField>
+          <InputSeparator />
+          <NativeSelectField>
+            <Label>Currency</Label>
+            <NativeSelect name="currency">
+              <option value="CA">CA</option>
+              <option value="USD">USD</option>
+            </NativeSelect>
+          </NativeSelectField>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Price inline</Label>
+        <InputGroup inline>
+          <InputAddon>$</InputAddon>
+          <InputSeparator />
+          <TextField>
+            <Label>Price</Label>
+            <Input placeholder="0.00" />
+          </TextField>
+          <InputSeparator />
           <Select defaultSelectedKey="CA">
             <Label>Currency</Label>
             <SelectButton></SelectButton>
@@ -337,48 +467,47 @@ export const InputGroupWithMultiInputs = () => {
       </LabeledGroup>
 
       <LabeledGroup>
-        <Label>Price</Label>
-        <InputGroup>
-          <InputAddon>$</InputAddon>
-          <TextField>
-            <Label>Price</Label>
-            <Input placeholder="0.00" />
-          </TextField>
-          <NativeSelectField>
-            <Label>Currency</Label>
-            <NativeSelect name="currency">
-              <option value="CA">CA</option>
-              <option value="USD">USD</option>
-            </NativeSelect>
-          </NativeSelectField>
-        </InputGroup>
-      </LabeledGroup>
-
-      <LabeledGroup>
-        <Label>Price</Label>
-        <InputGroup inline>
-          <InputAddon>$</InputAddon>
-          <TextField>
-            <Label>Price</Label>
-            <Input placeholder="0.00" />
-          </TextField>
-          <NativeSelectField>
-            <Label>Currency</Label>
-            <NativeSelect name="currency">
-              <option value="CA">CA</option>
-              <option value="USD">USD</option>
-            </NativeSelect>
-          </NativeSelectField>
-        </InputGroup>
-      </LabeledGroup>
-
-      <LabeledGroup>
         <Label>Add members</Label>
         <InputGroup>
           <TextField className="min-w-64">
             <Label>Email</Label>
             <Input type="email" />
           </TextField>
+          <InputSeparator />
+          <Button>Send</Button>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Add members</Label>
+        <InputGroup inline>
+          <TextField className="min-w-64">
+            <Label>Email</Label>
+            <Input type="email" />
+          </TextField>
+          <InputSeparator />
+
+          <InputAddon className="pe-1">
+            <Button size="sm">Send</Button>
+          </InputAddon>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Add members</Label>
+        <InputGroup>
+          <TextField>
+            <Label>Email</Label>
+            <InputGroup inline role="presentation">
+              <InputAddon>
+                <AccessibleIcon>
+                  <Mail />
+                </AccessibleIcon>
+              </InputAddon>
+              <Input type="email" />
+            </InputGroup>
+          </TextField>
+          <InputSeparator />
           <Button>Send</Button>
         </InputGroup>
       </LabeledGroup>
@@ -390,6 +519,141 @@ export const InputGroupWithMultiInputs = () => {
             <Label>Email</Label>
             <Input type="email" />
           </TextField>
+          <InputSeparator />
+          <Button variant="outline">Send</Button>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Add members</Label>
+        <InputGroup inline>
+          <TextField>
+            <Label>Email</Label>
+
+            <InputGroup inline role="presentation">
+              <InputAddon>
+                <AccessibleIcon>
+                  <Mail />
+                </AccessibleIcon>
+              </InputAddon>
+              <Input type="email" />
+            </InputGroup>
+          </TextField>
+          <InputSeparator />
+          <Select defaultSelectedKey="member">
+            <Label>Role</Label>
+            <SelectButton></SelectButton>
+            <SelectPopover placement="bottom end" className="w-36">
+              <SelectListBox>
+                <SelectListItem id="admin" textValue="Admin">
+                  <SelectListItemLabel>Admin</SelectListItemLabel>
+                </SelectListItem>
+                <SelectListItem id="member" textValue="Member">
+                  <SelectListItemLabel>Member</SelectListItemLabel>
+                </SelectListItem>
+              </SelectListBox>
+            </SelectPopover>
+          </Select>
+
+          <InputSeparator />
+          <Button variant="outline">Send</Button>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Add members inline</Label>
+        <InputGroup inline>
+          <TextField>
+            <Label>Email</Label>
+
+            <InputGroup inline role="presentation">
+              <InputAddon>
+                <AccessibleIcon>
+                  <Mail />
+                </AccessibleIcon>
+              </InputAddon>
+              <Input type="email" className="shadow-none" />
+            </InputGroup>
+          </TextField>
+          <InputSeparator />
+
+          <Select defaultSelectedKey="member">
+            <Label>Role</Label>
+            <SelectButton className="shadow-none"></SelectButton>
+            <SelectPopover placement="bottom end" className="w-36">
+              <SelectListBox>
+                <SelectListItem id="admin" textValue="Admin">
+                  <SelectListItemLabel>Admin</SelectListItemLabel>
+                </SelectListItem>
+                <SelectListItem id="member" textValue="Member">
+                  <SelectListItemLabel>Member</SelectListItemLabel>
+                </SelectListItem>
+              </SelectListBox>
+            </SelectPopover>
+          </Select>
+
+          <InputSeparator />
+
+          <InputAddon className="pe-1">
+            <Button size="sm">Send</Button>
+          </InputAddon>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Add members</Label>
+        <InputGroup>
+          <Select defaultSelectedKey="member">
+            <Label>Role</Label>
+            <SelectButton></SelectButton>
+            <SelectPopover placement="bottom end" className="w-36">
+              <SelectListBox>
+                <SelectListItem id="admin" textValue="Admin">
+                  <SelectListItemLabel>Admin</SelectListItemLabel>
+                </SelectListItem>
+                <SelectListItem id="member" textValue="Member">
+                  <SelectListItemLabel>Member</SelectListItemLabel>
+                </SelectListItem>
+              </SelectListBox>
+            </SelectPopover>
+          </Select>
+          <InputSeparator />
+
+          <TextField>
+            <Label>Email</Label>
+            <Input type="email" />
+          </TextField>
+
+          <InputSeparator />
+          <Button variant="outline">Send</Button>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Add members inline</Label>
+        <InputGroup inline>
+          <Select defaultSelectedKey="member">
+            <Label>Role</Label>
+            <SelectButton></SelectButton>
+            <SelectPopover placement="bottom end" className="w-36">
+              <SelectListBox>
+                <SelectListItem id="admin" textValue="Admin">
+                  <SelectListItemLabel>Admin</SelectListItemLabel>
+                </SelectListItem>
+                <SelectListItem id="member" textValue="Member">
+                  <SelectListItemLabel>Member</SelectListItemLabel>
+                </SelectListItem>
+              </SelectListBox>
+            </SelectPopover>
+          </Select>
+          <InputSeparator />
+
+          <TextField>
+            <Label>Email</Label>
+            <Input type="email" />
+          </TextField>
+
+          <InputSeparator />
           <Button variant="outline">Send</Button>
         </InputGroup>
       </LabeledGroup>
@@ -397,11 +661,84 @@ export const InputGroupWithMultiInputs = () => {
       <LabeledGroup>
         <Label>Add members</Label>
         <InputGroup>
-          <TextField className="min-w-64">
+          <TextField>
             <Label>Email</Label>
             <Input type="email" />
           </TextField>
-          <Button variant="outline">Send</Button>
+          <InputSeparator />
+          <NativeSelectField>
+            <Label>Role</Label>
+            <NativeSelect name="role">
+              <option value="members">Members</option>
+              <option value="admin">Admin</option>
+            </NativeSelect>
+          </NativeSelectField>
+
+          <InputSeparator />
+          <Button>Send</Button>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Add members inline</Label>
+        <InputGroup inline>
+          <TextField>
+            <Label>Email</Label>
+            <Input type="email" />
+          </TextField>
+          <InputSeparator />
+          <NativeSelectField>
+            <Label>Role</Label>
+            <NativeSelect name="role">
+              <option value="members">Members</option>
+              <option value="admin">Admin</option>
+            </NativeSelect>
+          </NativeSelectField>
+
+          <InputSeparator />
+          <Button>Send</Button>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Add members</Label>
+        <InputGroup>
+          <NativeSelectField>
+            <Label>Role</Label>
+            <NativeSelect name="role">
+              <option value="members">Members</option>
+              <option value="admin">Admin</option>
+            </NativeSelect>
+          </NativeSelectField>
+
+          <InputSeparator />
+          <TextField>
+            <Label>Email</Label>
+            <Input type="email" />
+          </TextField>
+          <InputSeparator />
+          <Button>Send</Button>
+        </InputGroup>
+      </LabeledGroup>
+
+      <LabeledGroup>
+        <Label>Add members inline</Label>
+        <InputGroup inline>
+          <NativeSelectField>
+            <Label>Role</Label>
+            <NativeSelect name="role">
+              <option value="members">Members</option>
+              <option value="admin">Admin</option>
+            </NativeSelect>
+          </NativeSelectField>
+
+          <InputSeparator />
+          <TextField>
+            <Label>Email</Label>
+            <Input type="email" />
+          </TextField>
+          <InputSeparator />
+          <Button>Send</Button>
         </InputGroup>
       </LabeledGroup>
     </div>
@@ -472,3 +809,8 @@ export const WithMultiInputs = () => {
     </div>
   );
 };
+
+// linear-gradient(to bottom, red 0px, red 1px, transparent calc(1px + 1%), transparent calc(100% - 1px), red calc(100% - 1px), red 100%)
+
+//  background: linear-gradient(to bottom, red 1px, transparent 1px, transparent calc(100% - 1px), red calc(100% - 1px));
+// bg-[linear-gradient(to bottom, red 1px, transparent 1px, transparent calc(100% - 1px), red calc(100% - 1px))]

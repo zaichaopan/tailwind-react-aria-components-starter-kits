@@ -345,9 +345,7 @@ export const WithAvatar = () => {
         <ComboBoxListBox items={users}>
           {(user) => {
             return (
-              <ComboBoxListItem
-                textValue={user.name}
-              >
+              <ComboBoxListItem textValue={user.name}>
                 <Avatar
                   className="rounded-full"
                   src={user.avatar}

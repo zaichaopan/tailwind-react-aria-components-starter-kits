@@ -169,7 +169,7 @@ export function DialogCloseButton({
       variant={variant}
       size={size}
       className={composeTailwindRenderProps(className, [
-        'absolute end-4 top-4 p-1.5 text-muted/75 hover:text-foreground',
+        'absolute end-3 top-3 p-1.5 text-muted/75 hover:text-foreground',
       ])}
       onPress={(e) => {
         state.close();

@@ -2,13 +2,8 @@ import type { Meta } from '@storybook/react';
 import { Button } from '../src/button';
 import { CopyButton, Clipboard } from '../src/clipboard';
 import { docs } from '../.storybook/docs';
-import {
-  Input,
-  InputGroup,
-  Label,
-  LabeledGroup,
-  TextField,
-} from '../src/field';
+import { Input, Label, LabeledGroup, TextField } from '../src/field';
+import { InputGroup, InputSeparator } from '../src/input-group';
 
 const meta: Meta = {
   title: 'Clipboard',
@@ -45,12 +40,13 @@ export const WithReadonlyInput = () => {
   return (
     <LabeledGroup>
       <Label className="sr-only">Copy install command</Label>
-      <InputGroup>
+      <InputGroup inline>
         <TextField isReadOnly>
           <Label className="sr-only">Install command</Label>
           <Input value={value} className="truncate" />
         </TextField>
-        <CopyButton copyText={value} variant='outline' />
+        <InputSeparator />
+        <CopyButton copyText={value} variant="outline" />
       </InputGroup>
     </LabeledGroup>
   );

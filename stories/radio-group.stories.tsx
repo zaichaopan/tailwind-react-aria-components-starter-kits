@@ -10,9 +10,9 @@ import {
   Description,
   TextField,
   Input,
-  InputGroup,
   LabeledGroup,
 } from '../src/field';
+import { InputGroup, InputSeparator } from '../src/input-group';
 import { twMerge } from 'tailwind-merge';
 import { focusVisibleOutlineStyle } from '../src/utils';
 import { Strong, Text } from '../src/text';
@@ -456,6 +456,7 @@ export const WithCustomRender = () => {
                           className="truncate"
                         />
                       </TextField>
+                      <InputSeparator />
                       <CopyButton
                         variant="outline"
                         copyText="https://example.dev/r/YgqgxwxwVIy?share=ybOBQ"

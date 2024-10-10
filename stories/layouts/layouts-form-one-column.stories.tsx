@@ -6,13 +6,12 @@ import {
   Description,
   LabeledGroup,
   Input,
-  InputGroup,
   Label,
   TextArea,
   TextField,
   FieldError,
-  InputAddon,
 } from '../../src/field';
+import { InputGroup, InputAddon, InputSeparator } from '../../src/input-group';
 import { Separator } from '../../src/separator';
 import { NativeSelect, NativeSelectField } from '../../src/native-select';
 import { Group } from 'react-aria-components';
@@ -178,10 +177,15 @@ export const OneColumn = () => {
                     </SelectListBox>
                   </SelectPopover>
                 </Select>
+
+                <InputSeparator />
+
                 <TextField>
                   <Label>Phone number</Label>
                   <Input placeholder="+1 (123) 457-7890" />
                 </TextField>
+
+                <InputSeparator />
 
                 <NativeSelectField>
                   <Label>Work phone number type</Label>

@@ -57,7 +57,7 @@ export function NativeSelect({
         className={twMerge(
           'w-full min-w-36',
           'appearance-none bg-transparent',
-          'pe-7 ps-2.5',
+          'pe-8 ps-2.5',
           'py-[calc(theme(spacing[2.5])-1px)]',
           ' sm:py-[calc(theme(spacing[1.5])-1px)]',
           'rounded-lg border shadow-sm outline-none',

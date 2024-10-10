@@ -2,10 +2,10 @@ import { useSeparator } from 'react-aria';
 import { twMerge } from 'tailwind-merge';
 import { SeparatorProps as RACSeparatorProps } from 'react-aria-components';
 
-type SeparatorProps = RACSeparatorProps & {
+export type SeparatorProps = RACSeparatorProps & {
   children?: React.ReactNode;
   dim?: boolean;
-};
+} & JSX.IntrinsicElements['div'];
 
 export function Separator({
   orientation = 'horizontal',
@@ -13,7 +13,7 @@ export function Separator({
   dim = false,
   children,
   ...props
-}: SeparatorProps & JSX.IntrinsicElements['div']) {
+}: SeparatorProps) {
   const { separatorProps } = useSeparator({ orientation });
 
   return (

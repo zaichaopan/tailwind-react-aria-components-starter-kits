@@ -6,12 +6,11 @@ import {
   Description,
   LabeledGroup,
   Input,
-  InputGroup,
   Label,
   TextArea,
   TextField,
-  InputAddon,
 } from '../../src/field';
+import { InputGroup, InputAddon } from '../../src/input-group';
 import { Separator } from '../../src/separator';
 import { FileTrigger, Group } from 'react-aria-components';
 import { DropZone } from '../../src/dropzone';
@@ -69,11 +68,9 @@ export const TwoColumns = () => {
                   alt="Jessica Campbell"
                 ></Avatar>
 
-                <div className='space-y-1'>
+                <div className="space-y-1">
                   <FileTrigger>
-                    <Button variant="outline">
-                      Upload image
-                    </Button>
+                    <Button variant="outline">Upload image</Button>
                   </FileTrigger>
                   <Text>*.png or *.jpeg files up to 10MB</Text>
                 </div>

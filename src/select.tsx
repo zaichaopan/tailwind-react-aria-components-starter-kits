@@ -45,7 +45,7 @@ export function SelectButton(props: {
       data-ui="control"
       className={composeTailwindRenderProps(props.className, [
         'relative flex w-full cursor-default items-center gap-x-1 rounded-lg border shadow-sm outline-none transition',
-        'pe-7 ps-2.5',
+        'pe-8 ps-2.5',
         'py-[calc(theme(spacing[2.5])-1px)]',
         ' sm:py-[calc(theme(spacing[1.5])-1px)]',
         'group-invalid:border-destructive',

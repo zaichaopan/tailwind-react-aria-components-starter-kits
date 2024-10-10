@@ -16,12 +16,12 @@ import {
   Description,
   FieldError,
   Input,
-  InputGroup,
   Label,
   LabeledGroup,
   TextArea,
   TextField,
 } from '../src/field';
+import { InputGroup, InputSeparator } from '../src/input-group';
 import {
   MenuButton,
   MenuTrigger,
@@ -897,6 +897,7 @@ export const DialogCloseButtons = () => {
                     className="truncate"
                   />
                 </TextField>
+                <InputSeparator />
                 <CopyButton
                   variant="outline"
                   copyText="npm i tailwindcss-react-aria-components"
